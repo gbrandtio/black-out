@@ -39,7 +39,7 @@ class OutageListItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      description + description,
+                      description,
                       style: TextStyle(color: Colors.black.withOpacity(0.6)),
                     ),
                   ),
