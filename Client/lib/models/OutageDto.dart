@@ -4,24 +4,25 @@ import 'dart:convert';
 /// Note: Any additions to the fields of this class must result to additions on the constructor and the factory
 /// constructor.
 class Outage{
-  String _prefecture;
-  String _fromDatetime;
-  String _toDatetime;
-  String _municipality;
-  String _areaDescription;
-  String _number;
-  String _reason;
+  String prefecture = "";
+  String fromDatetime = "";
+  String toDatetime = "";
+  String municipality = "";
+  String areaDescription = "";
+  String number = "";
+  String reason = "";
+  List<Outage> outages = [];
 
   ///Constructor that *must* set all the fields of the Outage model.
   Outage(String prefecture, String fromDatetime, String toDatetime, String municipality,
       String areaDescription, String number, String reason){
-    this._prefecture = prefecture;
-    this._fromDatetime = fromDatetime;
-    this._toDatetime = toDatetime;
-    this._municipality = municipality;
-    this._areaDescription = areaDescription;
-    this._number = number;
-    this._reason = reason;
+    this.prefecture = prefecture;
+    this.fromDatetime = fromDatetime;
+    this.toDatetime = toDatetime;
+    this.municipality = municipality;
+    this.areaDescription = areaDescription;
+    this.number = number;
+    this.reason = reason;
   }
 
   ///Factory constructor that initializes a final variable from a json object.
@@ -35,13 +36,13 @@ class Outage{
   ///Converts an Outage model to a json object based on the APIs specification.
   String toJson(Outage outage){
     Map<String, dynamic> mapOutage = {
-      'prefecture' : outage._prefecture,
-      'from_datetime' : outage._fromDatetime,
-      'to_datetime' : outage._toDatetime,
-      'municipality' : outage._municipality,
-      'area_description' : outage._areaDescription,
-      'number' : outage._number,
-      'reason' : outage._reason
+      'prefecture' : outage.prefecture,
+      'from_datetime' : outage.fromDatetime,
+      'to_datetime' : outage.toDatetime,
+      'municipality' : outage.municipality,
+      'area_description' : outage.areaDescription,
+      'number' : outage.number,
+      'reason' : outage.reason
     };
     return jsonEncode(mapOutage);
   }
