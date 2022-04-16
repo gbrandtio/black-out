@@ -3,30 +3,34 @@ import 'package:flutter/material.dart';
 
 import '../models/OutageDto.dart';
 
-class Parser {
+/// Includes all the related functions to:
+/// * Parse HTML and extract outages if any.
+/// * Transform unstructured data into outage objects.
+/// * Transform OutageDto objects into equivalent widgets.
+class OutagesHandler {
 
-  static List<OutageListItem> getWidgetList(List<Outage> outages){
+  /// Given a list of [OutageDto] objects, transforms each object to it's[OutageListItem] equivalent.
+  ///
+  /// @returns a list of [OutageListItem] objects.
+  static List<OutageListItem> getWidgetList(List<OutageDto> outages){
     List<OutageListItem> outageListItems = List<OutageListItem>.empty(growable: true);
     for (int i = 0; i < outages.length; i++) {
       outageListItems.add(OutageListItem(
-        thumbnail: Container(
-          decoration: const BoxDecoration(color: Colors.pink),
-        ),
-        title: outages[i].prefecture,
-        subtitle: outages[i].municipality,
-        description: outages[i].areaDescription,
-        author: 'Dash',
-        publishDate: 'Dec 28',
-        readDuration: '5 mins',
+        outage: outages[i],
       ));
     }
     return outageListItems;
   }
 
-  static List<Outage> extractOutages(String html) {
+  /// Given an HTML string of a certain structure extracts from it all the outages that can
+  /// be found.
+  ///
+  /// @returns a list of [OutageDto] items.
+  /// @returns an empty list if no data could be extracted.
+  static List<OutageDto> extractOutages(String html) {
     //#region Local Variables
-    List<Outage> outages = List<Outage>.empty(growable: true);
-    Outage tempOutage = Outage("", "", "", "", "", "", "");
+    List<OutageDto> outages = List<OutageDto>.empty(growable: true);
+    OutageDto tempOutage = OutageDto("", "", "", "", "", "", "");
     bool foundTable = false;
     int ctrRows = 0;
     int ctrMappedValues = 0;
@@ -55,7 +59,7 @@ class Parser {
 
           if (ctrMappedValues == 7) {
             outages.add(tempOutage);
-            tempOutage = Outage("", "", "", "", "", "", "");
+            tempOutage = OutageDto("", "", "", "", "", "", "");
             ctrMappedValues = 0;
             ctrRows = 0;
           }
@@ -74,8 +78,11 @@ class Parser {
     return outages;
   }
 
-  static Outage _normalize(Outage outage){
-    Outage normalized = Outage("", "", "", "", "", "", "");
+  /// Remove any unwanted characters from the data.
+  ///
+  /// @returns a `normalized` string i.e., a string that does not contain unwanted characters.
+  static OutageDto _normalize(OutageDto outage){
+    OutageDto normalized = OutageDto("", "", "", "", "", "", "");
     normalized.municipality = _normalizeStr(outage.municipality);
     normalized.prefecture = _normalizeStr(outage.prefecture);
     normalized.areaDescription = _normalizeStr(outage.areaDescription);
@@ -87,6 +94,7 @@ class Parser {
     return normalized;
   }
 
+  /// Remove all the known unwanted characters from the passed string.
   static String _normalizeStr(String data){
     return data.replaceAllMapped("</td", (match) => "");
   }
