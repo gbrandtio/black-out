@@ -1,12 +1,19 @@
-import 'package:black_out_groutages/widgets/Home.dart';
+import 'package:black_out_groutages/widgets/Base.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const OutagesApp());
 }
 
-class MyApp extends StatelessWidget {
-  // Application Root
+/// Root point of the application.
+class OutagesApp extends StatelessWidget {
+  const OutagesApp({Key? key}) : super(key: key);
+
+  /// Application Root.
+  ///
+  /// * Sets all the default Theme values.
+  /// * Sets the default font to use across the application.
+  /// * Sets the default colors and titles to use in case no other colors defined.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +24,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Roboto'
       ),
-      home: Home(title: 'Black Out', key: const Key("Black Out")),
+      home: const Base(title: 'Black Out', key: Key("Black Out")),
     );
   }
 }
