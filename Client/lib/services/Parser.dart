@@ -5,14 +5,14 @@ import '../models/OutageDto.dart';
 
 class Parser {
 
-  static List<OutageListItem> GetWidgetList(List<Outage> outages){
+  static List<OutageListItem> getWidgetList(List<Outage> outages){
     List<OutageListItem> outageListItems = List<OutageListItem>.empty(growable: true);
     for (int i = 0; i < outages.length; i++) {
       outageListItems.add(OutageListItem(
         thumbnail: Container(
           decoration: const BoxDecoration(color: Colors.pink),
         ),
-        title: 'Νομός Θεσσαλονίκης',
+        title: outages[i].prefecture,
         subtitle: outages[i].municipality,
         description: outages[i].areaDescription,
         author: 'Dash',
@@ -26,7 +26,7 @@ class Parser {
   static List<Outage> extractOutages(String html) {
     //#region Local Variables
     List<Outage> outages = List<Outage>.empty(growable: true);
-    Outage tempOutage = new Outage("", "", "", "", "", "", "");
+    Outage tempOutage = Outage("", "", "", "", "", "", "");
     bool foundTable = false;
     int ctrRows = 0;
     int ctrMappedValues = 0;
@@ -71,7 +71,6 @@ class Parser {
       outages[i] = _normalize(outages[i]);
     }
     //#endregion
-    print("outages length: " + outages.length.toString());
     return outages;
   }
 
