@@ -11,4 +11,4 @@ Flutter App and NodeJS API to review, receive notifications, save and share all 
 - If you want to report a new issue please follow the guidelines for creating a new issue.
 
 ## Contributing
-If you wish to become a contributor to this project please read the Contibuting Guidelines and Coding Standards for this project.
+If you wish to become a contributor to this project please read the Contibuting Guidelines and Coding Standards of this project.
