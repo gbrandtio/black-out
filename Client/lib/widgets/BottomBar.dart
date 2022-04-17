@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 
-class BottomBar extends StatelessWidget {
-  final selectedIndex;
-  ValueChanged<int> onClicked;
-  BottomBar({Key? key, this.selectedIndex, required this.onClicked}) : super(key: key);
+import 'Screens/OutagesScreen.dart';
 
+class BottomBar extends StatelessWidget {
+  /// Represents the position of the bottom navigation bar item that was selected.
+  final selectedIndex;
+  /// Reports that the selectedIndex value has changed.
+  ValueChanged<int> onClicked;
+  /// Constructor accepting the [selectedIndex] and the [onClicked] callback.
+  /// This is in order to be aware that the [selectedIndex] value has changed (a new item was selected).
+  BottomBar({Key? key, this.selectedIndex, required this.onClicked}) : super(key: key);
+  /// Contains all the screens and their respective positions.
+  /// The widget on each position must be mapped to the respective item of [BottomBar].
+  static List screens = [const OutagesScreen(key: Key("Black Out"), title: "Black Out"), Colors.red, Colors.black54];
+
+  /// Builds the BottomNavigationBar widget to be used across the whole application.
+  ///
+  /// * The [items] array needs to have the same items as defined in the [screens] array.
+  /// * The [items] and [screens] must be mapped 1-1.
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(

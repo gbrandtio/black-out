@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../models/OutageDto.dart';
+
+/// Representation of the list items that are shown to the user.
 class OutageListItem extends StatelessWidget {
   const OutageListItem({
     Key? key,
-    required this.thumbnail,
-    required this.title,
-    required this.subtitle,
-    required this.description,
-    required this.author,
-    required this.publishDate,
-    required this.readDuration,
+    required this.outage
   }) : super(key: key);
 
-  final Widget thumbnail;
-  final String title;
-  final String subtitle;
-  final String description;
-  final String author;
-  final String publishDate;
-  final String readDuration;
+  final OutageDto outage;
 
+  /// Builds the card widget that will be shown to the user with the outage specific data.
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,16 +22,16 @@ class OutageListItem extends StatelessWidget {
                 children: [
                   ListTile(
                     leading: const Icon(Icons.keyboard_arrow_down),
-                    title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    title: Text(outage.prefecture, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                     subtitle: Text(
-                      subtitle,
+                      outage.municipality,
                       style: TextStyle(color: Colors.black.withOpacity(0.6), fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      description,
+                      outage.areaDescription,
                       style: TextStyle(color: Colors.black.withOpacity(0.6)),
                     ),
                   ),
