@@ -40,7 +40,7 @@ class OutageListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ChipWidget(color: const Color.fromRGBO(230, 170, 5, 1), label: outage.fromDatetime + " - " + outage.toDatetime),
-                  ChipWidget(color: Colors.purple, label: outage.reason,)
+                  ChipWidget(color: const Color(0xFF6200EE), label: outage.reason)
                 ],
               )
             ),
