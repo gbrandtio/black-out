@@ -1,8 +1,12 @@
 import 'package:black_out_groutages/widgets/Base.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  GestureBinding.instance?.resamplingEnabled = true; // Smoother touch event in expense of some added latency.
   runApp(const OutagesApp());
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky); // Enabling full screen mode.
 }
 
 /// Root point of the application.
