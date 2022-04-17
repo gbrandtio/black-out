@@ -14,6 +14,7 @@ class ChipWidget extends StatelessWidget {
         label,
         style: TextStyle(
           color: Colors.white.withOpacity(0.8),
+          fontSize: 12,
         ),
       ),
       backgroundColor: color,
