@@ -3,7 +3,7 @@ import 'dart:convert';
 /// Representational model of an outage as presented from DEDDHE.
 /// Note: Any additions to the fields of this class must result to additions on the constructor and the factory
 /// constructor.
-class Outage{
+class OutageDto{
   String prefecture = "";
   String fromDatetime = "";
   String toDatetime = "";
@@ -11,10 +11,10 @@ class Outage{
   String areaDescription = "";
   String number = "";
   String reason = "";
-  List<Outage> outages = [];
+  List<OutageDto> outages = [];
 
   ///Constructor that *must* set all the fields of the Outage model.
-  Outage(String prefecture, String fromDatetime, String toDatetime, String municipality,
+  OutageDto(String prefecture, String fromDatetime, String toDatetime, String municipality,
       String areaDescription, String number, String reason){
     this.prefecture = prefecture;
     this.fromDatetime = fromDatetime;
@@ -27,14 +27,14 @@ class Outage{
 
   ///Factory constructor that initializes a final variable from a json object.
   ///This is used to instantly create an Outage object from the respective REST response.
-  factory Outage.fromJson(Map<String, dynamic> json){
-    return Outage(json['prefecture'] as String, json['from_datetime'] as String,
+  factory OutageDto.fromJson(Map<String, dynamic> json){
+    return OutageDto(json['prefecture'] as String, json['from_datetime'] as String,
         json['to_datetime'] as String, json['municipality'] as String, json['area_description'] as String,
         json['number'] as String, json['reason'] as String);
   }
 
   ///Converts an Outage model to a json object based on the APIs specification.
-  String toJson(Outage outage){
+  String toJson(OutageDto outage){
     Map<String, dynamic> mapOutage = {
       'prefecture' : outage.prefecture,
       'from_datetime' : outage.fromDatetime,

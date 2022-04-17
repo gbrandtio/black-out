@@ -34,18 +34,28 @@ class OutagesHandler {
     bool foundTable = false;
     int ctrRows = 0;
     int ctrMappedValues = 0;
+    String prefecture = "";
     //#endregion
 
     //#region HTML Parsing
     try {
       List<String> data = html.split('\n');
       for (int i = 0; i < data.length; i++) {
+        // Find the selected prefecture. Application does not send request for specific
+        // municipalities (only for prefectures), thus, onl the prefectures table will have
+        // a selected option.
+        if (data[i].contains("option") && data[i].contains("selected")){
+          prefecture = data[i].split('>')[1];
+        }
+        // The table that contains the outages of the selected prefecture.
         if (data[i].contains("tblOutages")) {
           foundTable = true;
         }
+        // Every row of te table contains information about the outage.
         if (data[i].contains("tr") && foundTable) {
           ctrRows++;
         }
+        // Columns of the table contain the specific information, mapped below.
         if (ctrRows > 0 && data[i].contains("td")) {
           List<String> arrVal = data[i].split(">");
           ctrMappedValues++;
@@ -58,6 +68,7 @@ class OutagesHandler {
           if (ctrMappedValues == 7) tempOutage.reason = arrVal[1];
 
           if (ctrMappedValues == 7) {
+            tempOutage.prefecture = prefecture;
             outages.add(tempOutage);
             tempOutage = OutageDto("", "", "", "", "", "", "");
             ctrMappedValues = 0;
@@ -96,6 +107,9 @@ class OutagesHandler {
 
   /// Remove all the known unwanted characters from the passed string.
   static String _normalizeStr(String data){
-    return data.replaceAllMapped("</td", (match) => "");
+    data = data.trim();
+    data = data.replaceAllMapped("</option", (match) => "");
+    data = data.replaceAllMapped("</td", (match) => "");
+    return data;
   }
 }
