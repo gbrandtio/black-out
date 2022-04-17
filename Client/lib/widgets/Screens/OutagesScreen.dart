@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import '../models/OutageDto.dart';
-import '../services/Parser.dart';
-import '../services/Rest.dart';
-import 'OutageListItem.dart';
+import '../../models/OutageDto.dart';
+import '../../services/OutagesHandler.dart';
+import '../../services/Rest.dart';
+import '../OutageListItem.dart';
 
 /// This widget is used in order to populate the Outages list to be shown to the users.
 /// By default, it shows the Outages of Thessaloniki, Greece and gives the ability to the user
@@ -28,12 +28,13 @@ class _OutagesScreenState extends State<OutagesScreen> {
   /// prefectures are reported.
   ///
   /// * Parses the response of the API.
-  /// * Creates the [outages] list constructed of [Outage] objects.
+  /// * Creates the [outages] list constructed of [OutageDto] objects.
   /// * Transforms the [outages] list into an [outageListItems] list.
   ///
   /// @returns A list of OutageListItems that will be shown on the list.
   /// @returns An empty list if the response could not be parsed or didn't contain any outages.
   Future<List<OutageListItem>> _getOutages(BuildContext context) async {
+    // perform a request to the configured API
     Response response = (await Rest.doPOST(
         "https://siteapps.deddie.gr/Outages2Public/?Length=4" "&PrefectureID=23&MunicipalityID=",
         {
@@ -46,10 +47,10 @@ class _OutagesScreenState extends State<OutagesScreen> {
         }));
 
     setState(() {
-      outageListItems.clear();
-      List<Outage> outages = List<Outage>.empty(growable: true);
-      outages = Parser.extractOutages(response.body.toString());
-      outageListItems = Parser.getWidgetList(outages);
+      outageListItems.clear(); // clear the list in order to avoid having duplicate items on reloading
+      List<OutageDto> outages = List<OutageDto>.empty(growable: true);
+      outages = OutagesHandler.extractOutages(response.body.toString()); // parse the HTML response and extract outages objects
+      outageListItems = OutagesHandler.getWidgetList(outages); // convert the List<Outage> to List<OutageListItem> in order to be able to display the latter
     });
     return outageListItems;
   }
