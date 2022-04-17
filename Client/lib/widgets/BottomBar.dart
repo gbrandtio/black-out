@@ -1,6 +1,8 @@
+import 'package:black_out_groutages/widgets/Screens/Notifications.dart';
 import 'package:flutter/material.dart';
 
-import 'Screens/OutagesScreen.dart';
+import 'Screens/Outages.dart';
+import 'Screens/Settings.dart';
 
 class BottomBar extends StatelessWidget {
   /// Represents the position of the bottom navigation bar item that was selected.
@@ -12,7 +14,7 @@ class BottomBar extends StatelessWidget {
   BottomBar({Key? key, this.selectedIndex, required this.onClicked}) : super(key: key);
   /// Contains all the screens and their respective positions.
   /// The widget on each position must be mapped to the respective item of [BottomBar].
-  static List screens = [const OutagesScreen(key: Key("Black Out"), title: "Black Out"), Colors.red, Colors.black54];
+  static List screens = [const OutagesScreen(key: Key("Black Out"), title: "Black Out"), const Notifications(), const Settings()];
 
   /// Builds the BottomNavigationBar widget to be used across the whole application.
   ///

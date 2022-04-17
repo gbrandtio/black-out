@@ -1,6 +1,6 @@
 import 'package:black_out_groutages/widgets/AppBar.dart';
 import 'package:black_out_groutages/widgets/BottomBar.dart';
-import 'Screens/OutagesScreen.dart';
+import 'Screens/Outages.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
