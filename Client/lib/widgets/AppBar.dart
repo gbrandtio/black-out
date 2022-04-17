@@ -41,6 +41,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
                           applicationName: "Black Out",
                           applicationIcon: Image.asset('assets/logo.png',
                               fit: BoxFit.contain, height: 32),
+                          applicationVersion: "1.0.0",
                           applicationLegalese:
                               "Black Out is an open source application licensed under the MIT License."
                               "The main purpose of this application is to provide an easy way for the citizens of Greece to:"

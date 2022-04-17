@@ -24,7 +24,7 @@ class OutageListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            leading: const Icon(Icons.keyboard_arrow_down),
+            leading: Image.asset('assets/white-tower.png',fit: BoxFit.contain, height: 42,),
             title: Text("Νομός " + outage.prefecture,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 18)),
@@ -44,7 +44,7 @@ class OutageListItem extends StatelessWidget {
                 direction: isScreenWide ? Axis.horizontal : Axis.vertical,
                 children: [
                   ChipWidget(color: const Color.fromRGBO(230, 170, 5, 1), label: outage.fromDatetime + " - " + outage.toDatetime),
-                  ChipWidget(color: const Color(0xFF6200EE), label: outage.reason)
+                  ChipWidget(color: const Color(0xFFB00020), label: outage.reason)
                 ],
               )
           ),
@@ -73,12 +73,12 @@ class OutageListItem extends StatelessWidget {
                 child: Ink(
                   height: 45,
                   decoration: const ShapeDecoration(
-                    color: Colors.pink,
-                    shape: CircleBorder(side: BorderSide(color: Colors.pink)),
+                    //color: Colors.black45,
+                    shape: CircleBorder(),
                   ),
                   child: IconButton(
                     icon: const Icon(Icons.share),
-                    color: Colors.white,
+                    color: Colors.black,
                     onPressed: () {
                       final RenderBox box = context.findRenderObject() as RenderBox;
                       Share.share("Διακοπή ρεύματος στον Νομό " + outage.prefecture
