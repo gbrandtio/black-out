@@ -18,8 +18,47 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
         automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text('Black Out', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white);
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              fit: BoxFit.contain,
+              height: 32,
+            ),
+            const Text('Black Out', style: TextStyle(color: Colors.black)),
+          ],
+        ),
+        backgroundColor: Colors.white,
+        actions: <Widget>[
+          Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext buildContext) {
+                        return AboutDialog(
+                          applicationName: "Black Out",
+                          applicationIcon: Image.asset('assets/logo.png',
+                              fit: BoxFit.contain, height: 32),
+                          applicationLegalese:
+                              "Black Out is an open source application licensed under the MIT License."
+                              "The main purpose of this application is to provide an easy way for the citizens of Greece to:"
+                              "\n\n - View / Save / Share all the planned electricity outages reported by the government."
+                              "\n - Set alarms for an upcoming electricity outage."
+                              "\n - Receive notifications about upcoming electricity outage."
+                              "\n\n Source code: https://github.com/gbrandtio/black-out"
+                              "\n\n Known issues: https://github.com/gbrandtio/black-out/issues",
+                        );
+                      });
+                },
+                child: const Icon(
+                  Icons.info_outline,
+                  size: 26.0,
+                  color: Colors.black,
+                ),
+              ))
+        ]);
   }
 
   @override
