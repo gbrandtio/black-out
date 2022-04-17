@@ -6,6 +6,9 @@ Flutter App and NodeJS API to review, receive notifications, save and share all 
 
 > **About data tracking**: The application by itself does not track, share or save any of your personal information. However, the data retrieved regarding the outages are fetched through the governments' servers / APIs - the only available resource currently. That means that goverment services could -potentially- identify your identity through your IP address. 
 
-## Architecture
+## Issues
+- You can find a list of open issues here: https://github.com/gbrandtio/black-out/issues
+- If you want to report a new issue please follow the guidelines for creating a new issue.
 
-## Developer Guidelines
+## Contributing
+If you wish to become a contributor to this project please read the Contibuting Guidelines and Coding Standards for this project.
