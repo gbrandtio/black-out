@@ -80,6 +80,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
   ///
   /// * If there aren't any outages for the selected prefecture, returns an empty List.
   /// * If the request has not been completed, returns a loading indicator.
+  /// * if there are no data to be displayed, shows a warning screen informing the user.
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
