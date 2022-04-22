@@ -1,3 +1,4 @@
+import 'package:black_out_groutages/widgets/Warning.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -84,17 +85,13 @@ class _OutagesScreenState extends State<OutagesScreen> {
     return FutureBuilder(
       future: _getOutages(context),
       builder: (context, snapshot) {
-        // if (snapshot.hasData &&
-        //     snapshot.connectionState == ConnectionState.done) {
-        //   return Scaffold(
-        //       appBar: BaseAppBar(appBar: AppBar()),
-        //       body: Container(child: outagesList(context)),
-        //       bottomNavigationBar: BottomBar(
-        //           selectedIndex: selectedIndex, onClicked: onClicked));
-        // } else {
+        if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+          return Scaffold(
+              body: Container(child: outagesList(context)));
+        } else {
         return Scaffold(
-            body: Container(child: outagesList(context)));
-        //}
+            body: Container(alignment: Alignment.center,child: const Warning(label: "No outages for the selected prefecture")));
+        }
       },
     );
   }
