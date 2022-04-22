@@ -1,7 +1,7 @@
-import 'package:black_out_groutages/widgets/OutageListItem.dart';
+import '../../widgets/outage_list_item.dart';
 import 'package:flutter/material.dart';
 
-import '../models/OutageDto.dart';
+import '../models/outage_dto.dart';
 
 /// Includes all the related functions to:
 /// * Parse HTML and extract outages if any.

@@ -1,10 +1,10 @@
-import 'package:black_out_groutages/widgets/ChipWidget.dart';
+import 'chip_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../models/OutageDto.dart';
+import '../models/outage_dto.dart';
 
 /// Representation of the list items that are shown to the user.
 class OutageListItem extends StatelessWidget {

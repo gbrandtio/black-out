@@ -1,8 +1,8 @@
-import 'package:black_out_groutages/widgets/Screens/Notifications.dart';
+import 'Screens/notifications.dart';
 import 'package:flutter/material.dart';
 
-import 'Screens/Outages.dart';
-import 'Screens/Settings.dart';
+import 'Screens/outages.dart';
+import 'Screens/settings.dart';
 
 class BottomBar extends StatelessWidget {
   /// Represents the position of the bottom navigation bar item that was selected.

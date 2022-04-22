@@ -1,4 +1,4 @@
-import 'package:black_out_groutages/widgets/Base.dart';
+import '../widgets/base.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

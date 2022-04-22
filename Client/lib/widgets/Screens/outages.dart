@@ -1,11 +1,11 @@
-import 'package:black_out_groutages/widgets/Warning.dart';
+import '../warning.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import '../../models/OutageDto.dart';
-import '../../services/OutagesHandler.dart';
-import '../../services/Rest.dart';
-import '../OutageListItem.dart';
+import '../../models/outage_dto.dart';
+import '../../services/outages_handler.dart';
+import '../../services/rest.dart';
+import '../outage_list_item.dart';
 
 /// This widget is used in order to populate the Outages list to be shown to the users.
 /// By default, it shows the Outages of Thessaloniki, Greece and gives the ability to the user
