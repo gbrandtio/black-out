@@ -6,12 +6,12 @@ import 'Screens/settings.dart';
 
 class BottomBar extends StatelessWidget {
   /// Represents the position of the bottom navigation bar item that was selected.
-  final selectedIndex;
+  final int selectedIndex;
   /// Reports that the selectedIndex value has changed.
-  ValueChanged<int> onClicked;
+  final ValueChanged<int> onClicked;
   /// Constructor accepting the [selectedIndex] and the [onClicked] callback.
   /// This is in order to be aware that the [selectedIndex] value has changed (a new item was selected).
-  BottomBar({Key? key, this.selectedIndex, required this.onClicked}) : super(key: key);
+  const BottomBar({Key? key, required this.selectedIndex, required this.onClicked}) : super(key: key);
   /// Contains all the screens and their respective positions.
   /// The widget on each position must be mapped to the respective item of [BottomBar].
   static List screens = [const OutagesScreen(key: Key("Black Out"), title: "Black Out"), const Notifications(), const Settings()];
