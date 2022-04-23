@@ -40,7 +40,7 @@ it should be implemented in the `Services` layer and not inside a `Widget`.
 > + public class RockBand extends IBand{      
 > + ...                                       
 > + public void sing(Song song){              
-> +   if(canSing(song) startSinging();        
+> +   if(canSing(song)) startSinging();       
 > + }                                         
 > + ...                                       
 >```
