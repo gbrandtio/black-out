@@ -9,9 +9,9 @@ Flutter App and NodeJS API to review, receive notifications, save and share all 
 > - Any commit that enables data tracking directly through the application will be rejected. 
 > ```
 
+## Contributing
+If you wish to become a contributor please read the [**Code of Conduct**](https://github.com/gbrandtio/black-out/blob/main/CODE_OF_CONDUCT.md) and [**Coding Standards**](https://github.com/gbrandtio/black-out/blob/main/CODING_STANDARDS.md) of this project.
+
 ## Issues
 - You can find a list of open issues here: https://github.com/gbrandtio/black-out/issues
 - If you want to report a new issue please follow the guidelines for creating a new issue.
-
-## Contributing
-If you wish to become a contributor please read the Contibuting Guidelines and Coding Standards of this project.
