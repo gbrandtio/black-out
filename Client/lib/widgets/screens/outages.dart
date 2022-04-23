@@ -37,7 +37,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
   Future<List<OutageListItem>> _getOutages(BuildContext context) async {
     // perform a request to the configured API
     Response response = (await Rest.doPOST(
-        "https://siteapps.deddie.gr/Outages2Public/?Length=4" "&PrefectureID=23&MunicipalityID=",
+        "https://siteapps.deddie.gr/Outages2Public/?Length=4" "&PrefectureID=10&MunicipalityID=",
         {
           "Accept-Language": "en-US,en;q=0.9,el;q=0.8",
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -50,7 +50,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
     setState(() {
       outageListItems.clear(); // clear the list in order to avoid having duplicate items on reloading
       List<OutageDto> outages = List<OutageDto>.empty(growable: true);
-      outages = OutagesHandler.extractOutages(response.body.toString()); // parse the HTML response and extract outages objects
+      outages = OutagesHandler.extract(response.body.toString()); // parse the HTML response and extract outages objects
       outageListItems = OutagesHandler.getWidgetList(outages); // convert the List<Outage> to List<OutageListItem> in order to be able to display the latter
     });
     return outageListItems;
@@ -86,10 +86,10 @@ class _OutagesScreenState extends State<OutagesScreen> {
     return FutureBuilder(
       future: _getOutages(context),
       builder: (context, snapshot) {
-        if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.hasData) {
           return Scaffold(
               body: Container(child: outagesList(context)));
-        } else {
+        } else{
         return Scaffold(
             body: Container(alignment: Alignment.center,child: const Warning(label: "No outages for the selected prefecture")));
         }
