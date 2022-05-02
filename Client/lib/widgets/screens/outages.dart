@@ -1,3 +1,7 @@
+import 'package:black_out_groutages/models/prefecture_dto.dart';
+import 'package:black_out_groutages/services/prefectures_handler.dart';
+
+import '../prefectures_dropdown.dart';
 import '../warning.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -62,6 +66,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
   Widget outagesList(BuildContext context) {
     return Material(
         child: ListView(
+            scrollDirection: Axis.vertical,
             padding: const EdgeInsets.all(10.0),
             children: outagesListTileBuilder()));
   }
@@ -88,10 +93,26 @@ class _OutagesScreenState extends State<OutagesScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-              body: Container(child: outagesList(context)));
-        } else{
-        return Scaffold(
-            body: Container(alignment: Alignment.center,child: const Warning(label: "No outages for the selected prefecture")));
+            body: Column(children: [
+              const PrefecturesDropdown(),
+              Flexible(
+                child: outagesList(context),
+              )
+            ]),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                // Expand FAB and search.
+              },
+              child: const Icon(Icons.search),
+              backgroundColor: Colors.green,
+            ),
+          );
+        } else {
+          return Scaffold(
+              body: Container(
+                  alignment: Alignment.center,
+                  child: const Warning(
+                      label: "No outages for the selected prefecture")));
         }
       },
     );
