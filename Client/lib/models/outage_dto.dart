@@ -13,27 +13,19 @@ class OutageDto{
   String reason = "";
   List<OutageDto> outages = [];
 
-  ///Constructor that *must* set all the fields of the Outage model.
-  OutageDto(String prefecture, String fromDatetime, String toDatetime, String municipality,
-      String areaDescription, String number, String reason){
-    this.prefecture = prefecture;
-    this.fromDatetime = fromDatetime;
-    this.toDatetime = toDatetime;
-    this.municipality = municipality;
-    this.areaDescription = areaDescription;
-    this.number = number;
-    this.reason = reason;
-  }
+  /// Constructor that *must* set all the fields of the Outage model.
+  OutageDto(this.prefecture, this.fromDatetime, this.toDatetime, this.municipality,
+      this.areaDescription, this.number, this.reason);
 
-  ///Factory constructor that initializes a final variable from a json object.
-  ///This is used to instantly create an Outage object from the respective REST response.
+  /// Factory constructor that initializes a final variable from a json object.
+  /// This is used to instantly create an Outage object from the respective REST response.
   factory OutageDto.fromJson(Map<String, dynamic> json){
     return OutageDto(json['prefecture'] as String, json['from_datetime'] as String,
         json['to_datetime'] as String, json['municipality'] as String, json['area_description'] as String,
         json['number'] as String, json['reason'] as String);
   }
 
-  ///Converts an Outage model to a json object based on the APIs specification.
+  /// Converts an Outage model to a json object based on the APIs specification.
   String toJson(OutageDto outage){
     Map<String, dynamic> mapOutage = {
       'prefecture' : outage.prefecture,
