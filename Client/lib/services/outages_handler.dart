@@ -151,6 +151,8 @@ class OutagesHandler {
     data = data.trim();
     data = data.replaceAllMapped("</option", (match) => "");
     data = data.replaceAllMapped("</td", (match) => "");
+    data = data.replaceAllMapped("<br>", (match) => "");
+    data = data.replaceAllMapped("</br>", (match) => "");
     return data;
   }
 }

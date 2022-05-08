@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:quiver/core.dart';
 
 /// Representational model of a prefecture as presented from DEDDHE.
 /// Note: Any additions to the fields of this class must result to additions
 /// on the constructor and the factory construtor.
 class PrefectureDto{
   String id = ""; // Every prefecture is given a unique id from the DEDDHE API. This id is used for the requests.
-  String name = ""; // Tha name of each prefecture.
+  String name = ""; // The name of each prefecture.
 
   /// Constructor that *must* set all the fields of the Prefecture model.
   PrefectureDto(this.id, this.name);
@@ -24,4 +25,14 @@ class PrefectureDto{
     };
     return jsonEncode(mapPrefecture);
   }
+
+  @override
+  bool operator ==(Object other){
+    PrefectureDto o = other as PrefectureDto;
+    if(o.id == id) return true;
+    return false;
+  }
+
+  @override
+  int get hashCode => hash2(id.hashCode, name.hashCode);
 }
