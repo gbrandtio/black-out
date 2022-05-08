@@ -26,8 +26,16 @@ class _OutagesScreenState extends State<OutagesScreen> {
   //#region Members
   /// A list of OutageListItem(s) that will be shown on the screen.
   List<OutageListItem> outageListItems =  List<OutageListItem>.empty(growable: true);
+  /// Requests to be performed only once, when widget is loaded.
+  late final Future? outagesFuture;
   //#endregion
 
+  @override
+  void initState(){
+    super.initState();
+    outagesFuture = _getOutages();
+  }
+  
   //#region Fetch Outages
   /// Performs a request to the official website where the Greek outages of all
   /// prefectures are reported.
@@ -38,7 +46,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
   ///
   /// @returns A list of OutageListItems that will be shown on the list.
   /// @returns An empty list if the response could not be parsed or didn't contain any outages.
-  Future<List<OutageListItem>> _getOutages(BuildContext context) async {
+  Future<List<OutageListItem>> _getOutages() async {
     // perform a request to the configured API
     Response response = (await Rest.doPOST(
         "https://siteapps.deddie.gr/Outages2Public/?Length=4" "&PrefectureID=10&MunicipalityID=",
@@ -89,7 +97,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _getOutages(context),
+      future: outagesFuture,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
