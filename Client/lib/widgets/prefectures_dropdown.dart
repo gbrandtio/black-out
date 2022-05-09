@@ -5,9 +5,12 @@ import '../services/prefectures_handler.dart';
 import 'package:flutter/material.dart';
 import '../services/rest.dart';
 
-// ignore: must_be_immutable
+typedef PrefectureDtoCallback = PrefectureDto Function(PrefectureDto);
+
 class PrefecturesDropdown extends StatefulWidget {
-  const PrefecturesDropdown({Key? key}) : super(key: key);
+  /// Callback to return the selected prefecture to the parent component.
+  final PrefectureDtoCallback currentPrefectureCallback;
+  const PrefecturesDropdown(this.currentPrefectureCallback, {Key? key}) : super(key: key);
 
   @override
   State<PrefecturesDropdown> createState() => _PrefecturesDropdownState();
@@ -17,7 +20,7 @@ class PrefecturesDropdown extends StatefulWidget {
 /// the prefectures available on the DEDDHE website.
 class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
   /// The prefecture to be selected by default.
-  late PrefectureDto defaultPrefecture;
+  PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
   /// List of all the extracted prefectures.
   List<PrefectureDto> prefectures = List<PrefectureDto>.empty(growable: true);
   /// Future to fetch the prefectures only once and not trigger the FutureBuilder continuously.
@@ -33,6 +36,7 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
       setState(() {
         prefectures = PrefecturesHandler.extract(response.body);
         defaultPrefecture = prefectures.firstWhere((element) => element.id == "10"); // Default prefecture is Attica.
+        widget.currentPrefectureCallback(defaultPrefecture); // Set a default value to callback.
       });
     }
     return prefectures;
@@ -52,6 +56,7 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
       onChanged: (PrefectureDto? newValue) {
         setState(() {
           defaultPrefecture = newValue!;
+          widget.currentPrefectureCallback(newValue); // Callback the new selected prefecture.
         });
       },
       items: prefectures.map<DropdownMenuItem<PrefectureDto>>((PrefectureDto value) {

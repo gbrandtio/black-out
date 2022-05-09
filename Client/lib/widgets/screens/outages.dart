@@ -28,6 +28,8 @@ class _OutagesScreenState extends State<OutagesScreen> {
   List<OutageListItem> outageListItems =  List<OutageListItem>.empty(growable: true);
   /// Requests to be performed only once, when widget is loaded.
   late final Future? outagesFuture;
+  /// PrefectureDto selected value of the dropdown.
+  PrefectureDto selectedPrefecture = PrefectureDto.defaultPrefecture();
   //#endregion
 
   @override
@@ -49,20 +51,14 @@ class _OutagesScreenState extends State<OutagesScreen> {
   Future<List<OutageListItem>> _getOutages() async {
     // perform a request to the configured API
     Response response = (await Rest.doPOST(
-        "https://siteapps.deddie.gr/Outages2Public/?Length=4" "&PrefectureID=10&MunicipalityID=",
-        {
-          "Accept-Language": "en-US,en;q=0.9,el;q=0.8",
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-          "Access-Control-Allow-Origin":"*"
-        },
-        {
-          "X-Requested-With": "XMLHttpRequest"
-        }));
+        "https://siteapps.deddie.gr/Outages2Public/?Length=4&PrefectureID=" + selectedPrefecture.id + "&MunicipalityID=",
+        Rest.outagesRequestHeaders,
+        Rest.outagesRequestBody));
 
     setState(() {
       outageListItems.clear(); // clear the list in order to avoid having duplicate items on reloading
       List<OutageDto> outages = List<OutageDto>.empty(growable: true);
-      outages = OutagesHandler.extract(response.body.toString()); // parse the HTML response and extract outages objects
+      outages = OutagesHandler.extract(response.body.toString(), selectedPrefecture.name); // parse the HTML response and extract outages objects
       outageListItems = OutagesHandler.getWidgetList(outages); // convert the List<Outage> to List<OutageListItem> in order to be able to display the latter
     });
     return outageListItems;
@@ -97,12 +93,16 @@ class _OutagesScreenState extends State<OutagesScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: outagesFuture,
+      future: _getOutages(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
             body: Column(children: [
-              const PrefecturesDropdown(),
+              PrefecturesDropdown((value)
+              {
+                selectedPrefecture = value;
+                return selectedPrefecture = value;
+              }),
               Flexible(
                 child: outagesList(context),
               )

@@ -29,7 +29,7 @@ class OutagesHandler {
   ///
   /// @returns a list of [OutageDto] objects.
   /// @returns an empty list if no outages found.
-  static List<OutageDto> extract(String html){
+  static List<OutageDto> extract(String html, String prefecture){
     List<OutageDto> outages = List<OutageDto>.empty(growable: true);
 
     //#region HTML Parser
@@ -47,11 +47,12 @@ class OutagesHandler {
           String currentValue = tblColumns[j].innerHtml.trim();
           if (j == 0) tmpOutage.fromDatetime = currentValue;
           if (j == 1) tmpOutage.toDatetime = currentValue;
-          if (j == 2) tmpOutage.municipality = currentValue;
+          if (j == 2) tmpOutage.municipality = _normalizeStr(currentValue);
           if (j == 3) tmpOutage.areaDescription = currentValue;
           if (j == 4) tmpOutage.number = currentValue;
           if (j == 5) tmpOutage.reason = currentValue;
         }
+        tmpOutage.prefecture = prefecture;
         outages.add(tmpOutage);
       }
     }

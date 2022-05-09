@@ -17,6 +17,11 @@ class PrefectureDto{
     return PrefectureDto(json["id"], json["name"]);
   }
 
+  /// Factory to return a default prefecture in order to avoid hardcoding default values.
+  factory PrefectureDto.defaultPrefecture(){
+    return PrefectureDto("10", "ΑΤΤΙΚΗΣ");
+  }
+
   /// Converts a PrefectureDto model to a json object based on the APIs specification.
   String toJson(PrefectureDto prefecture){
     Map<String, dynamic> mapPrefecture = {
@@ -26,6 +31,7 @@ class PrefectureDto{
     return jsonEncode(mapPrefecture);
   }
 
+  /// Two objects of PrefectureDto are equal only if their ids match.
   @override
   bool operator ==(Object other){
     PrefectureDto o = other as PrefectureDto;
@@ -33,6 +39,7 @@ class PrefectureDto{
     return false;
   }
 
+  /// Every object has a hash. Overriding since we overrode == operator as well.
   @override
   int get hashCode => hash2(id.hashCode, name.hashCode);
 }
