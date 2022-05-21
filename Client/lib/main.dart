@@ -26,7 +26,8 @@ class OutagesApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        fontFamily: 'Roboto'
+        fontFamily: 'Roboto',
+        scaffoldBackgroundColor: Colors.white
       ),
       home: const Base(title: 'Black Out', key: Key("Black Out")),
     );

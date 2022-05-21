@@ -37,7 +37,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
     super.initState();
     outagesFuture = _getOutages();
   }
-  
+
   //#region Fetch Outages
   /// Performs a request to the official website where the Greek outages of all
   /// prefectures are reported.
@@ -107,13 +107,6 @@ class _OutagesScreenState extends State<OutagesScreen> {
                 child: outagesList(context),
               )
             ]),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                // Expand FAB and search.
-              },
-              child: const Icon(Icons.search),
-              backgroundColor: Colors.green,
-            ),
           );
         } else {
           return Scaffold(
@@ -125,5 +118,4 @@ class _OutagesScreenState extends State<OutagesScreen> {
       },
     );
   }
-
 }
