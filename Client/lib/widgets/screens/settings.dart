@@ -2,8 +2,11 @@ import 'dart:ffi';
 
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/data_persist.dart';
+import 'package:black_out_groutages/widgets/prefectures_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+
+import '../dialogs/select_outage.dart';
 
 /// Responsible for providing to the user the ability to change the default app settings.
 /// Changes on settings are maintained on shared preferences, accessible from the rest of the application.
@@ -22,11 +25,9 @@ class _SettingsState extends State<Settings> {
   /// Loads the already existing preferences of the user, otherwise sets the default values.
   Future<String?> _loadPreferences() async{
     String? notifsEnabled = "true";
-    await dataPersistService.getString(DataPersistService.enableNotificationsPreference).then((value){
-      setState(() {
-        String? notifsEnabled = value;
-        notificationsEnabled = notifsEnabled == 'true';
-      });
+    setState(() {
+      String? notifsEnabled = dataPersistService.getString(DataPersistService.enableNotificationsPreference);
+      notificationsEnabled = notifsEnabled == 'true';
     });
     return notifsEnabled;
   }
@@ -44,6 +45,7 @@ class _SettingsState extends State<Settings> {
               onToggle: (value) {
                 setState(() {
                   notificationsEnabled = value;
+                  // Persist the preference of notifications.
                   dataPersistService.persist(DataPersistService.enableNotificationsPreference, notificationsEnabled.toString());
                 });
               },
@@ -62,6 +64,18 @@ class _SettingsState extends State<Settings> {
                 leading: const Icon(Icons.language),
                 title: const Text('Default Prefecture'),
                 value: Text(defaultPrefecture.name),
+                onPressed: (context){
+                  showDialog(context: context, builder: (context){
+                    return SelectOutageDialog((value){
+                      // Persist the selected default prefecture preference.
+                      dataPersistService.persistPrefecture(DataPersistService.defaultPrefecturePreference, value);
+                      setState(() {
+                        defaultPrefecture = value;
+                      });
+                      return defaultPrefecture = value;
+                    });
+                  });
+                },
               ),
         ]),
       ]),

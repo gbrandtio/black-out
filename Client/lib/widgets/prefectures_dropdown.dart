@@ -35,7 +35,7 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
           "https://siteapps.deddie.gr/Outages2Public/?Length=4", {}));
       setState(() {
         prefectures = PrefecturesHandler.extract(response.body);
-        defaultPrefecture = prefectures.firstWhere((element) => element.id == "10"); // Default prefecture is Attica.
+        defaultPrefecture = PrefectureDto.defaultPrefecture(); // Default prefecture is determined from Dto.
         widget.currentPrefectureCallback(defaultPrefecture); // Set a default value to callback.
       });
     }

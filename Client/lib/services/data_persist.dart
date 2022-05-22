@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DataPersistService {
@@ -27,14 +29,28 @@ class DataPersistService {
     return preferences;
   }
 
-  /// Used to persist any known type of object.
+  /// Used to persist String data.
   Future<void> persist(String key, String data) async {
     await preferences?.setString(key, data);
   }
 
+  /// Serializes a PrefectureDto string into a JSON object.
+  Future<void> persistPrefecture(String key, PrefectureDto data) async{
+    String prefectureDtoStr = jsonEncode(PrefectureDto.toJson(data));
+    await preferences?.setString(key, prefectureDtoStr);
+  }
+
   /// Retrieves persist data of type String.
-  Future<String?> getString(String key) async{
+  String? getString(String key){
     String? data = preferences?.getString(key);
     return data;
+  }
+
+  /// Returns the saved PrefectureDto object user preference.
+  PrefectureDto getPrefecture(String key){
+    String? data = preferences?.getString(key); // retrieve the encoded JSON data of the prefecture.
+    Map jsonData = jsonDecode(data!); // decode the saved json data into a Map.
+    PrefectureDto prefectureDto = PrefectureDto.fromJson(jsonData); // decode the JSON Map into a PrefectureDto.
+    return prefectureDto;
   }
 }
