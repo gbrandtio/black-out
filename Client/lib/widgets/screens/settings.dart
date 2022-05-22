@@ -25,7 +25,11 @@ class _SettingsState extends State<Settings> {
           tiles: <SettingsTile>[
             /// Notification Settings.
             SettingsTile.switchTile(
-              onToggle: (value) { notificationsEnabled = false; },
+              onToggle: (value) {
+                setState(() {
+                  notificationsEnabled = value;
+                });
+              },
               initialValue: notificationsEnabled,
               leading: const Icon(Icons.notifications),
               title: const Text('Enable Notifications'),
