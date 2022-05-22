@@ -98,8 +98,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
         if (snapshot.hasData) {
           return Scaffold(
             body: Column(children: [
-              PrefecturesDropdown((value)
-              {
+              PrefecturesDropdown((value) {
                 selectedPrefecture = value;
                 return selectedPrefecture = value;
               }),
@@ -112,8 +111,14 @@ class _OutagesScreenState extends State<OutagesScreen> {
           return Scaffold(
               body: Container(
                   alignment: Alignment.center,
-                  child: const Warning(
-                      label: "No outages for the selected prefecture")));
+                  child: Column(children: [
+                    PrefecturesDropdown((value) {
+                      selectedPrefecture = value;
+                      return selectedPrefecture = value;
+                    }),
+                    const Warning(
+                        label: "No outages for the selected prefecture")
+                  ])));
         }
       },
     );

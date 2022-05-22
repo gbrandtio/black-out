@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:black_out_groutages/models/prefecture_dto.dart';
+import 'package:black_out_groutages/services/data_persist.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -12,8 +15,21 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  DataPersistService dataPersistService = DataPersistService();
   bool notificationsEnabled = true;
   PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
+
+  /// Loads the already existing preferences of the user, otherwise sets the default values.
+  Future<String?> _loadPreferences() async{
+    String? notifsEnabled = "true";
+    await dataPersistService.getString(DataPersistService.enableNotificationsPreference).then((value){
+      setState(() {
+        String? notifsEnabled = value;
+        notificationsEnabled = notifsEnabled == 'true';
+      });
+    });
+    return notifsEnabled;
+  }
 
   /// Widget that holds all the application settings that a user can set.
   Widget settings(){
@@ -28,6 +44,7 @@ class _SettingsState extends State<Settings> {
               onToggle: (value) {
                 setState(() {
                   notificationsEnabled = value;
+                  dataPersistService.persist(DataPersistService.enableNotificationsPreference, notificationsEnabled.toString());
                 });
               },
               initialValue: notificationsEnabled,
@@ -53,6 +70,17 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    return settings();
+    return FutureBuilder(
+        future: _loadPreferences(),
+        // ignore: curly_braces_in_flow_control_structures
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return settings();
+          }
+          else {
+            return const Center(child: CircularProgressIndicator(),);
+          }
+        }
+    );
   }
 }
