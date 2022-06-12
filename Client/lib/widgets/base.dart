@@ -1,14 +1,6 @@
 import 'app_bar.dart';
 import 'bottom_bar.dart';
-import 'Screens/outages.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-
-import '../models/outage_dto.dart';
-import '../services/outages_handler.dart';
-import '../services/rest.dart';
 
 /// Shadow Widget that is responsible for holding the current screen to be displayed,
 /// implements the functionality of selecting different screens from Bottom Bar and
@@ -33,8 +25,7 @@ class _BaseState extends State<Base> {
     setState(() {
       if (selectedIndex < BottomBar.screens.length) {
         selectedIndex = index;
-      }
-      else {
+      } else {
         selectedIndex = 0;
       }
     });

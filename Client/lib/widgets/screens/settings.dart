@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/data_persist.dart';
-import 'package:black_out_groutages/widgets/prefectures_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -23,17 +20,18 @@ class _SettingsState extends State<Settings> {
   PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
 
   /// Loads the already existing preferences of the user, otherwise sets the default values.
-  Future<String?> _loadPreferences() async{
+  Future<String?> _loadPreferences() async {
     String? notifsEnabled = "true";
     setState(() {
-      String? notifsEnabled = dataPersistService.getString(DataPersistService.enableNotificationsPreference);
+      String? notifsEnabled = dataPersistService
+          .getString(DataPersistService.enableNotificationsPreference);
       notificationsEnabled = notifsEnabled == 'true';
     });
     return notifsEnabled;
   }
 
   /// Widget that holds all the application settings that a user can set.
-  Widget settings(){
+  Widget settings() {
     return SettingsList(
       sections: ([
         /// Section for common settings preferences.
@@ -46,7 +44,9 @@ class _SettingsState extends State<Settings> {
                 setState(() {
                   notificationsEnabled = value;
                   // Persist the preference of notifications.
-                  dataPersistService.persist(DataPersistService.enableNotificationsPreference, notificationsEnabled.toString());
+                  dataPersistService.persist(
+                      DataPersistService.enableNotificationsPreference,
+                      notificationsEnabled.toString());
                 });
               },
               initialValue: notificationsEnabled,
@@ -55,28 +55,31 @@ class _SettingsState extends State<Settings> {
             ),
           ],
         ),
+
         /// Section for Outages related preferences
-        SettingsSection(
-          title: const Text("Outages"),
-            tiles: <SettingsTile>[
-              /// Default Prefecture Settings.
-              SettingsTile.navigation(
-                leading: const Icon(Icons.language),
-                title: const Text('Default Prefecture'),
-                value: Text(defaultPrefecture.name),
-                onPressed: (context){
-                  showDialog(context: context, builder: (context){
-                    return SelectOutageDialog((value){
+        SettingsSection(title: const Text("Outages"), tiles: <SettingsTile>[
+          /// Default Prefecture Settings.
+          SettingsTile.navigation(
+            leading: const Icon(Icons.language),
+            title: const Text('Default Prefecture'),
+            value: Text(defaultPrefecture.name),
+            onPressed: (context) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SelectOutageDialog((value) {
                       // Persist the selected default prefecture preference.
-                      dataPersistService.persistPrefecture(DataPersistService.defaultPrefecturePreference, value);
+                      dataPersistService.persistPrefecture(
+                          DataPersistService.defaultPrefecturePreference,
+                          value);
                       setState(() {
                         defaultPrefecture = value;
                       });
                       return defaultPrefecture = value;
                     });
                   });
-                },
-              ),
+            },
+          ),
         ]),
       ]),
     );
@@ -90,11 +93,11 @@ class _SettingsState extends State<Settings> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return settings();
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
-          else {
-            return const Center(child: CircularProgressIndicator(),);
-          }
-        }
-    );
+        });
   }
 }
