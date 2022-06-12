@@ -58,7 +58,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
     setState(() {
       outageListItems.clear(); // clear the list in order to avoid having duplicate items on reloading
       List<OutageDto> outages = List<OutageDto>.empty(growable: true);
-      outages = OutagesHandler.extract(response.body.toString(), selectedPrefecture.name); // parse the HTML response and extract outages objects
+      outages = OutagesHandler.extract(response.body.toString(), selectedPrefecture); // parse the HTML response and extract outages objects
       outageListItems = OutagesHandler.getWidgetList(outages); // convert the List<Outage> to List<OutageListItem> in order to be able to display the latter
     });
     return outageListItems;

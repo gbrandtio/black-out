@@ -24,7 +24,7 @@ class OutageListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            leading: Image.asset('assets/white-tower.png',fit: BoxFit.contain, height: 42,),
+            leading: Image.asset(outage.image, fit: BoxFit.contain, height: 42),
             title: Text("Νομός " + outage.prefecture,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 18)),
