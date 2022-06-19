@@ -40,4 +40,30 @@ class OutageDto{
     };
     return jsonEncode(mapOutage);
   }
+
+  static Map<String, dynamic> toMap(OutageDto outage) => {
+    'prefecture' : outage.prefecture,
+    'from_datetime' : outage.fromDatetime,
+    'to_datetime' : outage.toDatetime,
+    'municipality' : outage.municipality,
+    'area_description' : outage.areaDescription,
+    'number' : outage.number,
+    'reason' : outage.reason,
+    'image' : outage.image
+  };
+
+  /// Encodes a List of OutageDto objects into a String.
+  ///
+  /// @returns the encoded String object.
+  static String encode(List<OutageDto> outagesList) => json.encode(
+    outagesList.map<Map<String, dynamic>>((outage) => OutageDto.toMap(outage)).toList());
+
+  /// Decodes an encoded String of List<OutageDto> objects into
+  /// its equivalent List<OutageDto> data structure.
+  ///
+  /// @returns the decoded list of OutageDto objects.
+  static List<OutageDto> decode(String strEncodedOutagesList) =>
+      (json.decode(strEncodedOutagesList) as List<dynamic>)
+          .map<OutageDto>((item) => OutageDto.fromJson(item))
+      .toList();
 }

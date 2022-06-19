@@ -1,7 +1,7 @@
+import 'package:black_out_groutages/services/data_persist.dart';
+
 import 'chip_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../models/outage_dto.dart';
@@ -64,9 +64,9 @@ class OutageListItem extends StatelessWidget {
                     fixedSize: const Size.fromWidth(100),
                     padding: const EdgeInsets.all(10)),
                 icon: const Icon(Icons.code),
-                label: const Text('More'),
+                label: const Text('Save'),
                 onPressed: () {
-                  //Code Here
+                  DataPersistService.persistOutageListItem(outage);
                 },
               ),
               Center(
