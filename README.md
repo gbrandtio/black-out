@@ -6,8 +6,8 @@
 <img src="https://github.com/gbrandtio/black-out/actions/workflows/test.yml/badge.svg"/>
 </p>
 
-# black-out
-Flutter App and NodeJS API to review, receive notifications, save and share all the electricity outages reported in Greece.
+## About
+**Black Out** is a cross-platform application that intends to inform the Greek citizens about the planned electricity outages per prefecture. It also facilitates the sharing, notifications receival, alarm setting and data persistence. 
 
 ## Description
 `Black Out` is an open source application licensed under the MIT License. It's purpose is to enable the citizens of Greece to view, save and share all the planned electricity outages that are reported from the government as well as to provide functionality of receiving reliable notifications and setting alarms. The application does not save track or share any personal data of the users - and will remain like this.
