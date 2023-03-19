@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/72696535/226208028-4497fc25-555f-40be-b332-748607ca8c69.png" width="100"/>
 </p>
 <p align="center">
-<img src="https://github.com/gbrandtio/black-out/actions/workflows/build-windows.yml/badge.svg"/>
+<img src="https://github.com/gbrandtio/black-out/actions/workflows/build.yml/badge.svg"/>
 <img src="https://github.com/gbrandtio/black-out/actions/workflows/test.yml/badge.svg"/>
 </p>
 
