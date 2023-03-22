@@ -1,5 +1,5 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
-import 'package:black_out_groutages/widgets/prefectures_dropdown.dart';
+import 'package:black_out_groutages/widgets/components/prefectures_dropdown.dart';
 import 'package:flutter/material.dart';
 
 /// Offers a common dialog popup that can be used in order to select a
