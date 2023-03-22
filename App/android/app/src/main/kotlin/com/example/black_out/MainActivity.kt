@@ -1,4 +1,4 @@
-package com.example.black_out
+package com.example.black_out_groutages
 
 import io.flutter.embedding.android.FlutterActivity
 
