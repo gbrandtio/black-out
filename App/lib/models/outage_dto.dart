@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:string_extensions/string_extensions.dart';
+import 'package:intl/intl.dart';
 
 /// Representational model of an outage as presented from DEDDHE.
 /// Note: Any additions to the fields of this class must result to additions on the constructor and the factory
@@ -80,4 +82,42 @@ class OutageDto {
       (json.decode(strEncodedOutagesList) as List<dynamic>)
           .map<OutageDto>((item) => OutageDto.fromJson(item))
           .toList();
+
+  /// Provides a valid [DateTime] that can be returned based on the provided
+  /// string from the outages API. The provided string needs to be on the
+  /// format:
+  /// DD/M/yyyy hh:mm:ss aa where aa corresponds to the 12-hour time literals.
+  static DateTime convertOutageDtoDateToValidDateTime(String dateTime) {
+    String dateTimeWithEnglishTimeLiterals =
+        replaceGreekTwelveHourLiteralsToEnglish(dateTime);
+    print(dateTimeWithEnglishTimeLiterals);
+
+    DateFormat dateFormat = DateFormat("DD/M/yyyy hh:mm:ss aa");
+    dateFormat.parse(dateTimeWithEnglishTimeLiterals);
+    return dateFormat.parse(dateTimeWithEnglishTimeLiterals);
+  }
+
+  /// Replaces the Greek 12-hour time literals with the English 12-hour time literals
+  static String replaceGreekTwelveHourLiteralsToEnglish(
+      String twelveHourDateTimeWithGreekLiterals) {
+    // Split the incoming string because the greek characters can't be translated
+    // when in-between of english characters or numbers.
+    List<String> unformattedDateTimeParts =
+        twelveHourDateTimeWithGreekLiterals.split(' ');
+    String englishTwelveHourConverted =
+        "${unformattedDateTimeParts[0].trim()} ${unformattedDateTimeParts[1].trim()}";
+
+    // Translate the Greek time literals to the equivalent English time literals.
+    String onlyGreekCharacters = twelveHourDateTimeWithGreekLiterals.onlyGreek!;
+    String greekCharactersToEnglish = onlyGreekCharacters.replaceGreek!.trim();
+    greekCharactersToEnglish =
+        greekCharactersToEnglish.replaceAll(".", "").toLowerCase();
+
+    String englishTranslatedTimeLiterals =
+        greekCharactersToEnglish.contains("pm")
+            ? greekCharactersToEnglish.replaceAll("pm", "AM")
+            : greekCharactersToEnglish.replaceAll("am", "PM");
+
+    return "$englishTwelveHourConverted ${englishTranslatedTimeLiterals.trim().toUpperCase()}";
+  }
 }

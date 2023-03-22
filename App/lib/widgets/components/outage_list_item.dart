@@ -5,12 +5,12 @@ import 'package:black_out_groutages/services/data_persist.dart';
 import 'chip_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../../models/outage_dto.dart';
 
 /// Representation of the list items that are shown to the user.
 class OutageListItem extends StatelessWidget {
   final OutageDto outage;
+
   const OutageListItem({Key? key, required this.outage}) : super(key: key);
 
   /// Builds the card that shows all the relevant outage information.
@@ -96,12 +96,17 @@ class OutageListItem extends StatelessWidget {
                                     endDate:
                                         DateTime.now().add(Duration(days: 60)),
                                   ),
-                                  eventTitle: "",
-                                  eventDescription: "",
-                                  eventLocation: "",
-                                  eventStartDate: DateTime.now(),
-                                  eventEndDate: DateTime.now()
-                                      .add(Duration().inDays as Duration)));
+                                  eventTitle: CalendarEventBuilder()
+                                      .constructEventTitle(outage),
+                                  eventDescription: CalendarEventBuilder()
+                                      .constructEventDescription(outage),
+                                  eventLocation: outage.municipality,
+                                  eventStartDate: OutageDto
+                                      .convertOutageDtoDateToValidDateTime(
+                                          outage.fromDatetime),
+                                  eventEndDate: OutageDto
+                                      .convertOutageDtoDateToValidDateTime(
+                                          outage.toDatetime)));
                         },
                       ),
                     ),
@@ -119,19 +124,10 @@ class OutageListItem extends StatelessWidget {
                           final RenderBox box =
                               context.findRenderObject() as RenderBox;
                           Share.share(
-                              "Διακοπή ρεύματος στον Νομό " +
-                                  outage.prefecture +
-                                  " - Δήμο " +
-                                  outage.municipality +
-                                  " από " +
-                                  outage.fromDatetime +
-                                  " εώς " +
-                                  outage.toDatetime +
-                                  ".\nΠεριοχή:\n" +
-                                  outage.areaDescription +
-                                  "\n\nΠερισσότερες πληροφορίες: https://play.google.com/store/apps/details?id=com.outages.groutages",
-                              subject: "Διακοπή ρεύματος στον Δήμο " +
-                                  outage.municipality,
+                              CalendarEventBuilder()
+                                  .constructEventDescription(outage),
+                              subject: CalendarEventBuilder()
+                                  .constructEventTitle(outage),
                               sharePositionOrigin:
                                   box.localToGlobal(Offset.zero) & box.size);
                         },
