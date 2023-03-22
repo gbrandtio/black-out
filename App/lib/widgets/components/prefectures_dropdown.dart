@@ -1,15 +1,15 @@
 import 'package:http/http.dart';
-import '../models/prefecture_dto.dart';
-import '../services/prefectures_handler.dart';
+import '../../models/prefecture_dto.dart';
+import '../../services/prefectures_handler.dart';
 import 'package:flutter/material.dart';
-import '../services/rest.dart';
+import '../../services/rest.dart';
 
 typedef PrefectureDtoCallback = PrefectureDto Function(PrefectureDto);
 
 class PrefecturesDropdown extends StatefulWidget {
   /// Callback to return the selected prefecture to the parent component.
-  final PrefectureDtoCallback currentPrefectureCallback;
-  const PrefecturesDropdown(this.currentPrefectureCallback, {Key? key})
+  final PrefectureDtoCallback onPrefectureSelected;
+  const PrefecturesDropdown(this.onPrefectureSelected, {Key? key})
       : super(key: key);
 
   @override
@@ -21,10 +21,8 @@ class PrefecturesDropdown extends StatefulWidget {
 class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
   /// The prefecture to be selected by default.
   PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
-
   /// List of all the extracted prefectures.
   List<PrefectureDto> prefectures = List<PrefectureDto>.empty(growable: true);
-
   /// Future to fetch the prefectures only once and not trigger the FutureBuilder continuously.
   late final Future? prefecturesFuture = _getPrefectures();
 
@@ -38,9 +36,11 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
       setState(() {
         prefectures = PrefecturesHandler.extract(response.body);
         defaultPrefecture = PrefectureDto
-            .defaultPrefecture(); // Default prefecture is determined from Dto.
-        widget.currentPrefectureCallback(
-            defaultPrefecture); // Set a default value to callback.
+            .defaultPrefecture();
+
+        // Notify the prefecture selection.
+        widget.onPrefectureSelected(
+            defaultPrefecture);
       });
     }
 
@@ -61,7 +61,7 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
       onChanged: (PrefectureDto? newValue) {
         setState(() {
           defaultPrefecture = newValue!;
-          widget.currentPrefectureCallback(
+          widget.onPrefectureSelected(
               newValue); // Notify about the new selected prefecture.
         });
       },
