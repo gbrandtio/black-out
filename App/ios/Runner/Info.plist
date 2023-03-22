@@ -43,5 +43,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCalendarsUsageDescription</key>
+    <string>EVENT FOR ELECTRICITY OUTAGE</string>
 </dict>
 </plist>
