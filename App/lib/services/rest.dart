@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
-/// Base service that performs all the common REST requests.
+/// Base service that implements all the common REST requests.
 class Rest {
   /// Mandatory Req Headers for the outages requests.
   static const Map<String, String> outagesRequestHeaders = {
