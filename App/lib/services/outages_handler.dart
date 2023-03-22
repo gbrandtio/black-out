@@ -1,7 +1,7 @@
 import '../models/icon_prefecture_map.dart';
 import '../models/prefecture_dto.dart';
 import 'package:html/dom.dart' as dom;
-import '../../widgets/outage_list_item.dart';
+import '../widgets/components/outage_list_item.dart';
 import 'package:html/parser.dart' show parse;
 import '../models/outage_dto.dart';
 

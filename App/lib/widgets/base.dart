@@ -1,5 +1,5 @@
-import 'app_bar.dart';
-import 'bottom_bar.dart';
+import 'navigation/app_bar.dart';
+import 'navigation/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 /// Shadow Widget that is responsible for holding the current screen to be displayed,
