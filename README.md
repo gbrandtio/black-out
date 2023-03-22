@@ -4,18 +4,20 @@
 <p align="center">
 <img src="https://github.com/gbrandtio/black-out/actions/workflows/build.yml/badge.svg"/>
 <img src="https://github.com/gbrandtio/black-out/actions/workflows/test.yml/badge.svg"/>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="License: MIT"></a>
 </p>
 
 ## About
-**Black Out** is a cross-platform application that intends to inform the Greek citizens about the planned electricity outages per prefecture. It also facilitates the sharing, notifications receival, alarm setting and data persistence. 
-
-## Description
-`Black Out` is an open source application licensed under the MIT License. It's purpose is to enable the citizens of Greece to view, save and share all the planned electricity outages that are reported from the government as well as to provide functionality of receiving reliable notifications and setting alarms. The application does not save track or share any personal data of the users - and will remain like this.
+**Black Out** is a cross-platform application that intends to inform the Greek citizens about the planned electricity outages per prefecture. It also facilitates the sharing, notifications receival, alarm setting and data persistence. The application can be deployed in all platforms (windows, linux, web, iOS, android); however not all environments are currently actively supported.
 
 > **About data tracking**: The application by itself does not track, share or save any of your personal information. However, the data retrieved regarding the outages are fetched through the governments' servers / APIs - the only available resource currently. That means that goverment services could -potentially- identify your identity through your IP address. 
 > ```diff 
-> - Any commit that enables data tracking directly through the application will be rejected. 
+> - Any commits that enable data tracking directly through the application will be rejected. 
 > ```
+
+## Folder Structure
+- ```App```: Flutter application.
+- ```API```: NodeJS API.
 
 ## Contributing
 If you wish to become a contributor please read the [Code of Conduct](https://github.com/gbrandtio/black-out/blob/main/CODE_OF_CONDUCT.md) and [Coding Standards](https://github.com/gbrandtio/black-out/blob/main/CODING_STANDARDS.md) of this project.
