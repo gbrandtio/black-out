@@ -89,17 +89,19 @@ class OutageListItem extends StatelessWidget {
                         icon: const Icon(Icons.calendar_month),
                         color: Colors.black,
                         onPressed: () {
-                          Add2Calendar.addEvent2Cal(CalendarEventBuilder().buildEvent(
-                            recurrence: Recurrence(
-                              frequency: Frequency.weekly,
-                              endDate: DateTime.now().add(Duration(days: 60)),
-                            ),
-                            eventTitle: "",
-                            eventDescription: "",
-                            eventLocation: "",
-                            eventStartDate: DateTime.now(),
-                            eventEndDate: DateTime.now().add(Duration().inDays as Duration)
-                          ));
+                          Add2Calendar.addEvent2Cal(CalendarEventBuilder()
+                              .buildEvent(
+                                  recurrence: Recurrence(
+                                    frequency: Frequency.weekly,
+                                    endDate:
+                                        DateTime.now().add(Duration(days: 60)),
+                                  ),
+                                  eventTitle: "",
+                                  eventDescription: "",
+                                  eventLocation: "",
+                                  eventStartDate: DateTime.now(),
+                                  eventEndDate: DateTime.now()
+                                      .add(Duration().inDays as Duration)));
                         },
                       ),
                     ),
@@ -115,7 +117,7 @@ class OutageListItem extends StatelessWidget {
                         color: Colors.black,
                         onPressed: () {
                           final RenderBox box =
-                          context.findRenderObject() as RenderBox;
+                              context.findRenderObject() as RenderBox;
                           Share.share(
                               "Διακοπή ρεύματος στον Νομό " +
                                   outage.prefecture +
@@ -131,7 +133,7 @@ class OutageListItem extends StatelessWidget {
                               subject: "Διακοπή ρεύματος στον Δήμο " +
                                   outage.municipality,
                               sharePositionOrigin:
-                              box.localToGlobal(Offset.zero) & box.size);
+                                  box.localToGlobal(Offset.zero) & box.size);
                         },
                       ),
                     ),

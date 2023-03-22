@@ -12,12 +12,10 @@ class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row (
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Warning(label: "Coming Soon")
-        ],
+        children: <Widget>[Warning(label: "Coming Soon")],
       ),
     );
   }

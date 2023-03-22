@@ -21,8 +21,10 @@ class PrefecturesDropdown extends StatefulWidget {
 class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
   /// The prefecture to be selected by default.
   PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
+
   /// List of all the extracted prefectures.
   List<PrefectureDto> prefectures = List<PrefectureDto>.empty(growable: true);
+
   /// Future to fetch the prefectures only once and not trigger the FutureBuilder continuously.
   late final Future? prefecturesFuture = _getPrefectures();
 
@@ -35,12 +37,10 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
           "https://siteapps.deddie.gr/Outages2Public/?Length=4", {}));
       setState(() {
         prefectures = PrefecturesHandler.extract(response.body);
-        defaultPrefecture = PrefectureDto
-            .defaultPrefecture();
+        defaultPrefecture = PrefectureDto.defaultPrefecture();
 
         // Notify the prefecture selection.
-        widget.onPrefectureSelected(
-            defaultPrefecture);
+        widget.onPrefectureSelected(defaultPrefecture);
       });
     }
 
