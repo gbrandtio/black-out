@@ -4,6 +4,7 @@ import 'package:html/dom.dart' as dom;
 import '../widgets/components/outage_list_item.dart';
 import 'package:html/parser.dart' show parse;
 import '../models/outage_dto.dart';
+import '../widgets/components/saved_outage_list_item.dart';
 
 /// Includes all the related functions to:
 /// * Parse HTML and extract outages if any.
@@ -11,13 +12,27 @@ import '../models/outage_dto.dart';
 /// * Transform OutageDto objects into equivalent widgets.
 class OutagesHandler {
   /// Given a list of [OutageDto] objects, transforms each object to it's[OutageListItem] equivalent.
-  ///
-  /// @returns a list of [OutageListItem] objects.
-  static List<OutageListItem> getWidgetList(List<OutageDto> outages) {
+  /// and returns them as a list of widgets.
+  static List<OutageListItem> getOutageListItemsWidgetList(
+      List<OutageDto> outages) {
     List<OutageListItem> outageListItems =
         List<OutageListItem>.empty(growable: true);
     for (int i = 0; i < outages.length; i++) {
       outageListItems.add(OutageListItem(
+        outage: outages[i],
+      ));
+    }
+    return outageListItems;
+  }
+
+  /// Given a list of [OutageDto] objects, transforms each object to it's [OutageListItem]
+  /// equivalent, and returns them as a list of widgets.
+  static List<SavedOutageListItem> getSavedOutageListItemsWidgetList(
+      List<OutageDto> outages) {
+    List<SavedOutageListItem> outageListItems =
+        List<SavedOutageListItem>.empty(growable: true);
+    for (int i = 0; i < outages.length; i++) {
+      outageListItems.add(SavedOutageListItem(
         outage: outages[i],
       ));
     }
