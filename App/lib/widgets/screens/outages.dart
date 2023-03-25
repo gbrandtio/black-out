@@ -11,13 +11,11 @@ import '../components/outage_list_item.dart';
 /// to select the prefecture of his choice and see any planned outages.
 class OutagesScreen extends StatefulWidget {
   final String title;
-  final bool doRetrieveOutagesFromPersistentStorage;
 
-  const OutagesScreen(
-      {required Key key,
-      required this.title,
-      required this.doRetrieveOutagesFromPersistentStorage})
-      : super(key: key);
+  const OutagesScreen({
+    required Key key,
+    required this.title,
+  }) : super(key: key);
 
   @override
   _OutagesScreenState createState() => _OutagesScreenState();
@@ -36,8 +34,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
     setState(() {
       outageListItems.clear();
       outageRetrievalService
-          .getOutages(widget.doRetrieveOutagesFromPersistentStorage,
-              selectedPrefecture, outageListItems)
+          .getOutagesFromOfficialSource(selectedPrefecture, outageListItems)
           .then((value) => outageListItems = value);
     });
   }
@@ -60,10 +57,8 @@ class _OutagesScreenState extends State<OutagesScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: outageRetrievalService.getOutages(
-          widget.doRetrieveOutagesFromPersistentStorage,
-          selectedPrefecture,
-          outageListItems),
+      future: outageRetrievalService.getOutagesFromOfficialSource(
+          selectedPrefecture, outageListItems),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data is List<OutageListItem>) {

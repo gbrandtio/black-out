@@ -21,9 +21,9 @@ class BottomBar extends StatelessWidget {
   /// The widget on each position must be mapped to the respective item of [BottomBar].
   static List screens = [
     const OutagesScreen(
-        key: Key("Black Out"),
-        title: "Black Out",
-        doRetrieveOutagesFromPersistentStorage: false),
+      key: Key("Black Out"),
+      title: "Black Out",
+    ),
     const Notifications(),
     const Settings()
   ];
