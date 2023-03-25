@@ -74,7 +74,23 @@ class OutageListItem extends StatelessWidget {
                 icon: const Icon(Icons.code),
                 label: const Text('Save'),
                 onPressed: () {
-                  DataPersistService.persistOutageListItem(outage);
+                  List<OutageDto> savedOutages =
+                      DataPersistService().getSavedOutages();
+                  // Persist the selected outage in local storage
+                  switch (savedOutages
+                          .where((element) => element == outage)
+                          .length >
+                      0) {
+                    case true:
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Already Saved")));
+                      break;
+                    default:
+                      DataPersistService().persistOutageListItem(outage);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Outage Saved")));
+                      break;
+                  }
                 },
               ),
               Row(
@@ -92,9 +108,8 @@ class OutageListItem extends StatelessWidget {
                           Add2Calendar.addEvent2Cal(CalendarEventBuilder()
                               .buildEvent(
                                   recurrence: Recurrence(
-                                    frequency: Frequency.weekly,
-                                    endDate:
-                                        DateTime.now().add(Duration(days: 60)),
+                                    frequency: Frequency.daily,
+                                    ocurrences: 1,
                                   ),
                                   eventTitle: CalendarEventBuilder()
                                       .constructEventTitle(outage),
