@@ -67,6 +67,28 @@ class OutageDto {
         'image': outage.image
       };
 
+  /// Two objects of OutageDto are equal if all their properties match.
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    if (other is OutageDto &&
+        other.prefecture == prefecture &&
+        other.fromDatetime == fromDatetime &&
+        other.toDatetime == toDatetime &&
+        other.municipality == municipality &&
+        other.areaDescription == areaDescription &&
+        other.number == number &&
+        other.reason == reason &&
+        other.image == image) {
+      return true;
+    }
+
+    return false;
+  }
+
   /// Encodes a List of OutageDto objects into a String.
   ///
   /// @returns the encoded String object.
