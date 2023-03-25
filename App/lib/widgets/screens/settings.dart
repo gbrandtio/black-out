@@ -1,5 +1,6 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/data_persist.dart';
+import 'package:black_out_groutages/widgets/dialogs/saved_outages_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import '../dialogs/select_prefecture.dart';
@@ -34,7 +35,7 @@ class _SettingsState extends State<Settings> {
   Widget settings() {
     return SettingsList(
       sections: ([
-        /// Section for common settings preferences.
+        /// COMMON SETTINGS
         SettingsSection(
           title: const Text('Common'),
           tiles: <SettingsTile>[
@@ -56,7 +57,7 @@ class _SettingsState extends State<Settings> {
           ],
         ),
 
-        /// Section for Outages related preferences
+        /// OUTAGE PREFERENCES
         SettingsSection(title: const Text("Outages"), tiles: <SettingsTile>[
           /// Default Prefecture Settings.
           SettingsTile.navigation(
@@ -78,6 +79,18 @@ class _SettingsState extends State<Settings> {
                         defaultPrefecture = value;
                       });
                     });
+                  });
+            },
+          ),
+          SettingsTile.navigation(
+            leading: const Icon(Icons.language),
+            title: const Text('Saved Outages'),
+            value: Text(dataPersistService.getSavedOutages().length.toString()),
+            onPressed: (context) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SavedOutagesDialog();
                   });
             },
           ),
