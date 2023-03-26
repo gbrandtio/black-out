@@ -8,6 +8,10 @@ import '../widgets/components/outage_list_item.dart';
 import '../widgets/components/saved_outage_list_item.dart';
 import 'outages_handler.dart';
 
+/// ----------------------------------------------------------------------------
+/// outage_retrieval_service.dart
+/// ----------------------------------------------------------------------------
+/// A service class to facilitate the retrieval of outages through various channels.
 class OutageRetrievalService {
   /// Retrieves a list of [OutageListItem] objects that were previously
   /// saved in the persistent storage.
@@ -42,6 +46,5 @@ class OutageRetrievalService {
         OutagesHandler.extract(response.body.toString(), selectedPrefecture);
 
     return OutagesHandler.getOutageListItemsWidgetList(outages);
-    ;
   }
 }

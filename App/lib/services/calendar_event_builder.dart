@@ -1,6 +1,9 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:black_out_groutages/models/outage_dto.dart';
 
+/// ----------------------------------------------------------------------------
+/// calendar_event_builder.dart
+/// ----------------------------------------------------------------------------
 /// Class responsible for offering calendar specific functionality.
 class CalendarEventBuilder {
   /// Builds a calendar event

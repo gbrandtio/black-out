@@ -3,6 +3,11 @@ import '../models/outage_dto.dart';
 import '../models/prefecture_dto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// ----------------------------------------------------------------------------
+/// data_persist.dart
+/// ----------------------------------------------------------------------------
+/// A service to offer common functionality for persisting outages and
+/// prefectures into the local storage.
 class DataPersistService {
   //#region Shared Preferences Keys
   static const String enableNotificationsPreference = "ENABLE_NOTIFICATIONS";
@@ -29,7 +34,6 @@ class DataPersistService {
   /// Initializes the shared preferences object to be used in this class.
   Future<SharedPreferences?> initializePreferences() async {
     preferences = await SharedPreferences.getInstance();
-    print("initialized preferences");
     return preferences;
   }
 
