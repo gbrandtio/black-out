@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:string_extensions/string_extensions.dart';
 import 'package:intl/intl.dart';
 
+/// ----------------------------------------------------------------------------
+/// outage_dto.dart
+/// ----------------------------------------------------------------------------
 /// Representational model of an outage as presented from DEDDHE.
 /// Note: Any additions to the fields of this class must result to additions on the constructor and the factory
 /// constructor.

@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+/// ----------------------------------------------------------------------------
+/// user_dto.dart
+/// ----------------------------------------------------------------------------
 /// Representational model of a user, following the database model.
 /// Note: Any additions to the fields of this class must result to additions on the constructor and the factory
 /// constructor.
