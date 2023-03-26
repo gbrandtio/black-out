@@ -1,3 +1,6 @@
+/// ----------------------------------------------------------------------------
+/// icon_prefecture_map.dart
+/// ----------------------------------------------------------------------------
 /// Defines the mapping between the prefecture ids and the icons needed
 /// to be displayed for each prefecture.
 class IconPrefectureMap {

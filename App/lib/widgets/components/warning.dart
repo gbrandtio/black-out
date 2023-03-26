@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// ----------------------------------------------------------------------------
+/// warning.dart
+/// ----------------------------------------------------------------------------
+/// A simple warning widget for keeping a consistent UI/UX.
 class Warning extends StatelessWidget {
   final String label;
 

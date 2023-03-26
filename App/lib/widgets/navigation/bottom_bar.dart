@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../screens/outages.dart';
 import '../screens/settings.dart';
 
+/// ----------------------------------------------------------------------------
+/// bottom_bar.dart
+/// ----------------------------------------------------------------------------
+/// Implements the bottom navigation bar.
 class BottomBar extends StatelessWidget {
   /// Represents the position of the bottom navigation bar item that was selected.
   final int selectedIndex;

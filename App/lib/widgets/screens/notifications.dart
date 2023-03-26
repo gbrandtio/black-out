@@ -1,6 +1,10 @@
 import 'package:black_out_groutages/widgets/components/warning.dart';
 import 'package:flutter/cupertino.dart';
 
+/// ----------------------------------------------------------------------------
+/// notifications.dart
+/// ----------------------------------------------------------------------------
+/// Displays the current notifications to the user.
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);
 

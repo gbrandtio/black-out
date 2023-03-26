@@ -2,6 +2,9 @@ import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' show parse;
 
+/// ----------------------------------------------------------------------------
+/// prefectures_handler.dart
+/// ----------------------------------------------------------------------------
 /// Includes all the related functions to:
 /// * Parse HTML and extract prefectures listed with planned outages.
 /// * Transform unstructured data into prefecture objects.

@@ -1,6 +1,9 @@
 import 'package:black_out_groutages/services/data_persist.dart';
 import 'package:quiver/core.dart';
 
+/// ----------------------------------------------------------------------------
+/// prefecture_dto.dart
+/// ----------------------------------------------------------------------------
 /// Representational model of a prefecture as presented from DEDDHE.
 /// Note: Any additions to the fields of this class must result to additions
 /// on the constructor and the factory construtor.

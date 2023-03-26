@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
+/// ----------------------------------------------------------------------------
+/// rest.dart
+/// ----------------------------------------------------------------------------
 /// Base service that implements all the common REST requests.
 class Rest {
   /// Mandatory Req Headers for the outages requests.

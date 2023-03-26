@@ -6,6 +6,11 @@ import '../../services/rest.dart';
 
 typedef PrefectureDtoCallback = PrefectureDto Function(PrefectureDto);
 
+/// ----------------------------------------------------------------------------
+///prefectures_dropdown.dart
+/// ----------------------------------------------------------------------------
+/// Implements a reusable dropdown that contains a list of prefectures fetched
+/// from the official DEDDHE source.
 class PrefecturesDropdown extends StatefulWidget {
   /// Callback to return the selected prefecture to the parent component.
   final PrefectureDtoCallback onPrefectureSelected;
@@ -16,7 +21,7 @@ class PrefecturesDropdown extends StatefulWidget {
   State<PrefecturesDropdown> createState() => _PrefecturesDropdownState();
 }
 
-/// Responsible for requesting, extracting and presenting a dropwdown list of all
+/// Responsible for requesting, extracting and presenting a dropdown list of all
 /// the prefectures available on the DEDDHE website.
 class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
   /// The prefecture to be selected by default.

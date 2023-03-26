@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// ----------------------------------------------------------------------------
+/// chip_widget.dart
+/// ----------------------------------------------------------------------------
+/// Builds a chip widget to display labelled information.
 class ChipWidget extends StatelessWidget {
   final String label;
   final Color color;

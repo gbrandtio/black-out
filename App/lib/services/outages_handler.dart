@@ -6,6 +6,9 @@ import 'package:html/parser.dart' show parse;
 import '../models/outage_dto.dart';
 import '../widgets/components/saved_outage_list_item.dart';
 
+/// ----------------------------------------------------------------------------
+/// outages_handler.dart
+/// ----------------------------------------------------------------------------
 /// Includes all the related functions to:
 /// * Parse HTML and extract outages if any.
 /// * Transform unstructured data into outage objects.

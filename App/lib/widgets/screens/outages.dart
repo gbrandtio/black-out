@@ -6,9 +6,11 @@ import '../components/prefectures_dropdown.dart';
 import 'package:flutter/material.dart';
 import '../components/outage_list_item.dart';
 
+/// ----------------------------------------------------------------------------
+/// outages.dart
+/// ----------------------------------------------------------------------------
 /// This widget is used in order to populate the Outages list to be shown to the users.
-/// By default, it shows the Outages of Thessaloniki, Greece and gives the ability to the user
-/// to select the prefecture of his choice and see any planned outages.
+/// By default, it will show the outages of the default prefecture.
 class OutagesScreen extends StatefulWidget {
   final String title;
 

@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:string_extensions/string_extensions.dart';
 import 'package:intl/intl.dart';
 
+/// ----------------------------------------------------------------------------
+/// outage_dto.dart
+/// ----------------------------------------------------------------------------
 /// Representational model of an outage as presented from DEDDHE.
 /// Note: Any additions to the fields of this class must result to additions on the constructor and the factory
 /// constructor.
@@ -88,6 +91,17 @@ class OutageDto {
 
     return false;
   }
+
+  @override
+  int get hashCode =>
+      prefecture.hashCode +
+      fromDatetime.hashCode +
+      toDatetime.hashCode +
+      municipality.hashCode +
+      areaDescription.hashCode +
+      number.hashCode +
+      reason.hashCode +
+      image.hashCode;
 
   /// Encodes a List of OutageDto objects into a String.
   ///

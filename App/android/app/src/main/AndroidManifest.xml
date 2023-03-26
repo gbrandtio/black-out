@@ -3,9 +3,9 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
    <application
-        android:label="black_out_groutages"
+        android:label="Black Out"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/bulb">
         <activity
             android:name=".MainActivity"
             android:exported="true"

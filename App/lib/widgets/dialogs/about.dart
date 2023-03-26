@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// ----------------------------------------------------------------------------
+/// about.dart
+/// ----------------------------------------------------------------------------
+/// A re-usable dialog to display information about the application
 class AboutDialog extends StatelessWidget {
   final String title;
   final String content;
