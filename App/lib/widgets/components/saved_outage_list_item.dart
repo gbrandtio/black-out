@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../models/outage_dto.dart';
 
+/// ----------------------------------------------------------------------------
+/// saved_outage_list_item.dart
+/// ----------------------------------------------------------------------------
 /// Representation of the saved outages list items that are shown to the user.
 class SavedOutageListItem extends StatelessWidget {
   final OutageDto outage;

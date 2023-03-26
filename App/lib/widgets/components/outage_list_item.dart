@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../models/outage_dto.dart';
 
-/// Representation of the list items that are shown to the user.
+/// ----------------------------------------------------------------------------
+/// outage_list_item.dart
+/// ----------------------------------------------------------------------------
+/// Representation of a single outage item to be displayed as part of a list.
 class OutageListItem extends StatelessWidget {
   final OutageDto outage;
 

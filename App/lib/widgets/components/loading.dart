@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// ----------------------------------------------------------------------------
+/// loading.dart
+/// ----------------------------------------------------------------------------
+/// Loading widget to display while performing async or time-consuming operations.
 class Loading extends StatelessWidget {
   final String label;
 
