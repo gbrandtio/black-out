@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import '../dialogs/select_prefecture.dart';
 
+/// ----------------------------------------------------------------------------
+/// settings.dart
+/// ----------------------------------------------------------------------------
 /// Responsible for providing to the user the ability to change the default app settings.
 /// Changes on settings are maintained on shared preferences, accessible from the rest of the application.
 class Settings extends StatefulWidget {
@@ -83,7 +86,7 @@ class _SettingsState extends State<Settings> {
             },
           ),
           SettingsTile.navigation(
-            leading: const Icon(Icons.language),
+            leading: const Icon(Icons.save),
             title: const Text('Saved Outages'),
             value: Text(dataPersistService.getSavedOutages().length.toString()),
             onPressed: (context) {
