@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// ----------------------------------------------------------------------------
+/// app_bar.dart
+/// ----------------------------------------------------------------------------
 /// Implements the default AppBar of the whole application.
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
