@@ -92,6 +92,17 @@ class OutageDto {
     return false;
   }
 
+  @override
+  int get hashCode =>
+      prefecture.hashCode +
+      fromDatetime.hashCode +
+      toDatetime.hashCode +
+      municipality.hashCode +
+      areaDescription.hashCode +
+      number.hashCode +
+      reason.hashCode +
+      image.hashCode;
+
   /// Encodes a List of OutageDto objects into a String.
   ///
   /// @returns the encoded String object.
