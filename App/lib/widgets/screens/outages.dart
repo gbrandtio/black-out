@@ -41,15 +41,6 @@ class _OutagesScreenState extends State<OutagesScreen> {
     });
   }
 
-  /// Populates the outages list that will be shown on the screen.
-  Widget outagesList(BuildContext context) {
-    return Material(
-        child: ListView(
-            scrollDirection: Axis.vertical,
-            padding: const EdgeInsets.all(10.0),
-            children: <Widget>[...outageListItems]));
-  }
-
   /// Performs a request to the official API where all the Greek planned
   /// outages are reported.
   ///
@@ -62,33 +53,50 @@ class _OutagesScreenState extends State<OutagesScreen> {
       future: outageRetrievalService.getOutagesFromOfficialSource(
           selectedPrefecture, outageListItems),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data is List<OutageListItem>) {
-            outageListItems = snapshot.data as List<OutageListItem>;
-          }
-          return widgetOutagesList();
-        } else if (snapshot.connectionState == ConnectionState.waiting ||
-            snapshot.connectionState == ConnectionState.active) {
-          return widgetLoadingOutages();
-        } else {
-          return widgetNoOutagesData();
-        }
+        return Column(
+          children: <Widget>[
+            widgetPrefectures(),
+            widgetOutagesList(snapshot)
+          ],
+        );
+
       },
     );
   }
 
-  Widget widgetOutagesList() {
-    return Scaffold(
-      body: Column(children: [
-        PrefecturesDropdown((value) {
-          onPrefectureSelected();
-          return selectedPrefecture = value;
-        }),
-        Flexible(
-          child: outagesList(context),
-        )
-      ]),
-    );
+  /// Populates the prefectures dropdown widget.
+  Widget widgetPrefectures() {
+    return PrefecturesDropdown((value) {
+      onPrefectureSelected();
+      return selectedPrefecture = value;
+    });
+  }
+
+  /// Determines which widget to display on the screen based on the
+  /// [snapshot.data] and [snapshot.connectionState].
+  Widget widgetOutagesList(AsyncSnapshot<Object?> snapshot) {
+    if (snapshot.hasData) {
+      if (snapshot.data is List<OutageListItem>) {
+        outageListItems = snapshot.data as List<OutageListItem>;
+      }
+      return outagesList(context);
+    }
+
+    switch (snapshot.connectionState) {
+      case ConnectionState.waiting:
+        return widgetLoadingOutages();
+      default:
+        return widgetNoOutagesData();
+    }
+  }
+
+  /// Populates the outages list that will be shown on the screen.
+  Widget outagesList(BuildContext context) {
+    return Material(
+        child: ListView(
+            scrollDirection: Axis.vertical,
+            padding: const EdgeInsets.all(10.0),
+            children: <Widget>[...outageListItems]));
   }
 
   Widget widgetLoadingOutages() {
