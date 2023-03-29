@@ -54,12 +54,8 @@ class _OutagesScreenState extends State<OutagesScreen> {
           selectedPrefecture, outageListItems),
       builder: (context, snapshot) {
         return Column(
-          children: <Widget>[
-            widgetPrefectures(),
-            widgetOutagesList(snapshot)
-          ],
+          children: <Widget>[widgetPrefectures(), widgetOutagesList(snapshot)],
         );
-
       },
     );
   }
