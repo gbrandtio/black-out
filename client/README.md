@@ -15,10 +15,6 @@
 > - Any commits that enable data tracking directly through the application will be rejected. 
 > ```
 
-## Folder Structure
-- ```App```: Flutter application.
-- ```API```: NodeJS API.
-
 ## Contributing
 If you wish to become a contributor please read the [Code of Conduct](https://github.com/gbrandtio/black-out/blob/main/CODE_OF_CONDUCT.md) and [Coding Standards](https://github.com/gbrandtio/black-out/blob/main/CODING_STANDARDS.md) of this project.
 
