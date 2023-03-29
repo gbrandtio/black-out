@@ -76,13 +76,10 @@ class _OutagesScreenState extends State<OutagesScreen> {
         outageListItems = snapshot.data as List<OutageListItem>;
       }
       return Flexible(child: outagesList(context));
-    }
-
-    switch (snapshot.connectionState) {
-      case ConnectionState.waiting:
-        return widgetLoadingOutages();
-      default:
-        return widgetNoOutagesData();
+    } else if (snapshot.connectionState == ConnectionState.waiting) {
+      return widgetLoadingOutages();
+    } else {
+      return widgetNoOutagesData();
     }
   }
 
