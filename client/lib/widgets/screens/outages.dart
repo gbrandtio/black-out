@@ -27,7 +27,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
   List<OutageListItem> outageListItems =
       List<OutageListItem>.empty(growable: true);
   PrefectureDto selectedPrefecture = PrefectureDto.defaultPrefecture();
-  OutageRetrievalService outageRetrievalService = new OutageRetrievalService();
+  OutageRetrievalService outageRetrievalService = OutageRetrievalService();
 
   /// Trigger a new data download for the new prefecture. [setState()] will
   /// trigger a rebuild of the widget, which will lead on displaying the
@@ -96,20 +96,18 @@ class _OutagesScreenState extends State<OutagesScreen> {
   }
 
   Widget widgetLoadingOutages() {
-    return Container(
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[Loading(label: 'Loading data...')]));
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const <Widget>[Loading(label: 'Loading data...')]);
   }
 
   Widget widgetNoOutagesData() {
-    return Container(
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const <Widget>[
           Warning(label: 'No outages for the selected prefecture')
-        ]));
+        ]);
   }
 }

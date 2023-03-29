@@ -33,7 +33,7 @@ class _SelectSavedOutageDialogState extends State<SavedOutagesDialog> {
   }
 
   Widget widgetOutagesList() {
-    return Container(
+    return SizedBox(
         width: MediaQuery.of(context).size.width,
         child: ListView(
             scrollDirection: Axis.vertical,

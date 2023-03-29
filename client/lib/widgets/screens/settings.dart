@@ -93,7 +93,7 @@ class _SettingsState extends State<Settings> {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return SavedOutagesDialog();
+                    return const SavedOutagesDialog();
                   });
             },
           ),

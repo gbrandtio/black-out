@@ -126,7 +126,6 @@ class OutageDto {
   static DateTime convertOutageDtoDateToValidDateTime(String dateTime) {
     String dateTimeWithEnglishTimeLiterals =
         replaceGreekTwelveHourLiteralsToEnglish(dateTime);
-    print(dateTimeWithEnglishTimeLiterals);
 
     DateFormat dateFormat = DateFormat("DD/M/yyyy hh:mm:ss aa");
     dateFormat.parse(dateTimeWithEnglishTimeLiterals);

@@ -81,17 +81,16 @@ class OutageListItem extends StatelessWidget {
                       DataPersistService().getSavedOutages();
                   // Persist the selected outage in local storage
                   switch (savedOutages
-                          .where((element) => element == outage)
-                          .length >
-                      0) {
+                      .where((element) => element == outage)
+                      .isNotEmpty) {
                     case true:
                       ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Already Saved")));
+                          const SnackBar(content: Text("Already Saved")));
                       break;
                     default:
                       DataPersistService().persistOutageListItem(outage);
                       ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Outage Saved")));
+                          const SnackBar(content: Text("Outage Saved")));
                       break;
                   }
                 },

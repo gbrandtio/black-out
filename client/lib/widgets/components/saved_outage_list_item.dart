@@ -27,7 +27,7 @@ class SavedOutageListItem extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: const [
                 Icon(
                   Icons.delete,
                   color: Colors.white,
@@ -147,7 +147,7 @@ class SavedOutageListItem extends StatelessWidget {
           onDismissed: (direction) {
             DataPersistService().deleteOutage(outage);
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text("Deleted")));
+                .showSnackBar(const SnackBar(content: Text("Deleted")));
             Navigator.of(context).pop();
           },
           key: Key(outage.number),

@@ -21,14 +21,12 @@ class _SelectPrefectureDialogState extends State<SelectPrefectureDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: Text(
+        title: const Text(
           "Update the default prefecture",
         ),
-        content: Container(
-          child: PrefecturesDropdown((value) {
-            widget.onDefaultPrefectureChanged(value);
-            return new PrefectureDto.defaultPrefecture();
-          }),
-        ));
+        content: PrefecturesDropdown((value) {
+          widget.onDefaultPrefectureChanged(value);
+          return PrefectureDto.defaultPrefecture();
+        }));
   }
 }
