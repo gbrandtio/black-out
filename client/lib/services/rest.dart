@@ -11,7 +11,10 @@ class Rest {
   static const Map<String, String> outagesRequestHeaders = {
     "Accept-Language": "en-US,en;q=0.9,el;q=0.8",
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-    "Access-Control-Allow-Origin": "*"
+    "Access-Control-Allow-Origin": "*",
+    "OPTIONS": "/data HTTP/1.1",
+    "Origin": "https://vercel.com/gbrandtio/black-out",
+    "Access-Control-Request-Method": "POST"
   };
 
   /// Mandatory Req Body for the outages request.
