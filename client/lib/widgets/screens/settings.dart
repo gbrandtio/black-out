@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/data_persist.dart';
 import 'package:black_out_groutages/widgets/dialogs/saved_outages_dialog.dart';
