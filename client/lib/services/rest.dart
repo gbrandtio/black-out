@@ -13,7 +13,7 @@ class Rest {
     "Accept-encoding": "gzip, deflate, br",
     "Connection": "keep-alive",
     "Cookie": "incap_ses_774_2807703=vLFVByVel2yjvlb58c29CvMaJ2QAAAAAndtLPywWqWZglPcWwEwp6w==; visid_incap_2807703=J94NR4YuSWWhmQF09Mwo/aoaJ2QAAAAAQUIPAAAAAAB3Y9NSoRGOe1civSNxKyAT",
-    "Host": "black-out.vercel.app"
+    "Host": "black-out.vercel.app",
     "User-Agent": "PostmanRuntime/7.31.3"
   };
 
