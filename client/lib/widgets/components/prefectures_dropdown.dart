@@ -1,8 +1,6 @@
-import 'package:http/http.dart';
+import 'package:black_out_groutages/services/outage_retrieval_service.dart';
 import '../../models/prefecture_dto.dart';
-import '../../services/prefectures_handler.dart';
 import 'package:flutter/material.dart';
-import '../../services/rest.dart';
 
 typedef PrefectureDtoCallback = PrefectureDto Function(PrefectureDto);
 
@@ -14,6 +12,7 @@ typedef PrefectureDtoCallback = PrefectureDto Function(PrefectureDto);
 class PrefecturesDropdown extends StatefulWidget {
   /// Callback to return the selected prefecture to the parent component.
   final PrefectureDtoCallback onPrefectureSelected;
+
   const PrefecturesDropdown(this.onPrefectureSelected, {Key? key})
       : super(key: key);
 
@@ -38,12 +37,11 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
     // Only fetch the prefectures once. No need to request every time,
     // since the list is not often changing.
     if (prefectures.isEmpty) {
-      Response response = (await Rest.doGET(
-          "https://siteapps.deddie.gr/Outages2Public/?Length=4", {}));
-      setState(() {
-        prefectures = PrefecturesHandler.extract(response.body);
-        defaultPrefecture = PrefectureDto.defaultPrefecture();
+      prefectures =
+          await OutageRetrievalService().getPrefecturesFromOfficialSource();
 
+      setState(() {
+        defaultPrefecture = PrefectureDto.defaultPrefecture();
         // Notify the prefecture selection.
         widget.onPrefectureSelected(defaultPrefecture);
       });
