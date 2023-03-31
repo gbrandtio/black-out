@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/data_persist.dart';
 import 'package:black_out_groutages/widgets/dialogs/saved_outages_dialog.dart';
@@ -19,12 +21,11 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   DataPersistService dataPersistService = DataPersistService();
-  bool notificationsEnabled = true;
+  bool areNotificationsEnabled = false;
   PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
 
   /// Loads the already existing preferences of the user, otherwise sets the default values.
   Future<bool> _loadPreferences() async {
-    bool areNotificationsEnabled = false;
     setState(() {
       String? notificationsEnabled = dataPersistService
           .getString(DataPersistService.enableNotificationsPreference);
@@ -44,16 +45,16 @@ class _SettingsState extends State<Settings> {
           tiles: <SettingsTile>[
             /// Notification Settings.
             SettingsTile.switchTile(
+              initialValue: areNotificationsEnabled,
               onToggle: (value) {
                 setState(() {
-                  notificationsEnabled = value;
+                  areNotificationsEnabled = value;
                   // Persist the preference of notifications.
                   dataPersistService.persist(
                       DataPersistService.enableNotificationsPreference,
-                      notificationsEnabled.toString());
+                      areNotificationsEnabled.toString());
                 });
               },
-              initialValue: notificationsEnabled,
               leading: const Icon(Icons.notifications),
               title: const Text('Enable Notifications'),
             ),
@@ -106,7 +107,6 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: _loadPreferences(),
-        // ignore: curly_braces_in_flow_control_structures
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return settings();
