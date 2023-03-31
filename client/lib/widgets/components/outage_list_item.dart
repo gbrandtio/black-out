@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:black_out_groutages/services/calendar_event_builder.dart';
 import 'package:black_out_groutages/services/data_persist.dart';
