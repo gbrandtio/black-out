@@ -13,6 +13,10 @@ import 'outages_handler.dart';
 /// ----------------------------------------------------------------------------
 /// A service class to facilitate the retrieval of outages through various channels.
 class OutageRetrievalService {
+  /// Source to retrieve the outages.
+  final urlOfOfficialSource =
+      "https://black-out-api.vercel.app/api/outagesOfPrefecture";
+
   /// Retrieves a list of [OutageListItem] objects that were previously
   /// saved in the persistent storage.
   List<SavedOutageListItem> getOutagesFromPersistentStorage() {
@@ -33,12 +37,9 @@ class OutageRetrievalService {
       PrefectureDto selectedPrefecture,
       List<OutageListItem> currentOutageList) async {
     // Retrieve outages from DEDDHE.
-    Response response = (await Rest.doPOST(
-        "https://siteapps.deddie.gr/Outages2Public/?Length=4&PrefectureID=" +
-            selectedPrefecture.id +
-            "&MunicipalityID=",
-        Rest.outagesRequestHeaders,
-        Rest.outagesRequestBody));
+    Response response = (await Rest.doGET(
+        urlOfOfficialSource + selectedPrefecture.id,
+        Rest.outagesRequestHeaders));
 
     // Convert the retrieved outages to a list of [OutageDto] objects.
     List<OutageDto> outages = List<OutageDto>.empty(growable: true);
