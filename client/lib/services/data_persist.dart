@@ -9,17 +9,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// A service to offer common functionality for persisting outages and
 /// prefectures into the local storage.
 class DataPersistService {
-  //#region Shared Preferences Keys
   static const String enableNotificationsPreference = "ENABLE_NOTIFICATIONS";
   static const String defaultPrefecturePreference = "DEFAULT_PREFECTURE";
   static const String savedOutagesPersistKey = "SAVED_OUTAGES_LIST";
-  //#endregion
 
-  //#region Data Members
   static final DataPersistService _dataPersistServiceInstance =
       DataPersistService._internal();
   static SharedPreferences? preferences;
-  //#endregion
 
   /// Internal constructor for singleton pattern.
   DataPersistService._internal() {
