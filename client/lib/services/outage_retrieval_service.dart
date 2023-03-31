@@ -7,6 +7,7 @@ import '../models/outage_dto.dart';
 import '../widgets/components/outage_list_item.dart';
 import '../widgets/components/saved_outage_list_item.dart';
 import 'outages_handler.dart';
+import 'prefectures_handler.dart';
 
 /// ----------------------------------------------------------------------------
 /// outage_retrieval_service.dart
@@ -15,13 +16,21 @@ import 'outages_handler.dart';
 class OutageRetrievalService {
   /// Source to retrieve the outages.
   final urlOfOfficialSource =
-      "https://black-out-api.vercel.app/api/outagesOfPrefecture";
+      "https://black-out-api.vercel.app/api/outagesOfPrefecture/";
 
   /// Retrieves a list of [OutageListItem] objects that were previously
   /// saved in the persistent storage.
   List<SavedOutageListItem> getOutagesFromPersistentStorage() {
     List<OutageDto> savedOutageDto = DataPersistService().getSavedOutages();
     return OutagesHandler.getSavedOutageListItemsWidgetList(savedOutageDto);
+  }
+
+  /// Performs a sample request to the official source in order to fetch
+  /// the current list of valid prefectures.
+  Future<List<PrefectureDto>> getPrefecturesFromOfficialSource() async {
+    Response response = await Rest.doGET(urlOfOfficialSource + "1", {});
+
+    return PrefecturesHandler.extract(response.body);
   }
 
   /// Performs a request to the official website where the Greek outages of all
@@ -38,8 +47,7 @@ class OutageRetrievalService {
       List<OutageListItem> currentOutageList) async {
     // Retrieve outages from DEDDHE.
     Response response = (await Rest.doGET(
-        urlOfOfficialSource + selectedPrefecture.id,
-        Rest.outagesRequestHeaders));
+        urlOfOfficialSource + selectedPrefecture.id, <String, String>{}));
 
     // Convert the retrieved outages to a list of [OutageDto] objects.
     List<OutageDto> outages = List<OutageDto>.empty(growable: true);
