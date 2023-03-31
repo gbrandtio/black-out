@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:black_out_groutages/services/calendar_event_builder.dart';
 import 'package:black_out_groutages/services/data_persist.dart';
@@ -13,7 +15,6 @@ import '../../models/outage_dto.dart';
 /// Representation of a single outage item to be displayed as part of a list.
 class OutageListItem extends StatelessWidget {
   final OutageDto outage;
-
   const OutageListItem({Key? key, required this.outage}) : super(key: key);
 
   /// Builds the card that shows all the relevant outage information.
