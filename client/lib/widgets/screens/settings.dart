@@ -65,7 +65,7 @@ class _SettingsState extends State<Settings> {
           SettingsTile.navigation(
             leading: const Icon(Icons.language),
             title: const Text('Default Prefecture'),
-            value: Text(defaultPrefecture.name),
+            value: Text("ΝΟΜΟΣ ${defaultPrefecture.name}"),
             onPressed: (context) {
               showDialog(
                   context: context,
