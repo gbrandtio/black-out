@@ -124,35 +124,41 @@ class OutageDto {
   /// format:
   /// DD/M/yyyy hh:mm:ss aa where aa corresponds to the 12-hour time literals.
   static DateTime convertOutageDtoDateToValidDateTime(String dateTime) {
+    // If the String does not contain any Greek characters, return it as is.
+    String onlyGreek = dateTime.replaceAll(" ", "");
+    if (onlyGreek.isEmpty) {
+      return DateTime.now();
+    }
+    // Translate all the Greek letters to the equivalent English ones.
     String dateTimeWithEnglishTimeLiterals =
-        replaceGreekTwelveHourLiteralsToEnglish(dateTime);
+        dateTime.replaceGreek!.trim();
+    // Transform to the equivalent English time literals.
+    dateTimeWithEnglishTimeLiterals =
+        dateTimeWithEnglishTimeLiterals.replaceAll(".", "").toLowerCase();
+    dateTimeWithEnglishTimeLiterals =
+        dateTimeWithEnglishTimeLiterals.contains("pm")
+            ? dateTimeWithEnglishTimeLiterals.replaceAll("pm", "AM")
+            : dateTimeWithEnglishTimeLiterals.replaceAll("mm", "PM");
 
     DateFormat dateFormat = DateFormat("DD/M/yyyy hh:mm:ss a");
     dateFormat.parse(dateTimeWithEnglishTimeLiterals);
     return dateFormat.parse(dateTimeWithEnglishTimeLiterals);
   }
 
-  /// Replaces the Greek 12-hour time literals with the English 12-hour time literals
-  static String replaceGreekTwelveHourLiteralsToEnglish(
-      String twelveHourDateTimeWithGreekLiterals) {
-    // Split the incoming string because the greek characters can't be translated
-    // when in-between of english characters or numbers.
-    List<String> unformattedDateTimeParts =
-        twelveHourDateTimeWithGreekLiterals.split(' ');
-    String englishTwelveHourConverted =
-        "${unformattedDateTimeParts[0].trim()} ${unformattedDateTimeParts[1].trim()}";
+  /// Filters the [outages] list and keeps only the outages that match only
+  /// today's or tomorrow's day.
+  static List<OutageDto> filterOutagesList(List<OutageDto> outages) {
+    for (int i = 0; i < outages.length; i++) {
+      DateTime fromDateTime =
+      OutageDto.convertOutageDtoDateToValidDateTime(outages[i].fromDatetime);
+      DateTime toDateTime =
+      OutageDto.convertOutageDtoDateToValidDateTime(outages[i].toDatetime);
 
-    // Translate the Greek time literals to the equivalent English time literals.
-    String onlyGreekCharacters = twelveHourDateTimeWithGreekLiterals.onlyGreek!;
-    String greekCharactersToEnglish = onlyGreekCharacters.replaceGreek!.trim();
-    greekCharactersToEnglish =
-        greekCharactersToEnglish.replaceAll(".", "").toLowerCase();
+      if (!(fromDateTime.day == DateTime.now().day || toDateTime.day == DateTime.now().day)) {
+        outages.removeAt(i);
+      }
+    }
 
-    String englishTranslatedTimeLiterals =
-        greekCharactersToEnglish.contains("pm")
-            ? greekCharactersToEnglish.replaceAll("pm", "AM")
-            : greekCharactersToEnglish.replaceAll("am", "PM");
-
-    return "$englishTwelveHourConverted ${englishTranslatedTimeLiterals.trim().toUpperCase()}";
+    return outages;
   }
 }
