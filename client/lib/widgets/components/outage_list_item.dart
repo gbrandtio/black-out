@@ -18,7 +18,7 @@ class OutageListItem extends StatelessWidget {
 
   /// Builds the card that shows all the relevant outage information.
   Widget listItem(BuildContext context) {
-    double threshold = 0;
+    double threshold = 501;
     bool isScreenWide = MediaQuery.of(context).size.width >= threshold;
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -31,16 +31,18 @@ class OutageListItem extends StatelessWidget {
           ListTile(
             leading:
                 Image.asset(outageDto.image, fit: BoxFit.contain, height: 42),
-            title: Text("Νομός " + outageDto.prefecture,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-            subtitle: Text(
+            title: Expanded(
+                child: Text("Νομός " + outageDto.prefecture,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18))),
+            subtitle: Expanded(
+                child: Text(
               "Δήμος " + outageDto.municipality,
               style: TextStyle(
                   color: Colors.black.withOpacity(0.6),
                   fontWeight: FontWeight.bold,
                   fontSize: 15),
-            ),
+            )),
           ),
 
           // CHIP LABELS
@@ -62,10 +64,11 @@ class OutageListItem extends StatelessWidget {
               )),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
+            child: Expanded(
+                child: Text(
               outageDto.areaDescription,
               style: TextStyle(color: Colors.black.withOpacity(0.6)),
-            ),
+            )),
           ),
 
           // BOTTOM BUTTONS ROW
