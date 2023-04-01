@@ -15,7 +15,9 @@
 > - Any commits that enable data tracking directly through the application will be rejected. 
 > ```
 
-## High Level Structure
+https://user-images.githubusercontent.com/72696535/229308049-48853c77-d8ee-442c-96ff-c0b453f3cfa4.mp4
+
+## High Level
 On a high level, the client application communicates within a proxy API with the official DEDDIE source in order to retrieve the outages dataset. For more technical details [see here](https://github.com/gbrandtio/black-out/blob/main/client/README.md).
 - Proxy API: [GitHub: black-out-api](https://github.com/gbrandtio/black-out-api)
 - Official Data Source: [https://siteapps.deddie.gr/Outages2Public/](https://siteapps.deddie.gr/Outages2Public/)
