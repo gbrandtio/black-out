@@ -130,8 +130,7 @@ class OutageDto {
       return DateTime.now();
     }
     // Translate all the Greek letters to the equivalent English ones.
-    String dateTimeWithEnglishTimeLiterals =
-        dateTime.replaceGreek!.trim();
+    String dateTimeWithEnglishTimeLiterals = dateTime.replaceGreek!.trim();
     // Transform to the equivalent English time literals.
     dateTimeWithEnglishTimeLiterals =
         dateTimeWithEnglishTimeLiterals.replaceAll(".", "").toLowerCase();
@@ -149,12 +148,13 @@ class OutageDto {
   /// today's or tomorrow's day.
   static List<OutageDto> filterOutagesList(List<OutageDto> outages) {
     for (int i = 0; i < outages.length; i++) {
-      DateTime fromDateTime =
-      OutageDto.convertOutageDtoDateToValidDateTime(outages[i].fromDatetime);
+      DateTime fromDateTime = OutageDto.convertOutageDtoDateToValidDateTime(
+          outages[i].fromDatetime);
       DateTime toDateTime =
-      OutageDto.convertOutageDtoDateToValidDateTime(outages[i].toDatetime);
+          OutageDto.convertOutageDtoDateToValidDateTime(outages[i].toDatetime);
 
-      if (!(fromDateTime.day == DateTime.now().day || toDateTime.day == DateTime.now().day)) {
+      if (!(fromDateTime.day == DateTime.now().day ||
+          toDateTime.day == DateTime.now().day)) {
         outages.removeAt(i);
       }
     }

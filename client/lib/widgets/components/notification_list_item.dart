@@ -1,4 +1,3 @@
-import 'package:black_out_groutages/services/data_persist.dart';
 import 'chip_widget.dart';
 import 'package:flutter/material.dart';
 import '../../models/outage_dto.dart';
@@ -15,8 +14,6 @@ class NotificationListItem extends StatelessWidget {
 
   /// Builds the card that shows all the relevant outage information.
   Widget listItem(BuildContext context) {
-    double threshold = 0;
-    bool isScreenWide = MediaQuery.of(context).size.width >= threshold;
     return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 5,
@@ -30,23 +27,20 @@ class NotificationListItem extends StatelessWidget {
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               leading: Container(
-                padding: EdgeInsets.only(right: 12.0),
-                decoration: new BoxDecoration(
-                    border: new Border(
-                        right:
-                            new BorderSide(width: 1.0, color: Colors.white24))),
-                child: Icon(Icons.autorenew, color: Colors.black),
+                padding: const EdgeInsets.only(right: 12.0),
+                decoration: const BoxDecoration(
+                    border: Border(
+                        right: BorderSide(width: 1.0, color: Colors.white24))),
+                child: const Icon(Icons.autorenew, color: Colors.black),
               ),
               title: Text(
                 "Διακοπή ρεύματος στον Νομό ${outage.prefecture} Δήμο ${outage.municipality}",
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.bold),
               ),
-              // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
-
               subtitle: Row(
                 children: <Widget>[
-                  Icon(Icons.linear_scale, color: Colors.black),
+                  const Icon(Icons.linear_scale, color: Colors.black),
                   ChipWidget(
                       color: const Color.fromRGBO(230, 170, 5, 1),
                       label: outage.fromDatetime + " - " + outage.toDatetime),
@@ -54,7 +48,7 @@ class NotificationListItem extends StatelessWidget {
                       color: const Color(0xFFB00020), label: outage.reason)
                 ],
               ),
-              trailing: Icon(Icons.keyboard_arrow_right,
+              trailing: const Icon(Icons.keyboard_arrow_right,
                   color: Colors.black, size: 30.0))
         ],
       ),

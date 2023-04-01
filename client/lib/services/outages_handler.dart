@@ -50,7 +50,7 @@ class OutagesHandler {
   static List<NotificationListItem> getNotificationListItemsWidgetList(
       List<OutageDto> outages) {
     List<NotificationListItem> outageListItems =
-    List<NotificationListItem>.empty(growable: true);
+        List<NotificationListItem>.empty(growable: true);
     for (int i = 0; i < outages.length; i++) {
       outageListItems.add(NotificationListItem(
         outage: outages[i],
