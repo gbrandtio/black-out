@@ -44,7 +44,7 @@ class BottomBar extends StatelessWidget {
       items: [
         const BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: 'Outages',
+          label: 'Black Out',
         ),
         BadgeButton(
                 icon: const Icon(Icons.notifications), label: 'Notifications')

@@ -22,7 +22,7 @@ class OutagesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Outages',
+      title: 'Black Out',
       theme: ThemeData(
           primarySwatch: Colors.blueGrey,
           visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -35,13 +35,18 @@ class NotificationListItem extends StatelessWidget {
                         right: BorderSide(width: 1.0, color: Colors.white24))),
                 child: const Icon(Icons.autorenew, color: Colors.black),
               ),
-              title: Text(
-                "Διακοπή ρεύματος στον Νομό ${outageDto.prefecture} Δήμο ${outageDto.municipality}",
-                style: const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.bold),
-              ),
-              subtitle: Row(
+              title: const Text("ΔΙΑΚΟΠΗ ΡΕΥΜΑΤΟΣ",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Text(
+                    "Νομός ${outageDto.prefecture} Δήμος ${outageDto.municipality}",
+                    style: TextStyle(
+                        color: Colors.black.withOpacity(0.6),
+                        fontWeight: FontWeight.bold),
+                  ),
                   // CHIP LABELS
                   Flex(
                     mainAxisAlignment: MainAxisAlignment.start,
