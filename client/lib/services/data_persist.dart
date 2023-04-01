@@ -55,11 +55,18 @@ class DataPersistService {
   ///
   /// @returns the saved PrefectureDto object user preference.
   PrefectureDto getPrefecture(String key) {
-    String? data = preferences
-        ?.getString(key); // retrieve the encoded JSON data of the prefecture.
-    Map jsonData = jsonDecode(data!); // decode the saved json data into a Map.
-    PrefectureDto prefectureDto = PrefectureDto.fromJson(
-        jsonData); // decode the JSON Map into a PrefectureDto.
+    PrefectureDto prefectureDto = PrefectureDto("23","ΘΕΣΣΑΛΟΝΙΚΗΣ");
+    try {
+      String? data = preferences
+          ?.getString(key); // retrieve the encoded JSON data of the prefecture.
+      Map jsonData = jsonDecode(data!); // decode the saved json data into a Map.
+      prefectureDto = PrefectureDto.fromJson(
+          jsonData); // decode the JSON Map into a PrefectureDto.
+    }
+    catch (e) {
+      //
+    }
+
     return prefectureDto;
   }
 

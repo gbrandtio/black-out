@@ -1,4 +1,5 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
+import 'package:black_out_groutages/services/data_persist.dart';
 import 'package:black_out_groutages/services/outage_retrieval_service.dart';
 import 'package:black_out_groutages/widgets/components/badge_button.dart';
 import 'package:black_out_groutages/widgets/components/outage_list_item.dart';
@@ -49,6 +50,7 @@ class _BaseState extends State<Base> {
         await OutageRetrievalService().getOutagesFromOfficialSource(
             defaultPrefecture, List<OutageListItem>.empty(growable: true));
 
+    // Filter the list - keep only outages that concern today's date.
     for (int i = 0; i < defaultPrefectureOutages.length; i++) {
       if (!OutageDto.isOutageHappeningToday(
           defaultPrefectureOutages[i].outageDto)) {
@@ -70,6 +72,7 @@ class _BaseState extends State<Base> {
   /// of the [screens].
   @override
   Widget build(BuildContext context) {
+    DataPersistService().initializePreferences();
     calculateNotificationVisibilities();
     return Scaffold(
         appBar: BaseAppBar(appBar: AppBar()),
