@@ -52,6 +52,7 @@ class _BaseState extends State<Base> {
 
   void changeNotificationsBadgeVisibility(bool newVisibility) {
     setState(() {
+      BadgeButton.notificationsSeen = newVisibility;
       BadgeButton.isVisible = newVisibility;
     });
   }
