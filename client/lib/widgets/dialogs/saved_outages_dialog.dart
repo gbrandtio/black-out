@@ -28,8 +28,26 @@ class _SelectSavedOutageDialogState extends State<SavedOutagesDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
         backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.zero,
-        content: Container(child: widgetOutagesList()));
+        content: Stack(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(top: 10),
+              child: widgetOutagesList(),
+            ),
+            widgetPositionedCloseButton(),
+          ],
+        ));
+  }
+
+  Widget widgetPositionedCloseButton() {
+    return Positioned(
+        top: -5,
+        right: -5,
+        child: IconButton(
+          onPressed: Navigator.of(context).pop,
+          icon: const Icon(Icons.close),
+          color: Colors.white,
+        ));
   }
 
   Widget widgetOutagesList() {
