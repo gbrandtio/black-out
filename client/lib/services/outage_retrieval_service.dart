@@ -18,13 +18,6 @@ class OutageRetrievalService {
   final urlOfOfficialSource =
       "https://black-out-api.vercel.app/api/outagesOfPrefecture/";
 
-  /// Retrieves a list of [OutageListItem] objects that were previously
-  /// saved in the persistent storage.
-  List<SavedOutageListItem> getOutagesFromPersistentStorage() {
-    List<OutageDto> savedOutageDto = DataPersistService().getSavedOutages();
-    return OutagesHandler.getSavedOutageListItemsWidgetList(savedOutageDto);
-  }
-
   /// Performs a sample request to the official source in order to fetch
   /// the current list of valid prefectures.
   Future<List<PrefectureDto>> getPrefecturesFromOfficialSource() async {
@@ -51,9 +44,29 @@ class OutageRetrievalService {
 
     // Convert the retrieved outages to a list of [OutageDto] objects.
     List<OutageDto> outages = List<OutageDto>.empty(growable: true);
+    persistOutagesOfDefaultPrefecture(outages, selectedPrefecture);
     outages =
         OutagesHandler.extract(response.body.toString(), selectedPrefecture);
 
     return OutagesHandler.getOutageListItemsWidgetList(outages);
+  }
+
+  /// Retrieves a list of [OutageListItem] objects that were previously
+  /// saved in the persistent storage.
+  List<SavedOutageListItem> getOutagesFromPersistentStorage() {
+    List<OutageDto> savedOutageDto = DataPersistService().getSavedOutages(DataPersistService.savedOutagesPersistKey);
+    return OutagesHandler.getSavedOutageListItemsWidgetList(savedOutageDto);
+  }
+
+  /// Checks whether the [selectedPrefecture] matches the selection on persistent
+  /// data, and if yes, persists the [outages] list.
+  void persistOutagesOfDefaultPrefecture(
+      List<OutageDto> outages, PrefectureDto selectedPrefecture) {
+    PrefectureDto savedPrefecture = DataPersistService()
+        .getPrefecture(DataPersistService.defaultPrefecturePreference);
+
+    if (savedPrefecture == selectedPrefecture) {
+      DataPersistService().persistOutages(outages);
+    }
   }
 }
