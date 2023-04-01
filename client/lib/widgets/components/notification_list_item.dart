@@ -42,26 +42,22 @@ class NotificationListItem extends StatelessWidget {
               ),
               subtitle: Row(
                 children: <Widget>[
-                  const Icon(Icons.linear_scale, color: Colors.black),
                   // CHIP LABELS
-                  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Flex(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        direction:
-                            isScreenWide ? Axis.horizontal : Axis.vertical,
-                        children: [
-                          ChipWidget(
-                              color: const Color.fromRGBO(230, 170, 5, 1),
-                              label: outageDto.fromDatetime +
-                                  " - " +
-                                  outageDto.toDatetime),
-                          ChipWidget(
-                              color: const Color(0xFFB00020),
-                              label: outageDto.reason)
-                        ],
-                      )),
+                  Flex(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    direction: isScreenWide ? Axis.horizontal : Axis.vertical,
+                    children: [
+                      ChipWidget(
+                          color: const Color.fromRGBO(230, 170, 5, 1),
+                          label: outageDto.fromDatetime +
+                              " - " +
+                              outageDto.toDatetime),
+                      ChipWidget(
+                          color: const Color(0xFFB00020),
+                          label: outageDto.reason)
+                    ],
+                  ),
                 ],
               ),
               trailing: const Icon(Icons.keyboard_arrow_right,
