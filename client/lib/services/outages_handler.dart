@@ -70,7 +70,6 @@ class OutagesHandler {
   static List<OutageDto> extract(String html, PrefectureDto prefecture) {
     List<OutageDto> outages = List<OutageDto>.empty(growable: true);
 
-    //#region HTML Parser
     try {
       dom.Document document = parse(html);
       // Find the table that contains the outages of the elected prefecture.
@@ -101,7 +100,6 @@ class OutagesHandler {
     } catch (e) {
       outages = [];
     }
-    //#endregion
 
     return outages;
   }
