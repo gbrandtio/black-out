@@ -15,9 +15,10 @@
 > - Any commits that enable data tracking directly through the application will be rejected. 
 > ```
 
-## Folder Structure
-- ```App```: Flutter application.
-- ```API```: NodeJS API.
+## High Level Structure
+On a high level, the client application communicates within a proxy API with the official DEDDIE source in order to retrieve the outages dataset. For more technical details [see here](https://github.com/gbrandtio/black-out/blob/main/client/README.md).
+- Proxy API: [GitHub: black-out-api](https://github.com/gbrandtio/black-out-api)
+- Official Data Source: [https://siteapps.deddie.gr/Outages2Public/](https://siteapps.deddie.gr/Outages2Public/)
 
 ## Contributing
 If you wish to become a contributor please read the [Code of Conduct](https://github.com/gbrandtio/black-out/blob/main/CODE_OF_CONDUCT.md) and [Coding Standards](https://github.com/gbrandtio/black-out/blob/main/CODING_STANDARDS.md) of this project.
