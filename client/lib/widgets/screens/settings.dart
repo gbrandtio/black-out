@@ -88,8 +88,7 @@ class _SettingsState extends State<Settings> {
             leading: const Icon(Icons.save),
             title: const Text('Saved Outages'),
             value: Text(dataPersistService
-                .getSavedOutages(
-                    DataPersistService.savedOutagesPersistKey)
+                .getSavedOutages(DataPersistService.savedOutagesPersistKey)
                 .length
                 .toString()),
             onPressed: (context) {
