@@ -7,8 +7,6 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:black_out_groutages/main.dart';
-
 void main() {
   testWidgets('Outages widget test', (WidgetTester tester) async {
     expect(true, true);

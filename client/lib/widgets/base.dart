@@ -1,5 +1,7 @@
-import 'package:black_out_groutages/services/data_persist.dart';
+import 'package:black_out_groutages/models/prefecture_dto.dart';
+import 'package:black_out_groutages/services/outage_retrieval_service.dart';
 import 'package:black_out_groutages/widgets/components/badge_button.dart';
+import 'package:black_out_groutages/widgets/components/outage_list_item.dart';
 
 import '../models/outage_dto.dart';
 import 'navigation/app_bar.dart';
@@ -31,7 +33,6 @@ class _BaseState extends State<Base> {
         selectedIndex = index;
         if (selectedIndex == 1) {
           BadgeButton.notificationsSeen = true;
-          changeNotificationsBadgeVisibility(calculateBadgeButtonVisibility());
         }
       } else {
         selectedIndex = 0;
@@ -39,20 +40,28 @@ class _BaseState extends State<Base> {
     });
   }
 
-  bool calculateBadgeButtonVisibility() {
-    List<OutageDto> outages = DataPersistService()
-        .getSavedOutages(DataPersistService.notificationsOutagesList);
-    outages = OutageDto.filterOutagesList(outages);
+  /// Fetches the outages from the default prefecture and calculates
+  /// the visibility of the badge notification icon as well as the count
+  /// of the notifications
+  Future<void> calculateNotificationVisibilities() async {
+    PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
+    List<OutageListItem> defaultPrefectureOutages =
+        await OutageRetrievalService().getOutagesFromOfficialSource(
+            defaultPrefecture, List<OutageListItem>.empty(growable: true));
 
-    bool badgeButtonVisibility = outages.isNotEmpty;
-    BadgeButton.numberOfNotifications = outages.length;
+    for (int i = 0; i < defaultPrefectureOutages.length; i++) {
+      if (!OutageDto.isOutageHappeningToday(
+          defaultPrefectureOutages[i].outageDto)) {
+        defaultPrefectureOutages.removeAt(i);
+      }
+    }
 
-    return BadgeButton.notificationsSeen ? false : badgeButtonVisibility;
-  }
+    bool badgeButtonVisibility = defaultPrefectureOutages.isNotEmpty;
+    BadgeButton.numberOfNotifications = defaultPrefectureOutages.length;
 
-  void changeNotificationsBadgeVisibility(bool newVisibility) {
     setState(() {
-      BadgeButton.isVisible = newVisibility;
+      BadgeButton.isVisible =
+          BadgeButton.notificationsSeen ? false : badgeButtonVisibility;
     });
   }
 
@@ -61,7 +70,7 @@ class _BaseState extends State<Base> {
   /// of the [screens].
   @override
   Widget build(BuildContext context) {
-    changeNotificationsBadgeVisibility(calculateBadgeButtonVisibility());
+    calculateNotificationVisibilities();
     return Scaffold(
         appBar: BaseAppBar(appBar: AppBar()),
         body: Container(child: BottomBar.screens[selectedIndex]),

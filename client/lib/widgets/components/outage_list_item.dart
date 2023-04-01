@@ -12,9 +12,9 @@ import '../../models/outage_dto.dart';
 /// ----------------------------------------------------------------------------
 /// Representation of a single outage item to be displayed as part of a list.
 class OutageListItem extends StatelessWidget {
-  final OutageDto outage;
+  final OutageDto outageDto;
 
-  const OutageListItem({Key? key, required this.outage}) : super(key: key);
+  const OutageListItem({Key? key, required this.outageDto}) : super(key: key);
 
   /// Builds the card that shows all the relevant outage information.
   Widget listItem(BuildContext context) {
@@ -29,12 +29,13 @@ class OutageListItem extends StatelessWidget {
         children: [
           // HEADER
           ListTile(
-            leading: Image.asset(outage.image, fit: BoxFit.contain, height: 42),
-            title: Text("Νομός " + outage.prefecture,
+            leading:
+                Image.asset(outageDto.image, fit: BoxFit.contain, height: 42),
+            title: Text("Νομός " + outageDto.prefecture,
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             subtitle: Text(
-              "Δήμος " + outage.municipality,
+              "Δήμος " + outageDto.municipality,
               style: TextStyle(
                   color: Colors.black.withOpacity(0.6),
                   fontWeight: FontWeight.bold,
@@ -52,15 +53,17 @@ class OutageListItem extends StatelessWidget {
                 children: [
                   ChipWidget(
                       color: const Color.fromRGBO(230, 170, 5, 1),
-                      label: outage.fromDatetime + " - " + outage.toDatetime),
+                      label: outageDto.fromDatetime +
+                          " - " +
+                          outageDto.toDatetime),
                   ChipWidget(
-                      color: const Color(0xFFB00020), label: outage.reason)
+                      color: const Color(0xFFB00020), label: outageDto.reason)
                 ],
               )),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              outage.areaDescription,
+              outageDto.areaDescription,
               style: TextStyle(color: Colors.black.withOpacity(0.6)),
             ),
           ),
@@ -82,7 +85,7 @@ class OutageListItem extends StatelessWidget {
                           DataPersistService.savedOutagesPersistKey);
                   // Persist the selected outage in local storage
                   switch (savedOutages
-                      .where((element) => element == outage)
+                      .where((element) => element == outageDto)
                       .isNotEmpty) {
                     case true:
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -90,7 +93,7 @@ class OutageListItem extends StatelessWidget {
                       break;
                     default:
                       DataPersistService().persistOutageListItem(
-                          outage, DataPersistService.savedOutagesPersistKey);
+                          outageDto, DataPersistService.savedOutagesPersistKey);
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text("Outage Saved")));
                       break;
@@ -116,16 +119,16 @@ class OutageListItem extends StatelessWidget {
                                     ocurrences: 1,
                                   ),
                                   eventTitle: CalendarEventBuilder()
-                                      .constructEventTitle(outage),
+                                      .constructEventTitle(outageDto),
                                   eventDescription: CalendarEventBuilder()
-                                      .constructEventDescription(outage),
-                                  eventLocation: outage.municipality,
+                                      .constructEventDescription(outageDto),
+                                  eventLocation: outageDto.municipality,
                                   eventStartDate: OutageDto
                                       .convertOutageDtoDateToValidDateTime(
-                                          outage.fromDatetime),
+                                          outageDto.fromDatetime),
                                   eventEndDate: OutageDto
                                       .convertOutageDtoDateToValidDateTime(
-                                          outage.toDatetime)));
+                                          outageDto.toDatetime)));
                         },
                       ),
                     ),
@@ -144,9 +147,9 @@ class OutageListItem extends StatelessWidget {
                               context.findRenderObject() as RenderBox;
                           Share.share(
                               CalendarEventBuilder()
-                                  .constructEventDescription(outage),
+                                  .constructEventDescription(outageDto),
                               subject: CalendarEventBuilder()
-                                  .constructEventTitle(outage),
+                                  .constructEventTitle(outageDto),
                               sharePositionOrigin:
                                   box.localToGlobal(Offset.zero) & box.size);
                         },

@@ -7,9 +7,9 @@ import '../../models/outage_dto.dart';
 /// ----------------------------------------------------------------------------
 /// Representation of a single notification item to be displayed as part of a list.
 class NotificationListItem extends StatelessWidget {
-  final OutageDto outage;
+  final OutageDto outageDto;
 
-  const NotificationListItem({Key? key, required this.outage})
+  const NotificationListItem({Key? key, required this.outageDto})
       : super(key: key);
 
   /// Builds the card that shows all the relevant outage information.
@@ -34,7 +34,7 @@ class NotificationListItem extends StatelessWidget {
                 child: const Icon(Icons.autorenew, color: Colors.black),
               ),
               title: Text(
-                "Διακοπή ρεύματος στον Νομό ${outage.prefecture} Δήμο ${outage.municipality}",
+                "Διακοπή ρεύματος στον Νομό ${outageDto.prefecture} Δήμο ${outageDto.municipality}",
                 style: const TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold),
               ),
@@ -43,9 +43,11 @@ class NotificationListItem extends StatelessWidget {
                   const Icon(Icons.linear_scale, color: Colors.black),
                   ChipWidget(
                       color: const Color.fromRGBO(230, 170, 5, 1),
-                      label: outage.fromDatetime + " - " + outage.toDatetime),
+                      label: outageDto.fromDatetime +
+                          " - " +
+                          outageDto.toDatetime),
                   ChipWidget(
-                      color: const Color(0xFFB00020), label: outage.reason)
+                      color: const Color(0xFFB00020), label: outageDto.reason)
                 ],
               ),
               trailing: const Icon(Icons.keyboard_arrow_right,

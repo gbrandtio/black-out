@@ -24,7 +24,7 @@ class OutagesHandler {
         List<OutageListItem>.empty(growable: true);
     for (int i = 0; i < outages.length; i++) {
       outageListItems.add(OutageListItem(
-        outage: outages[i],
+        outageDto: outages[i],
       ));
     }
     return outageListItems;
@@ -53,7 +53,7 @@ class OutagesHandler {
         List<NotificationListItem>.empty(growable: true);
     for (int i = 0; i < outages.length; i++) {
       outageListItems.add(NotificationListItem(
-        outage: outages[i],
+        outageDto: outages[i],
       ));
     }
 
