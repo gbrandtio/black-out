@@ -25,7 +25,7 @@ class NotificationListItem extends StatelessWidget {
         children: [
           ListTile(
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               leading: Container(
                 padding: const EdgeInsets.only(right: 12.0),
                 decoration: const BoxDecoration(
