@@ -12,6 +12,7 @@ class DataPersistService {
   static const String enableNotificationsPreference = "ENABLE_NOTIFICATIONS";
   static const String defaultPrefecturePreference = "DEFAULT_PREFECTURE";
   static const String savedOutagesPersistKey = "SAVED_OUTAGES_LIST";
+  static const String notificationsOutagesList = "NOTIFICATIONS_OUTAGES_LIST";
 
   static final DataPersistService _dataPersistServiceInstance =
       DataPersistService._internal();
@@ -65,19 +66,25 @@ class DataPersistService {
   /// * Retrieves the encoded saved outages and decodes them into a List.
   /// * Adds the outageDto parameter to the list.
   /// * Encodes the new list and saves it to the persisted data.
-  Future<void> persistOutageListItem(OutageDto outageDto) async {
+  Future<void> persistOutageListItem(OutageDto outageDto, String key) async {
     List<OutageDto> alreadySavedOutages = List<OutageDto>.empty(growable: true);
-    alreadySavedOutages = getSavedOutages();
+    alreadySavedOutages = getSavedOutages(key);
     alreadySavedOutages.add(outageDto);
 
     String encodedSavedOutages = OutageDto.encode(alreadySavedOutages);
     await preferences?.setString(savedOutagesPersistKey, encodedSavedOutages);
   }
 
+  /// Persists a list of [OutageDto] objects.
+  Future<void> persistOutages(List<OutageDto> outages) async {
+    String encodedSavedOutages = OutageDto.encode(outages);
+    await preferences?.setString(notificationsOutagesList, encodedSavedOutages);
+  }
+
   /// Removes the [outage] from the persistent storage.
-  Future<void> deleteOutage(OutageDto outage) async {
+  Future<void> deleteOutage(OutageDto outage, String key) async {
     List<OutageDto> alreadySavedOutages = List<OutageDto>.empty(growable: true);
-    alreadySavedOutages = getSavedOutages();
+    alreadySavedOutages = getSavedOutages(key);
     alreadySavedOutages.remove(outage);
 
     String encodedSavedOutages = OutageDto.encode(alreadySavedOutages);
@@ -87,11 +94,11 @@ class DataPersistService {
   /// Decodes the outages that are saved as an encoded string.
   ///
   /// @returns the decoded saved outages as a list.
-  List<OutageDto> getSavedOutages() {
+  List<OutageDto> getSavedOutages(String key) {
     List<OutageDto> savedOutages = List<OutageDto>.empty(growable: true);
 
     try {
-      String? strSavedOutages = preferences?.getString(savedOutagesPersistKey);
+      String? strSavedOutages = preferences?.getString(key);
       savedOutages = OutageDto.decode(strSavedOutages!);
     } catch (e) {
       // Swallow the exception
