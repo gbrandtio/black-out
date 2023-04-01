@@ -31,7 +31,7 @@ class _SelectSavedOutageDialogState extends State<SavedOutagesDialog> {
         content: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10),
               child: widgetOutagesList(),
             ),
             widgetPositionedCloseButton(),

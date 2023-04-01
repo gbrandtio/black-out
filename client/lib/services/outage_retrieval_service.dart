@@ -54,7 +54,8 @@ class OutageRetrievalService {
   /// Retrieves a list of [OutageListItem] objects that were previously
   /// saved in the persistent storage.
   List<SavedOutageListItem> getOutagesFromPersistentStorage() {
-    List<OutageDto> savedOutageDto = DataPersistService().getSavedOutages(DataPersistService.savedOutagesPersistKey);
+    List<OutageDto> savedOutageDto = DataPersistService()
+        .getSavedOutages(DataPersistService.savedOutagesPersistKey);
     return OutagesHandler.getSavedOutageListItemsWidgetList(savedOutageDto);
   }
 
