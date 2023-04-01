@@ -13,6 +13,7 @@ import '../../models/outage_dto.dart';
 /// Representation of the saved outages list items that are shown to the user.
 class SavedOutageListItem extends StatelessWidget {
   final OutageDto outage;
+
   const SavedOutageListItem({Key? key, required this.outage}) : super(key: key);
 
   /// Builds the card that shows all the relevant outage information.
@@ -145,7 +146,8 @@ class SavedOutageListItem extends StatelessWidget {
             ],
           ),
           onDismissed: (direction) {
-            DataPersistService().deleteOutage(outage);
+            DataPersistService().deleteOutage(
+                outage, DataPersistService.savedOutagesPersistKey);
             ScaffoldMessenger.of(context)
                 .showSnackBar(const SnackBar(content: Text("Deleted")));
             Navigator.of(context).pop();

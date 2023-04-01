@@ -13,6 +13,7 @@ import '../../models/outage_dto.dart';
 /// Representation of a single outage item to be displayed as part of a list.
 class OutageListItem extends StatelessWidget {
   final OutageDto outage;
+
   const OutageListItem({Key? key, required this.outage}) : super(key: key);
 
   /// Builds the card that shows all the relevant outage information.
@@ -76,8 +77,9 @@ class OutageListItem extends StatelessWidget {
                 icon: const Icon(Icons.code),
                 label: const Text('Save'),
                 onPressed: () {
-                  List<OutageDto> savedOutages =
-                      DataPersistService().getSavedOutages();
+                  List<OutageDto> savedOutages = DataPersistService()
+                      .getSavedOutages(
+                          DataPersistService.savedOutagesPersistKey);
                   // Persist the selected outage in local storage
                   switch (savedOutages
                       .where((element) => element == outage)
@@ -87,7 +89,8 @@ class OutageListItem extends StatelessWidget {
                           const SnackBar(content: Text("Already Saved")));
                       break;
                     default:
-                      DataPersistService().persistOutageListItem(outage);
+                      DataPersistService().persistOutageListItem(
+                          outage, DataPersistService.savedOutagesPersistKey);
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text("Outage Saved")));
                       break;

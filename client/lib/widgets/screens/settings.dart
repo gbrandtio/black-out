@@ -87,7 +87,11 @@ class _SettingsState extends State<Settings> {
           SettingsTile.navigation(
             leading: const Icon(Icons.save),
             title: const Text('Saved Outages'),
-            value: Text(dataPersistService.getSavedOutages().length.toString()),
+            value: Text(dataPersistService
+                .getSavedOutages(
+                    DataPersistService.savedOutagesPersistKey)
+                .length
+                .toString()),
             onPressed: (context) {
               showDialog(
                   context: context,
