@@ -1,5 +1,10 @@
+import 'package:black_out_groutages/services/outage_retrieval_service.dart';
+import 'package:black_out_groutages/widgets/components/notification_list_item.dart';
 import 'package:black_out_groutages/widgets/components/warning.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../components/badge_button.dart';
 
 /// ----------------------------------------------------------------------------
 /// notifications.dart
@@ -15,10 +20,29 @@ class Notifications extends StatefulWidget {
 class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const <Widget>[Warning(label: "Coming Soon")],
+    return Column(
+      children: <Widget>[Flexible(child: widgetOutagesList())],
     );
+  }
+
+  Widget widgetOutagesList() {
+    List<NotificationListItem> notificationListItems =
+        OutageRetrievalService().getNotificationListItems();
+
+    if (notificationListItems.isNotEmpty) {
+      return notificationsList(context, notificationListItems);
+    } else {
+      return const Center(child: Warning(label: "No active notifications"));
+    }
+  }
+
+  /// Populates the outages list that will be shown on the screen.
+  Widget notificationsList(
+      BuildContext context, List<NotificationListItem> notificationListItems) {
+    return Material(
+        child: ListView(
+            scrollDirection: Axis.vertical,
+            padding: const EdgeInsets.all(10.0),
+            children: <Widget>[...notificationListItems]));
   }
 }
