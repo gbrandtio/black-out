@@ -1,3 +1,5 @@
+import 'package:black_out_groutages/widgets/components/notification_list_item.dart';
+
 import '../models/icon_prefecture_map.dart';
 import '../models/prefecture_dto.dart';
 import 'package:html/dom.dart' as dom;
@@ -39,6 +41,22 @@ class OutagesHandler {
         outage: outages[i],
       ));
     }
+
+    return outageListItems;
+  }
+
+  /// Given a list of [OutageDto] objects, transforms each object to it's [NotificationListItem]
+  /// equivalent, and returns them as a list of widgets.
+  static List<NotificationListItem> getNotificationListItemsWidgetList(
+      List<OutageDto> outages) {
+    List<NotificationListItem> outageListItems =
+    List<NotificationListItem>.empty(growable: true);
+    for (int i = 0; i < outages.length; i++) {
+      outageListItems.add(NotificationListItem(
+        outage: outages[i],
+      ));
+    }
+
     return outageListItems;
   }
 
