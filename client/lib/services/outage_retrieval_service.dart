@@ -4,6 +4,7 @@ import 'package:black_out_groutages/services/rest.dart';
 import 'package:http/http.dart';
 
 import '../models/outage_dto.dart';
+import '../widgets/components/notification_list_item.dart';
 import '../widgets/components/outage_list_item.dart';
 import '../widgets/components/saved_outage_list_item.dart';
 import 'outages_handler.dart';
@@ -44,9 +45,9 @@ class OutageRetrievalService {
 
     // Convert the retrieved outages to a list of [OutageDto] objects.
     List<OutageDto> outages = List<OutageDto>.empty(growable: true);
-    persistOutagesOfDefaultPrefecture(outages, selectedPrefecture);
     outages =
         OutagesHandler.extract(response.body.toString(), selectedPrefecture);
+    persistOutagesOfDefaultPrefecture(outages, selectedPrefecture);
 
     return OutagesHandler.getOutageListItemsWidgetList(outages);
   }
@@ -67,7 +68,19 @@ class OutageRetrievalService {
         .getPrefecture(DataPersistService.defaultPrefecturePreference);
 
     if (savedPrefecture == selectedPrefecture) {
+      DataPersistService().delete(DataPersistService.notificationsOutagesList);
       DataPersistService().persistOutages(outages);
     }
+  }
+
+  /// Retrieves a list of [NotificationListItem] objects that were previously
+  /// saved in the persistent storage. The returned items will be filtered based
+  /// on [OutageDto.filterOutagesList].
+  List<NotificationListItem> getNotificationListItems() {
+    List<OutageDto> outages = DataPersistService()
+        .getSavedOutages(DataPersistService.notificationsOutagesList);
+    outages = OutageDto.filterOutagesList(outages);
+
+    return OutagesHandler.getNotificationListItemsWidgetList(outages);
   }
 }
