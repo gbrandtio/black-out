@@ -31,18 +31,16 @@ class OutageListItem extends StatelessWidget {
           ListTile(
             leading:
                 Image.asset(outageDto.image, fit: BoxFit.contain, height: 42),
-            title: Expanded(
-                child: Text("Νομός " + outageDto.prefecture,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18))),
-            subtitle: Expanded(
-                child: Text(
+            title: Text("Νομός " + outageDto.prefecture,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            subtitle: Text(
               "Δήμος " + outageDto.municipality,
               style: TextStyle(
                   color: Colors.black.withOpacity(0.6),
                   fontWeight: FontWeight.bold,
                   fontSize: 15),
-            )),
+            ),
           ),
 
           // CHIP LABELS
@@ -64,11 +62,10 @@ class OutageListItem extends StatelessWidget {
               )),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Expanded(
-                child: Text(
+            child: Text(
               outageDto.areaDescription,
               style: TextStyle(color: Colors.black.withOpacity(0.6)),
-            )),
+            ),
           ),
 
           // BOTTOM BUTTONS ROW
