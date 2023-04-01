@@ -25,7 +25,8 @@ class PrefectureDto {
   /// The default prefecture is retrieved from the saved user preferences, but if it doesn't
   /// exist the default falls back to Attica.
   factory PrefectureDto.defaultPrefecture() {
-    PrefectureDto savedPrefecturePreference = PrefectureDto("10", "ΑΤΤΙΚΗΣ");
+    PrefectureDto savedPrefecturePreference =
+        PrefectureDto("23", "ΘΕΣΣΑΛΟΝΙΚΗΣ");
     try {
       savedPrefecturePreference = DataPersistService()
           .getPrefecture(DataPersistService.defaultPrefecturePreference);
