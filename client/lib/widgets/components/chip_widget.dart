@@ -13,18 +13,14 @@ class ChipWidget extends StatelessWidget {
 
   Widget _buildChip(String label, Color color) {
     return Chip(
-      labelPadding: const EdgeInsets.all(2.0),
-      label: Text(
-        label,
-        style: TextStyle(
-          color: Colors.white.withOpacity(0.8),
-          fontSize: 12,
-        ),
+      label: Text(label),
+      labelStyle: TextStyle(
+        color: Colors.white.withOpacity(0.8),
+        fontSize: 12,
       ),
       backgroundColor: color,
       elevation: 6.0,
       shadowColor: Colors.grey[60],
-      padding: const EdgeInsets.all(8.0),
     );
   }
 

@@ -16,12 +16,13 @@ class NotificationListItem extends StatelessWidget {
   Widget listItem(BuildContext context) {
     double threshold = 501;
     bool isScreenWide = MediaQuery.of(context).size.width >= threshold;
+
     return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 5,
       shadowColor: Colors.black,
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -47,26 +48,28 @@ class NotificationListItem extends StatelessWidget {
                         color: Colors.black.withOpacity(0.6),
                         fontWeight: FontWeight.bold),
                   ),
-                  // CHIP LABELS
-                  Flex(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    direction: isScreenWide ? Axis.horizontal : Axis.vertical,
-                    children: [
-                      ChipWidget(
-                          color: const Color.fromRGBO(230, 170, 5, 1),
-                          label: outageDto.fromDatetime +
-                              " - " +
-                              outageDto.toDatetime),
-                      ChipWidget(
-                          color: const Color(0xFFB00020),
-                          label: outageDto.reason)
-                    ],
-                  ),
                 ],
               ),
               trailing: const Icon(Icons.keyboard_arrow_right,
-                  color: Colors.black, size: 30.0))
+                  color: Colors.black, size: 30.0)),
+
+          // CHIP LABELS
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Flex(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                direction: isScreenWide ? Axis.horizontal : Axis.vertical,
+                children: [
+                  ChipWidget(
+                      color: const Color.fromRGBO(230, 170, 5, 1),
+                      label: outageDto.fromDatetime +
+                          " - " +
+                          outageDto.toDatetime),
+                  ChipWidget(
+                      color: const Color(0xFFB00020), label: outageDto.reason)
+                ],
+              )),
         ],
       ),
     );
