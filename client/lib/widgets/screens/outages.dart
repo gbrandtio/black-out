@@ -75,8 +75,8 @@ class _OutagesScreenState extends State<OutagesScreen> {
   /// - In case data are still loading, returns the [widgetLoadingOutages].
   /// - In any other case, it returns the [widgetNoOutagesData].
   Widget widgetOutagesData(AsyncSnapshot<Object?> snapshot) {
-    bool shouldDisplayOutagesData = snapshot.data is List<OutageListItem>
-        && snapshot.connectionState == ConnectionState.done;
+    bool shouldDisplayOutagesData = snapshot.data is List<OutageListItem> &&
+        snapshot.connectionState == ConnectionState.done;
     if (shouldDisplayOutagesData) {
       outageListItems = snapshot.data as List<OutageListItem>;
       switch (outageListItems.isNotEmpty) {
