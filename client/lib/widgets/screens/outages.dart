@@ -54,7 +54,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
           selectedPrefecture, outageListItems),
       builder: (context, snapshot) {
         return Column(
-          children: <Widget>[widgetPrefectures(), widgetOutagesList(snapshot)],
+          children: <Widget>[widgetPrefectures(), widgetOutagesData(snapshot)],
         );
       },
     );
@@ -70,17 +70,28 @@ class _OutagesScreenState extends State<OutagesScreen> {
 
   /// Determines which widget to display on the screen based on the
   /// [snapshot.data] and [snapshot.connectionState].
-  Widget widgetOutagesList(AsyncSnapshot<Object?> snapshot) {
-    if (snapshot.hasData) {
-      if (snapshot.data is List<OutageListItem>) {
-        outageListItems = snapshot.data as List<OutageListItem>;
+  /// - In case [ConnectionState.done] and a list contains valid data, return the [outagesList].
+  /// - In case of an empty list of outages, returns the [widgetNoOutagesData].
+  /// - In case data are still loading, returns the [widgetLoadingOutages].
+  /// - In any other case, it returns the [widgetNoOutagesData].
+  Widget widgetOutagesData(AsyncSnapshot<Object?> snapshot) {
+    bool shouldDisplayOutagesData = snapshot.data is List<OutageListItem> &&
+        snapshot.connectionState == ConnectionState.done;
+    if (shouldDisplayOutagesData) {
+      outageListItems = snapshot.data as List<OutageListItem>;
+      switch (outageListItems.isNotEmpty) {
+        case true:
+          return Flexible(child: outagesList(context));
+        default:
+          return widgetNoOutagesData();
       }
-      return Flexible(child: outagesList(context));
-    } else if (snapshot.connectionState == ConnectionState.waiting) {
-      return widgetLoadingOutages();
-    } else {
-      return widgetNoOutagesData();
     }
+
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return widgetLoadingOutages();
+    }
+
+    return widgetLoadingOutages();
   }
 
   /// Populates the outages list that will be shown on the screen.
