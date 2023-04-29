@@ -68,17 +68,19 @@ class OutageRetrievalService {
         .getPrefecture(DataPersistService.defaultPrefecturePreference);
 
     if (savedPrefecture == selectedPrefecture) {
-      DataPersistService().delete(DataPersistService.notificationsOutagesList);
-      DataPersistService().persistOutages(outages);
+      DataPersistService()
+          .delete(DataPersistService.outagesOfDefaultPrefecture);
+      DataPersistService().persistOutages(
+          outages, DataPersistService.outagesOfDefaultPrefecture);
     }
   }
 
   /// Retrieves a list of [NotificationListItem] objects that were previously
   /// saved in the persistent storage. The returned items will be filtered based
   /// on [OutageDto.filterOutagesList].
-  List<NotificationListItem> getNotificationListItems() {
+  List<NotificationListItem> getOutagesOfDefaultPrefecture() {
     List<OutageDto> outages = DataPersistService()
-        .getSavedOutages(DataPersistService.notificationsOutagesList);
+        .getSavedOutages(DataPersistService.outagesOfDefaultPrefecture);
     outages = OutageDto.filterOutagesList(outages);
 
     return OutagesHandler.getNotificationListItemsWidgetList(outages);
