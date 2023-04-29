@@ -12,7 +12,8 @@ class DataPersistService {
   static const String enableNotificationsPreference = "ENABLE_NOTIFICATIONS";
   static const String defaultPrefecturePreference = "DEFAULT_PREFECTURE";
   static const String savedOutagesPersistKey = "SAVED_OUTAGES_LIST";
-  static const String notificationsOutagesList = "NOTIFICATIONS_OUTAGES_LIST";
+  static const String outagesOfDefaultPrefecture =
+      "OUTAGES_OF_DEFAULT_PREFECTURE";
 
   static final DataPersistService _dataPersistServiceInstance =
       DataPersistService._internal();
@@ -83,9 +84,9 @@ class DataPersistService {
   }
 
   /// Persists a list of [OutageDto] objects.
-  Future<void> persistOutages(List<OutageDto> outages) async {
+  Future<void> persistOutages(List<OutageDto> outages, String key) async {
     String encodedSavedOutages = OutageDto.encode(outages);
-    await preferences?.setString(notificationsOutagesList, encodedSavedOutages);
+    await preferences?.setString(key, encodedSavedOutages);
   }
 
   /// Removes the [outage] from the persistent storage.
