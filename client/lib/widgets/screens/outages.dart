@@ -1,3 +1,4 @@
+import 'package:black_out_groutages/controllers/outages/outages_context.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/data_persist.dart';
 import 'package:black_out_groutages/services/outage_retrieval_service.dart';
@@ -29,11 +30,10 @@ class OutagesScreen extends StatefulWidget {
 class _OutagesScreenState extends State<OutagesScreen> {
   List<OutageListItem> outageListItems =
       List<OutageListItem>.empty(growable: true);
-  List<OutageListItem> defaultOutageListItems =
-      List<OutageListItem>.empty(growable: true);
+  OutageRetrievalService outageRetrievalService = OutageRetrievalService();
+  OutagesContext outagesContext = OutagesContext();
 
   PrefectureDto selectedPrefecture = PrefectureDto.defaultPrefecture();
-  OutageRetrievalService outageRetrievalService = OutageRetrievalService();
 
   /// Trigger a new data download for the new prefecture. [setState()] will
   /// trigger a rebuild of the widget, which will lead on displaying the
@@ -42,37 +42,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
     setState(() {
       debugPrint("onPrefectureSelected "
           "Prefecture: ${selectedPrefecture.name}");
-      if (selectedPrefecture.name == PrefectureDto.defaultPrefecture().name) {
-        outageListItems.clear();
-        // Retrieve the persisted outages of the default prefecture
-        List<OutageDto> persistedOutagesOfDefaultPrefecture =
-            DataPersistService()
-                .getSavedOutages(DataPersistService.outagesOfDefaultPrefecture);
-
-        // For performance improvement, do not retrieve the outages of the default
-        // prefecture every time - use the ones from the persisted storage.
-        if (persistedOutagesOfDefaultPrefecture.isEmpty) {
-          debugPrint("Retrieving outages of default prefecture..");
-
-          outageRetrievalService
-              .getOutagesFromOfficialSource(selectedPrefecture, outageListItems)
-              .then((value) {
-            outageListItems = value;
-          });
-        } else {
-          debugPrint("Outages of default prefecture already fetched.");
-
-          outageListItems = OutagesHandler.getOutageListItemsWidgetList(
-              persistedOutagesOfDefaultPrefecture);
-        }
-      } else {
-        debugPrint("Retrieving new outage list items...");
-
-        outageListItems.clear();
-        outageRetrievalService
-            .getOutagesFromOfficialSource(selectedPrefecture, outageListItems)
-            .then((value) => outageListItems = value);
-      }
+      outageListItems = outagesContext.execute(selectedPrefecture);
     });
   }
 
@@ -110,6 +80,11 @@ class _OutagesScreenState extends State<OutagesScreen> {
   /// - In case data are still loading, returns the [widgetLoadingOutages].
   /// - In any other case, it returns the [widgetNoOutagesData].
   Widget widgetOutagesData(AsyncSnapshot<Object?> snapshot) {
+    outageListItems = outagesContext.execute(selectedPrefecture);
+    if (outageListItems.isNotEmpty) {
+      return Flexible(child: outagesList(context));
+    }
+
     bool shouldDisplayOutagesData = snapshot.data is List<OutageListItem> &&
         snapshot.connectionState == ConnectionState.done;
     if (shouldDisplayOutagesData) {
