@@ -14,5 +14,6 @@ abstract class BaseOutagesControllerStrategy {
     outagesList.clear();
   }
 
-  Future<List<OutageListItem>> updateOutagesList(PrefectureDto selectedPrefecture);
+  Future<List<OutageListItem>> updateOutagesList(
+      PrefectureDto selectedPrefecture);
 }
