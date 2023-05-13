@@ -1,3 +1,4 @@
+import 'package:black_out_groutages/controllers/outages/outages_context.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/outage_retrieval_service.dart';
 import 'package:black_out_groutages/widgets/components/loading.dart';
@@ -26,18 +27,19 @@ class OutagesScreen extends StatefulWidget {
 class _OutagesScreenState extends State<OutagesScreen> {
   List<OutageListItem> outageListItems =
       List<OutageListItem>.empty(growable: true);
-  PrefectureDto selectedPrefecture = PrefectureDto.defaultPrefecture();
   OutageRetrievalService outageRetrievalService = OutageRetrievalService();
+  OutagesContext outagesContext = OutagesContext();
+
+  PrefectureDto selectedPrefecture = PrefectureDto.defaultPrefecture();
 
   /// Trigger a new data download for the new prefecture. [setState()] will
   /// trigger a rebuild of the widget, which will lead on displaying the
   /// data retrieved for the selected prefecture.
   void onPrefectureSelected() {
     setState(() {
-      outageListItems.clear();
-      outageRetrievalService
-          .getOutagesFromOfficialSource(selectedPrefecture, outageListItems)
-          .then((value) => outageListItems = value);
+      debugPrint("onPrefectureSelected "
+          "Prefecture: ${selectedPrefecture.name}");
+      outageListItems = outagesContext.execute(selectedPrefecture);
     });
   }
 
@@ -46,7 +48,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
   ///
   /// * If there aren't any outages for the selected prefecture, returns an empty List.
   /// * If the request has not been completed, returns a loading indicator.
-  /// * if there are no data to be displayed, shows a warning screen informing the user.
+  /// * If there are no data to be displayed, shows a warning screen informing the user.
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -75,6 +77,11 @@ class _OutagesScreenState extends State<OutagesScreen> {
   /// - In case data are still loading, returns the [widgetLoadingOutages].
   /// - In any other case, it returns the [widgetNoOutagesData].
   Widget widgetOutagesData(AsyncSnapshot<Object?> snapshot) {
+    outageListItems = outagesContext.execute(selectedPrefecture);
+    if (outageListItems.isNotEmpty) {
+      return Flexible(child: outagesList(context));
+    }
+
     bool shouldDisplayOutagesData = snapshot.data is List<OutageListItem> &&
         snapshot.connectionState == ConnectionState.done;
     if (shouldDisplayOutagesData) {
@@ -104,17 +111,17 @@ class _OutagesScreenState extends State<OutagesScreen> {
   }
 
   Widget widgetLoadingOutages() {
-    return Row(
+    return const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const <Widget>[Loading(label: 'Loading data...')]);
+        children: <Widget>[Loading(label: 'Loading data...')]);
   }
 
   Widget widgetNoOutagesData() {
-    return Row(
+    return const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const <Widget>[
+        children: <Widget>[
           Warning(label: 'No outages for the selected prefecture')
         ]);
   }

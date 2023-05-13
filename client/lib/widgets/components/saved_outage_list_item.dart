@@ -25,10 +25,10 @@ class SavedOutageListItem extends StatelessWidget {
         child: Dismissible(
           background: Container(
             color: const Color(0xFFB00020),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(
                   Icons.delete,
                   color: Colors.white,

@@ -12,7 +12,9 @@ class DataPersistService {
   static const String enableNotificationsPreference = "ENABLE_NOTIFICATIONS";
   static const String defaultPrefecturePreference = "DEFAULT_PREFECTURE";
   static const String savedOutagesPersistKey = "SAVED_OUTAGES_LIST";
-  static const String notificationsOutagesList = "NOTIFICATIONS_OUTAGES_LIST";
+  static const String outagesOfDefaultPrefecture =
+      "OUTAGES_OF_DEFAULT_PREFECTURE";
+  static const String notificationOutages = "NOTIFICATION_OUTAGES";
 
   static final DataPersistService _dataPersistServiceInstance =
       DataPersistService._internal();
@@ -34,15 +36,15 @@ class DataPersistService {
     return preferences;
   }
 
-  /// Used to persist String data.
-  Future<void> persist(String key, String data) async {
-    await preferences?.setString(key, data);
-  }
-
   /// Retrieves persist data of type String.
   String? getString(String key) {
     String? data = preferences?.getString(key);
     return data;
+  }
+
+  /// Used to persist String data.
+  Future<void> persist(String key, String data) async {
+    await preferences?.setString(key, data);
   }
 
   /// Serializes a PrefectureDto string into a JSON object.
@@ -51,9 +53,8 @@ class DataPersistService {
     await preferences?.setString(key, prefectureDtoStr);
   }
 
-  /// Decodes the encoded PrefectureDto into an object.
-  ///
-  /// @returns the saved PrefectureDto object user preference.
+  /// Decodes the encoded PrefectureDto into an object and
+  /// returns the saved PrefectureDto object user preference.
   PrefectureDto getPrefecture(String key) {
     PrefectureDto prefectureDto = PrefectureDto("23", "ΘΕΣΣΑΛΟΝΙΚΗΣ");
     try {
@@ -83,9 +84,14 @@ class DataPersistService {
   }
 
   /// Persists a list of [OutageDto] objects.
-  Future<void> persistOutages(List<OutageDto> outages) async {
+  Future<void> persistOutages(List<OutageDto> outages, String key) async {
     String encodedSavedOutages = OutageDto.encode(outages);
-    await preferences?.setString(notificationsOutagesList, encodedSavedOutages);
+    await preferences?.setString(key, encodedSavedOutages);
+  }
+
+  /// Removes all the content of the passed [key] from persistent storage.
+  Future<void> delete(String key) async {
+    await preferences?.remove(key);
   }
 
   /// Removes the [outage] from the persistent storage.
@@ -98,14 +104,8 @@ class DataPersistService {
     await preferences?.setString(savedOutagesPersistKey, encodedSavedOutages);
   }
 
-  /// Removes all the content of the passed [key] from persistent storage.
-  Future<void> delete(String key) async {
-    await preferences?.setString(key, "");
-  }
-
   /// Decodes the outages that are saved as an encoded string.
-  ///
-  /// @returns the decoded saved outages as a list.
+  /// Returns the decoded saved outages as a list.
   List<OutageDto> getSavedOutages(String key) {
     List<OutageDto> savedOutages = List<OutageDto>.empty(growable: true);
 
