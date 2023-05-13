@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:black_out_groutages/services/outages_handler.dart';
+import 'package:black_out_groutages/widgets/components/outage_list_item.dart';
 import 'package:string_extensions/string_extensions.dart';
 import 'package:intl/intl.dart';
 
@@ -142,6 +144,18 @@ class OutageDto {
     DateFormat dateFormat = DateFormat("DD/M/yyyy hh:mm:ss a");
     dateFormat.parse(dateTimeWithEnglishTimeLiterals);
     return dateFormat.parse(dateTimeWithEnglishTimeLiterals);
+  }
+
+  /// Filters the [outages] list and keeps only the outages that match only
+  /// today's or tomorrow's day.
+  static List<OutageListItem> filterOutagesListItems(
+      List<OutageListItem> outages) {
+    List<OutageDto> outageDtos =
+        OutagesHandler.getOutageDtoListFromOutageListItem(outages);
+    outageDtos = filterOutagesList(outageDtos);
+    outages = OutagesHandler.getOutageListItemsWidgetList(outageDtos);
+
+    return outages;
   }
 
   /// Filters the [outages] list and keeps only the outages that match only
