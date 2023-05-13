@@ -1,10 +1,10 @@
-import 'package:black_out_groutages/models/outage_dto.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/data_persist.dart';
 import 'package:black_out_groutages/services/outage_retrieval_service.dart';
 import 'package:black_out_groutages/services/outages_handler.dart';
 import 'package:black_out_groutages/widgets/components/loading.dart';
 import 'package:black_out_groutages/widgets/components/warning.dart';
+import '../../models/outage_dto.dart';
 import '../components/prefectures_dropdown.dart';
 import 'package:flutter/material.dart';
 import '../components/outage_list_item.dart';
@@ -27,92 +27,72 @@ class OutagesScreen extends StatefulWidget {
 }
 
 class _OutagesScreenState extends State<OutagesScreen> {
-  // Initializations
   List<OutageListItem> outageListItems =
       List<OutageListItem>.empty(growable: true);
+  List<OutageListItem> defaultOutageListItems =
+      List<OutageListItem>.empty(growable: true);
+
   PrefectureDto selectedPrefecture = PrefectureDto.defaultPrefecture();
   OutageRetrievalService outageRetrievalService = OutageRetrievalService();
-  List<OutageDto> defaultPrefectureOutages =
-      List<OutageDto>.empty(growable: true);
-
-  // Late initialization of outages retrieval future
-  late final Future<List<OutageListItem>> outageRetrievalFuture;
-  bool outagesOfDefaultPrefectureRetrieved = false;
-
-  @override
-  void initState() {
-    debugPrint("initializing outages screen...");
-    super.initState();
-
-    outageRetrievalFuture = outageRetrievalService.getOutagesFromOfficialSource(
-        selectedPrefecture, outageListItems);
-
-    defaultPrefectureOutages = DataPersistService()
-        .getSavedOutages(DataPersistService.outagesOfDefaultPrefecture);
-
-    if (defaultPrefectureOutages.isNotEmpty) {
-      outagesOfDefaultPrefectureRetrieved = true;
-      outageListItems =
-          OutagesHandler.getOutageListItemsWidgetList(defaultPrefectureOutages);
-    } else {
-      outagesOfDefaultPrefectureRetrieved = false;
-    }
-  }
 
   /// Trigger a new data download for the new prefecture. [setState()] will
   /// trigger a rebuild of the widget, which will lead on displaying the
   /// data retrieved for the selected prefecture.
   void onPrefectureSelected() {
-    debugPrint("onPrefectureSelected");
-
     setState(() {
-      if (selectedPrefecture != PrefectureDto.defaultPrefecture() &&
-          outagesOfDefaultPrefectureRetrieved) {
+      debugPrint("onPrefectureSelected "
+          "Prefecture: ${selectedPrefecture.name}");
+      if (selectedPrefecture.name == PrefectureDto.defaultPrefecture().name) {
+        outageListItems.clear();
+        // Retrieve the persisted outages of the default prefecture
+        List<OutageDto> persistedOutagesOfDefaultPrefecture =
+            DataPersistService()
+                .getSavedOutages(DataPersistService.outagesOfDefaultPrefecture);
+
+        // For performance improvement, do not retrieve the outages of the default
+        // prefecture every time - use the ones from the persisted storage.
+        if (persistedOutagesOfDefaultPrefecture.isEmpty) {
+          debugPrint("Retrieving outages of default prefecture..");
+
+          outageRetrievalService
+              .getOutagesFromOfficialSource(selectedPrefecture, outageListItems)
+              .then((value) {
+            outageListItems = value;
+          });
+        } else {
+          debugPrint("Outages of default prefecture already fetched.");
+
+          outageListItems = OutagesHandler.getOutageListItemsWidgetList(
+              persistedOutagesOfDefaultPrefecture);
+        }
+      } else {
+        debugPrint("Retrieving new outage list items...");
+
         outageListItems.clear();
         outageRetrievalService
             .getOutagesFromOfficialSource(selectedPrefecture, outageListItems)
             .then((value) => outageListItems = value);
-      } else {
-        outageListItems = OutagesHandler.getOutageListItemsWidgetList(
-            defaultPrefectureOutages);
       }
     });
   }
 
-  /// Constructs the main screen where the outages will be displayed. In case
-  /// the outages of the default prefecture have already been retrieved, they
-  /// will be displayed. Otherwise, a request will be performed to the
-  /// official API where all the Greek planned outages are reported.
+  /// Performs a request to the official API where all the Greek planned
+  /// outages are reported.
   ///
   /// * If there aren't any outages for the selected prefecture, returns an empty List.
   /// * If the request has not been completed, returns a loading indicator.
-  /// * if there are no data to be displayed, shows a warning screen informing the user.
+  /// * If there are no data to be displayed, shows a warning screen informing the user.
   @override
   Widget build(BuildContext context) {
-    debugPrint("building outages screen...");
-
-    switch (defaultPrefectureOutages.isNotEmpty) {
-      case true:
+    return FutureBuilder(
+      future: outageRetrievalService.getOutagesFromOfficialSource(
+          selectedPrefecture, outageListItems),
+      builder: (context, snapshot) {
         return Column(
-          children: <Widget>[
-            widgetPrefectures(),
-            Flexible(child: outagesList(context))
-          ],
+          children: <Widget>[widgetPrefectures(), widgetOutagesData(snapshot)],
         );
-      default:
-        return FutureBuilder(
-          future: outageRetrievalService.getOutagesFromOfficialSource(
-              selectedPrefecture, outageListItems),
-          builder: (context, snapshot) {
-            return Column(
-              children: <Widget>[
-                widgetPrefectures(),
-                widgetOutagesData(snapshot)
-              ],
-            );
-          },
-        );
-    }
+      },
+    );
   }
 
   /// Populates the prefectures dropdown widget.
@@ -132,7 +112,6 @@ class _OutagesScreenState extends State<OutagesScreen> {
   Widget widgetOutagesData(AsyncSnapshot<Object?> snapshot) {
     bool shouldDisplayOutagesData = snapshot.data is List<OutageListItem> &&
         snapshot.connectionState == ConnectionState.done;
-
     if (shouldDisplayOutagesData) {
       outageListItems = snapshot.data as List<OutageListItem>;
       switch (outageListItems.isNotEmpty) {
