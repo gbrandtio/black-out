@@ -89,6 +89,11 @@ class DataPersistService {
     await preferences?.setString(key, encodedSavedOutages);
   }
 
+  /// Removes all the content of the passed [key] from persistent storage.
+  Future<void> delete(String key) async {
+    await preferences?.remove(key);
+  }
+
   /// Removes the [outage] from the persistent storage.
   Future<void> deleteOutage(OutageDto outage, String key) async {
     List<OutageDto> alreadySavedOutages = List<OutageDto>.empty(growable: true);
@@ -97,11 +102,6 @@ class DataPersistService {
 
     String encodedSavedOutages = OutageDto.encode(alreadySavedOutages);
     await preferences?.setString(savedOutagesPersistKey, encodedSavedOutages);
-  }
-
-  /// Removes all the content of the passed [key] from persistent storage.
-  Future<void> delete(String key) async {
-    await preferences?.remove(key);
   }
 
   /// Decodes the outages that are saved as an encoded string.
