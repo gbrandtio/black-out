@@ -1,5 +1,4 @@
 import 'package:black_out_groutages/widgets/components/notification_list_item.dart';
-
 import '../models/icon_prefecture_map.dart';
 import '../models/prefecture_dto.dart';
 import 'package:html/dom.dart' as dom;
@@ -28,6 +27,18 @@ class OutagesHandler {
       ));
     }
     return outageListItems;
+  }
+
+  /// Transforms the passed list of OutageListItem to the equivalent
+  /// list of OutageDto objects.
+  static List<OutageDto> getOutageDtoListFromOutageListItem(
+      List<OutageListItem> outageListItems) {
+    List<OutageDto> outages = List<OutageDto>.empty(growable: true);
+    for (int i = 0; i < outageListItems.length; i++) {
+      outages.add(outageListItems[i].outageDto);
+    }
+
+    return outages;
   }
 
   /// Given a list of [OutageDto] objects, transforms each object to it's [OutageListItem]
