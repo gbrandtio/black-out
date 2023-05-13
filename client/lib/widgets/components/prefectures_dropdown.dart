@@ -24,27 +24,34 @@ class PrefecturesDropdown extends StatefulWidget {
 /// the prefectures available on the DEDDHE website.
 class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
   /// The prefecture to be selected by default.
-  PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
+  late PrefectureDto activePrefecture;
 
   /// List of all the extracted prefectures.
   List<PrefectureDto> prefectures = List<PrefectureDto>.empty(growable: true);
 
   /// Future to fetch the prefectures only once and not trigger the FutureBuilder continuously.
-  late final Future? prefecturesFuture = _getPrefectures();
+  late final Future? prefecturesFuture;
+
+  @override
+  void initState() {
+    debugPrint("building prefectures...");
+
+    super.initState();
+    activePrefecture = PrefectureDto.defaultPrefecture();
+    prefecturesFuture = _getPrefectures();
+  }
 
   /// Performs a request to the DEDDHE website and extracts the prefectures from the HTML.
   Future<List<PrefectureDto>> _getPrefectures() async {
     // Only fetch the prefectures once. No need to request every time,
     // since the list is not often changing.
     if (prefectures.isEmpty) {
+      debugPrint("active prefecture ${activePrefecture.name}");
+
       prefectures =
           await OutageRetrievalService().getPrefecturesFromOfficialSource();
-
-      setState(() {
-        defaultPrefecture = PrefectureDto.defaultPrefecture();
-        // Notify the prefecture selection.
-        widget.onPrefectureSelected(defaultPrefecture);
-      });
+      activePrefecture = PrefectureDto.defaultPrefecture();
+      widget.onPrefectureSelected(activePrefecture);
     }
 
     return prefectures;
@@ -53,7 +60,7 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
   /// Builds the dropdown widget of the prefecture objects.
   Widget prefecturesDropdown(BuildContext context) {
     return DropdownButton<PrefectureDto>(
-      value: defaultPrefecture,
+      value: activePrefecture,
       icon: const Icon(Icons.keyboard_arrow_down),
       elevation: 16,
       style: const TextStyle(color: Colors.black),
@@ -63,7 +70,8 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
       ),
       onChanged: (PrefectureDto? newValue) {
         setState(() {
-          defaultPrefecture = newValue!;
+          debugPrint("selected prefecture ${newValue?.name}");
+          activePrefecture = newValue!;
           widget.onPrefectureSelected(
               newValue); // Notify about the new selected prefecture.
         });
