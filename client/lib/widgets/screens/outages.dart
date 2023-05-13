@@ -139,17 +139,17 @@ class _OutagesScreenState extends State<OutagesScreen> {
   }
 
   Widget widgetLoadingOutages() {
-    return Row(
+    return const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const <Widget>[Loading(label: 'Loading data...')]);
+        children: <Widget>[Loading(label: 'Loading data...')]);
   }
 
   Widget widgetNoOutagesData() {
-    return Row(
+    return const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const <Widget>[
+        children: <Widget>[
           Warning(label: 'No outages for the selected prefecture')
         ]);
   }
