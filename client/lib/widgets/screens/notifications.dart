@@ -24,7 +24,7 @@ class _NotificationsState extends State<Notifications> {
 
   Widget widgetOutagesList() {
     List<NotificationListItem> notificationListItems =
-        OutageRetrievalService().getOutagesOfDefaultPrefecture();
+        OutageRetrievalService().getNotificationListItems();
 
     if (notificationListItems.isNotEmpty) {
       return notificationsList(context, notificationListItems);
