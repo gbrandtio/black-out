@@ -131,6 +131,7 @@ class OutageDto {
     if (onlyGreek.isEmpty) {
       return DateTime.now();
     }
+
     // Translate all the Greek letters to the equivalent English ones.
     String dateTimeWithEnglishTimeLiterals = dateTime.replaceGreek!.trim();
     // Transform to the equivalent English time literals.
