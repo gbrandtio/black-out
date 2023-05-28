@@ -76,6 +76,9 @@ class _SettingsState extends State<Settings> {
                       dataPersistService.persistPrefecture(
                           DataPersistService.defaultPrefecturePreference,
                           value);
+                      // Delete the persisted outages since there is a new default prefecture.
+                      dataPersistService.delete(
+                          DataPersistService.outagesOfDefaultPrefecture);
 
                       setState(() {
                         defaultPrefecture = value;

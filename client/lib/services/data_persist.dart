@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+
 import '../models/outage_dto.dart';
 import '../models/prefecture_dto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,14 +60,17 @@ class DataPersistService {
   PrefectureDto getPrefecture(String key) {
     PrefectureDto prefectureDto = PrefectureDto("23", "ΘΕΣΣΑΛΟΝΙΚΗΣ");
     try {
-      String? data = preferences
-          ?.getString(key); // retrieve the encoded JSON data of the prefecture.
-      Map jsonData =
-          jsonDecode(data!); // decode the saved json data into a Map.
-      prefectureDto = PrefectureDto.fromJson(
-          jsonData); // decode the JSON Map into a PrefectureDto.
+      // retrieve the encoded JSON data of the prefecture.
+      String? data = preferences?.getString(key);
+
+      // decode the saved json data into a Map.
+      Map jsonData = jsonDecode(data!);
+
+      // decode the JSON Map into a PrefectureDto.
+      prefectureDto = PrefectureDto.fromJson(jsonData);
     } catch (e) {
-      //
+      debugPrint(
+          "Failed to get prefecture from persisted storage: ${e.toString()}");
     }
 
     return prefectureDto;
@@ -113,7 +118,8 @@ class DataPersistService {
       String? strSavedOutages = preferences?.getString(key);
       savedOutages = OutageDto.decode(strSavedOutages!);
     } catch (e) {
-      // Swallow the exception
+      debugPrint(
+          "Failed to retrieve the saved outages from persistent storage: ${e.toString()}");
     }
 
     return savedOutages;
