@@ -14,6 +14,9 @@ class PersistedOutagesControllerStrategy extends BaseOutagesControllerStrategy {
     List<OutageDto> persistedOutagesOfDefaultPrefecture = DataPersistService()
         .getSavedOutages(DataPersistService.outagesOfDefaultPrefecture);
 
+    debugPrint("Selected prefecture: ${selectedPrefecture.name}");
+    debugPrint("Default prefecture: ${defaultPrefecture.name}");
+
     if (selectedPrefecture.name == PrefectureDto.defaultPrefecture().name &&
         persistedOutagesOfDefaultPrefecture.isNotEmpty) {
       debugPrint("Retrieving outages from persistent storage");
