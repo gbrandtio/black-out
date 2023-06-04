@@ -1,7 +1,7 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import '../../widgets/components/outage_list_item.dart';
 
-abstract class BaseOutagesControllerStrategy {
+abstract class OutagesControllerStrategyImpl {
   List<OutageListItem> outagesList = List<OutageListItem>.empty(growable: true);
   PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
 

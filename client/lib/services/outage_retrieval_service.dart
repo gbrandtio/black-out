@@ -1,5 +1,5 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
-import 'package:black_out_groutages/services/data_persist.dart';
+import 'package:black_out_groutages/services/data_persist_service/outages_data_persist.dart';
 import 'package:black_out_groutages/services/rest.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
@@ -8,6 +8,7 @@ import '../models/outage_dto.dart';
 import '../widgets/components/notification_list_item.dart';
 import '../widgets/components/outage_list_item.dart';
 import '../widgets/components/saved_outage_list_item.dart';
+import 'data_persist_service/data_persist_service_keys.dart';
 import 'outages_handler.dart';
 import 'prefectures_handler.dart';
 
@@ -56,8 +57,8 @@ class OutageRetrievalService {
   /// Retrieves a list of [OutageListItem] objects that were previously
   /// saved in the persistent storage.
   List<SavedOutageListItem> getOutagesFromPersistentStorage() {
-    List<OutageDto> savedOutageDto = DataPersistService()
-        .getSavedOutages(DataPersistService.savedOutagesPersistKey);
+    List<OutageDto> savedOutageDto = OutagesDataPersistService()
+        .retrieveValueOf(DataPersistServiceKeys.savedOutagesPersistKey);
     return OutagesHandler.getSavedOutageListItemsWidgetList(savedOutageDto);
   }
 
@@ -65,8 +66,8 @@ class OutageRetrievalService {
   /// saved in the persistent storage. The returned items will be filtered based
   /// on [OutageDto.filterOutagesList].
   List<NotificationListItem> getNotificationListItems() {
-    List<OutageDto> outages = DataPersistService()
-        .getSavedOutages(DataPersistService.outagesOfDefaultPrefecture);
+    List<OutageDto> outages = OutagesDataPersistService()
+        .retrieveValueOf(DataPersistServiceKeys.outagesOfDefaultPrefecture);
     outages = OutageDto.filterOutagesList(outages);
 
     return OutagesHandler.getNotificationListItemsWidgetList(outages);

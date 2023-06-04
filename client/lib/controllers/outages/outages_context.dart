@@ -1,4 +1,4 @@
-import 'package:black_out_groutages/controllers/outages/base_strategy.dart';
+import 'package:black_out_groutages/controllers/outages/outages_strategy_impl.dart';
 import 'package:black_out_groutages/controllers/outages/persisted_outages_strategy.dart';
 import 'package:black_out_groutages/controllers/outages/retrieve_outages_strategy.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
@@ -6,9 +6,9 @@ import 'package:black_out_groutages/models/prefecture_dto.dart';
 import '../../widgets/components/outage_list_item.dart';
 
 class OutagesContext {
-  late BaseOutagesControllerStrategy strategy;
+  late OutagesControllerStrategyImpl strategy;
 
-  void setOutagesStrategy(BaseOutagesControllerStrategy newStrategy) {
+  void setOutagesStrategy(OutagesControllerStrategyImpl newStrategy) {
     strategy = newStrategy;
   }
 

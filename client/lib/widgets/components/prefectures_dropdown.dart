@@ -1,4 +1,4 @@
-import 'package:black_out_groutages/services/outage_retrieval_service.dart';
+import 'package:black_out_groutages/controllers/prefectures/prefectures_context.dart';
 import '../../models/prefecture_dto.dart';
 import 'package:flutter/material.dart';
 
@@ -41,18 +41,16 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
     prefecturesFuture = _getPrefectures();
   }
 
-  /// Performs a request to the DEDDHE website and extracts the prefectures from the HTML.
   Future<List<PrefectureDto>> _getPrefectures() async {
-    // Only fetch the prefectures once. No need to request every time,
-    // since the list is not often changing.
-    if (prefectures.isEmpty) {
-      debugPrint("active prefecture ${activePrefecture.name}");
+    debugPrint("active prefecture ${activePrefecture.name}");
 
-      prefectures =
-          await OutageRetrievalService().getPrefecturesFromOfficialSource();
-      activePrefecture = PrefectureDto.defaultPrefecture();
-      widget.onPrefectureSelected(activePrefecture);
-    }
+    PrefecturesContext prefecturesContext = PrefecturesContext();
+    prefectures = await prefecturesContext.execute();
+
+    debugPrint("Retrieved prefectures: ${prefectures.length}");
+
+    activePrefecture = PrefectureDto.defaultPrefecture();
+    widget.onPrefectureSelected(activePrefecture);
 
     return prefectures;
   }
