@@ -6,9 +6,9 @@ import 'package:black_out_groutages/models/prefecture_dto.dart';
 import '../../widgets/components/outage_list_item.dart';
 
 class OutagesContext {
-  late BaseOutagesControllerStrategy strategy;
+  late OutagesControllerStrategyImpl strategy;
 
-  void setOutagesStrategy(BaseOutagesControllerStrategy newStrategy) {
+  void setOutagesStrategy(OutagesControllerStrategyImpl newStrategy) {
     strategy = newStrategy;
   }
 

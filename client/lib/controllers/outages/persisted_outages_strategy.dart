@@ -8,7 +8,7 @@ import '../../models/outage_dto.dart';
 import '../../services/data_persist_service/outages_data_persist.dart';
 import '../../services/data_persist_service/data_persist_service_keys.dart';
 
-class PersistedOutagesControllerStrategy extends BaseOutagesControllerStrategy {
+class PersistedOutagesControllerStrategy extends OutagesControllerStrategyImpl {
   @override
   Future<List<OutageListItem>> updateOutagesList(
       PrefectureDto selectedPrefecture) async {
