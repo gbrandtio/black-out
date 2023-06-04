@@ -26,7 +26,8 @@ class PrefecturesDataPersistService extends DataPersistServiceImpl {
   @override
   Future<void> deleteObject(Object object, String key) async {
     PrefectureDto prefectureDto = object as PrefectureDto;
-    List<PrefectureDto> alreadySavedOutages = List<PrefectureDto>.empty(growable: true);
+    List<PrefectureDto> alreadySavedOutages =
+        List<PrefectureDto>.empty(growable: true);
     alreadySavedOutages = retrievePrefectures(key);
     alreadySavedOutages.remove(prefectureDto);
 
@@ -56,11 +57,12 @@ class PrefecturesDataPersistService extends DataPersistServiceImpl {
   }
 
   List<PrefectureDto> retrievePrefectures(String key) {
-    List<PrefectureDto> savedPrefectures = List<PrefectureDto>.empty(growable: true);
+    List<PrefectureDto> savedPrefectures =
+        List<PrefectureDto>.empty(growable: true);
 
     try {
       String? strSavedOutages =
-      DataPersistServiceImpl.preferences?.getString(key);
+          DataPersistServiceImpl.preferences?.getString(key);
       savedPrefectures = PrefectureDto.decode(strSavedOutages!);
     } catch (e) {
       debugPrint(
