@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import '../../models/prefecture_dto.dart';
 import 'data_persist_service_impl.dart';
+import 'data_persist_service_keys.dart';
 
 class PrefecturesDataPersistService extends DataPersistServiceImpl {
   @override
@@ -15,10 +16,24 @@ class PrefecturesDataPersistService extends DataPersistServiceImpl {
   }
 
   @override
-  Future<void> deleteObject(Object object, String key) async {}
+  Future<void> persistList(List<Object> list, String key) async {
+    List<PrefectureDto> prefectures = list as List<PrefectureDto>;
+    String encodedSavedOutages = PrefectureDto.encode(prefectures);
+    await DataPersistServiceImpl.preferences
+        ?.setString(key, encodedSavedOutages);
+  }
 
   @override
-  Future<void> persistList(List<Object> list, String key) async {}
+  Future<void> deleteObject(Object object, String key) async {
+    PrefectureDto prefectureDto = object as PrefectureDto;
+    List<PrefectureDto> alreadySavedOutages = List<PrefectureDto>.empty(growable: true);
+    alreadySavedOutages = retrievePrefectures(key);
+    alreadySavedOutages.remove(prefectureDto);
+
+    String encodedSavedOutages = PrefectureDto.encode(alreadySavedOutages);
+    await DataPersistServiceImpl.preferences?.setString(
+        DataPersistServiceKeys.savedOutagesPersistKey, encodedSavedOutages);
+  }
 
   @override
   PrefectureDto retrieveValueOf(String key) {
@@ -38,5 +53,20 @@ class PrefecturesDataPersistService extends DataPersistServiceImpl {
     }
 
     return prefectureDto;
+  }
+
+  List<PrefectureDto> retrievePrefectures(String key) {
+    List<PrefectureDto> savedPrefectures = List<PrefectureDto>.empty(growable: true);
+
+    try {
+      String? strSavedOutages =
+      DataPersistServiceImpl.preferences?.getString(key);
+      savedPrefectures = PrefectureDto.decode(strSavedOutages!);
+    } catch (e) {
+      debugPrint(
+          "Failed to retrieve the saved prefectures from persistent storage: ${e.toString()}");
+    }
+
+    return savedPrefectures;
   }
 }
