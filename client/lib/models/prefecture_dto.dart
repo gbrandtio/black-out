@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:quiver/core.dart';
 import '../services/data_persist_service/data_persist_service_keys.dart';
 import '../services/data_persist_service/prefectures_data_persist.dart';
@@ -31,6 +32,7 @@ class PrefectureDto {
           .retrieveValueOf(DataPersistServiceKeys.defaultPrefecturePreference);
     } catch (e) {
       // There isn't any saved prefecture preference. Continue with the default app prefecture.
+      debugPrint("Failed to get default prefecture preference: $e");
     }
     return savedPrefecturePreference;
   }

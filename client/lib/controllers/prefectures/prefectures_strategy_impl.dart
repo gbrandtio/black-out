@@ -4,9 +4,9 @@ abstract class PrefecturesControllerStrategyImpl {
   List<PrefectureDto> prefectures = List<PrefectureDto>.empty(growable: true);
   PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
 
-  void update() {
+  Future<void> update() async {
     reset();
-    updatePrefectures();
+    await updatePrefectures();
   }
 
   void reset() {

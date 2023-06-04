@@ -11,12 +11,10 @@ class PersistedPrefecturesControllerStrategy
     List<PrefectureDto> persistedPrefectures = PrefecturesDataPersistService()
         .retrievePrefectures(DataPersistServiceKeys.outagesOfDefaultPrefecture);
 
-    if (prefectures.isEmpty) {
-      debugPrint(
-          "Retrieving prefectures from persistent storage: ${prefectures.length}");
-      prefectures = PrefecturesDataPersistService()
-          .retrievePrefectures(DataPersistServiceKeys.savedPrefectures);
-    }
+    debugPrint(
+        "Retrieving prefectures from persistent storage: ${prefectures.length}");
+    prefectures = PrefecturesDataPersistService()
+        .retrievePrefectures(DataPersistServiceKeys.savedPrefectures);
 
     return persistedPrefectures;
   }

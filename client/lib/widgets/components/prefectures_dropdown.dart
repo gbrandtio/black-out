@@ -41,12 +41,11 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
     prefecturesFuture = _getPrefectures();
   }
 
-  /// Performs a request to the DEDDHE website and extracts the prefectures from the HTML.
   Future<List<PrefectureDto>> _getPrefectures() async {
     debugPrint("active prefecture ${activePrefecture.name}");
 
     PrefecturesContext prefecturesContext = PrefecturesContext();
-    prefectures = prefecturesContext.execute();
+    prefectures = await prefecturesContext.execute();
 
     debugPrint("Retrieved prefectures: ${prefectures.length}");
 

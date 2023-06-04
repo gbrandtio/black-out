@@ -2,6 +2,7 @@ import 'package:black_out_groutages/controllers/prefectures/persisted_prefecture
 import 'package:black_out_groutages/controllers/prefectures/prefectures_strategy_impl.dart';
 import 'package:black_out_groutages/controllers/prefectures/retrieve_prefectures_strategy.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
+import 'package:flutter/cupertino.dart';
 
 class PrefecturesContext {
   late PrefecturesControllerStrategyImpl strategy;
@@ -10,16 +11,18 @@ class PrefecturesContext {
     strategy = newStrategy;
   }
 
-  List<PrefectureDto> execute() {
+  Future<List<PrefectureDto>> execute() async {
     setPrefecturesStrategy(PersistedPrefecturesControllerStrategy());
     strategy.update();
 
     if (strategy.prefectures.isNotEmpty) {
+      debugPrint(
+          "Returning persisted prefectures: ${strategy.prefectures.length}");
       return strategy.prefectures;
     }
 
     setPrefecturesStrategy(RetrievePrefecturesControllerStrategy());
-    strategy.update();
+    await strategy.update();
 
     return strategy.prefectures;
   }
