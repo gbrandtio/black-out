@@ -1,4 +1,5 @@
-import 'package:black_out_groutages/services/data_persist.dart';
+import 'package:black_out_groutages/services/data_persist_service/outages_data_persist.dart';
+import 'package:black_out_groutages/services/data_persist_service/data_persist_service_keys.dart';
 import '../widgets/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,10 +22,12 @@ class OutagesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Remove the default outages & notifications from persistent storage.
-    DataPersistService().initializePreferences();
+    OutagesDataPersistService().initializePreferences();
     debugPrint("Deleting default prefecture outages persistent storage");
-    DataPersistService().delete(DataPersistService.outagesOfDefaultPrefecture);
-    DataPersistService().delete(DataPersistService.notificationOutages);
+    OutagesDataPersistService()
+        .delete(DataPersistServiceKeys.outagesOfDefaultPrefecture);
+    OutagesDataPersistService()
+        .delete(DataPersistServiceKeys.notificationOutages);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

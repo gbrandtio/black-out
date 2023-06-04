@@ -50,6 +50,7 @@ class _PrefecturesDropdownState extends State<PrefecturesDropdown> {
 
       prefectures =
           await OutageRetrievalService().getPrefecturesFromOfficialSource();
+
       activePrefecture = PrefectureDto.defaultPrefecture();
       widget.onPrefectureSelected(activePrefecture);
     }

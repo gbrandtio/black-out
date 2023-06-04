@@ -1,8 +1,10 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
-import 'package:black_out_groutages/services/data_persist.dart';
+import 'package:black_out_groutages/services/data_persist_service/outages_data_persist.dart';
 import 'package:black_out_groutages/widgets/dialogs/saved_outages_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import '../../services/data_persist_service/data_persist_service_keys.dart';
+import '../../services/data_persist_service/prefectures_data_persist.dart';
 import '../dialogs/select_prefecture.dart';
 
 /// ----------------------------------------------------------------------------
@@ -18,15 +20,18 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  DataPersistService dataPersistService = DataPersistService();
+  PrefecturesDataPersistService prefecturesDataPersistService =
+      PrefecturesDataPersistService();
+  OutagesDataPersistService outagesDataPersistService =
+      OutagesDataPersistService();
   bool areNotificationsEnabled = false;
   PrefectureDto defaultPrefecture = PrefectureDto.defaultPrefecture();
 
   /// Loads the already existing preferences of the user, otherwise sets the default values.
   Future<bool> _loadPreferences() async {
     setState(() {
-      String? notificationsEnabled = dataPersistService
-          .getString(DataPersistService.enableNotificationsPreference);
+      String? notificationsEnabled = prefecturesDataPersistService
+          .getString(DataPersistServiceKeys.enableNotificationsPreference);
       areNotificationsEnabled = notificationsEnabled?.toLowerCase() == 'true';
     });
 
@@ -48,8 +53,8 @@ class _SettingsState extends State<Settings> {
                 setState(() {
                   areNotificationsEnabled = value;
                   // Persist the preference of notifications.
-                  dataPersistService.persist(
-                      DataPersistService.enableNotificationsPreference,
+                  prefecturesDataPersistService.persist(
+                      DataPersistServiceKeys.enableNotificationsPreference,
                       areNotificationsEnabled.toString());
                 });
               },
@@ -73,12 +78,11 @@ class _SettingsState extends State<Settings> {
                     return SelectPrefectureDialog(
                         onDefaultPrefectureChanged: (value) {
                       // Persist the selected default prefecture preference.
-                      dataPersistService.persistPrefecture(
-                          DataPersistService.defaultPrefecturePreference,
-                          value);
+                      prefecturesDataPersistService.persistObject(value,
+                          DataPersistServiceKeys.defaultPrefecturePreference);
                       // Delete the persisted outages since there is a new default prefecture.
-                      dataPersistService.delete(
-                          DataPersistService.outagesOfDefaultPrefecture);
+                      outagesDataPersistService.delete(
+                          DataPersistServiceKeys.outagesOfDefaultPrefecture);
 
                       setState(() {
                         defaultPrefecture = value;
@@ -90,8 +94,8 @@ class _SettingsState extends State<Settings> {
           SettingsTile.navigation(
             leading: const Icon(Icons.save),
             title: const Text('Saved Outages'),
-            value: Text(dataPersistService
-                .getSavedOutages(DataPersistService.savedOutagesPersistKey)
+            value: Text(outagesDataPersistService
+                .retrieveValueOf(DataPersistServiceKeys.savedOutagesPersistKey)
                 .length
                 .toString()),
             onPressed: (context) {

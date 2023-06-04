@@ -1,4 +1,4 @@
-import 'package:black_out_groutages/controllers/outages/base_strategy.dart';
+import 'package:black_out_groutages/controllers/outages/outages_strategy_impl.dart';
 import 'package:black_out_groutages/controllers/outages/persisted_outages_strategy.dart';
 import 'package:black_out_groutages/controllers/outages/retrieve_outages_strategy.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';

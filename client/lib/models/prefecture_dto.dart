@@ -1,12 +1,13 @@
-import 'package:black_out_groutages/services/data_persist.dart';
 import 'package:quiver/core.dart';
+import '../services/data_persist_service/data_persist_service_keys.dart';
+import '../services/data_persist_service/prefectures_data_persist.dart';
 
 /// ----------------------------------------------------------------------------
 /// prefecture_dto.dart
 /// ----------------------------------------------------------------------------
 /// Representational model of a prefecture as presented from DEDDHE.
 /// Note: Any additions to the fields of this class must result to additions
-/// on the constructor and the factory construtor.
+/// on the constructor and the factory constructor.
 class PrefectureDto {
   String id =
       ""; // Every prefecture is given a unique id from the DEDDHE API. This id is used for the requests.
@@ -28,8 +29,8 @@ class PrefectureDto {
     PrefectureDto savedPrefecturePreference =
         PrefectureDto("23", "ΘΕΣΣΑΛΟΝΙΚΗΣ");
     try {
-      savedPrefecturePreference = DataPersistService()
-          .getPrefecture(DataPersistService.defaultPrefecturePreference);
+      savedPrefecturePreference = PrefecturesDataPersistService()
+          .retrieveValueOf(DataPersistServiceKeys.defaultPrefecturePreference);
     } catch (e) {
       // There isn't any saved prefecture preference. Continue with the default app prefecture.
     }
