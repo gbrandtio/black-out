@@ -8,6 +8,11 @@ import '../../models/outage_dto.dart';
 import '../../services/data_persist_service/outages_data_persist.dart';
 import '../../services/data_persist_service/data_persist_service_keys.dart';
 
+/// ----------------------------------------------------------------------------
+/// persisted_outages_strategy.dart
+/// ----------------------------------------------------------------------------
+/// Concrete implementation of the outages strategy to persist the outages
+/// retrieved from the remote source.
 class PersistedOutagesControllerStrategy extends OutagesControllerStrategyImpl {
   @override
   Future<List<OutageListItem>> updateOutagesList(
