@@ -21,3 +21,7 @@ If you wish to become a contributor please read the [Code of Conduct](https://gi
 ## Issues
 - You can find a list of open issues here: https://github.com/gbrandtio/black-out/issues
 - If you want to report a new issue please follow the guidelines for creating a new issue.
+
+## Artifacts
+Web: [https://black-out.vercel.app/#/](https://black-out.vercel.app/#/)
+Android: [https://play.google.com/store/apps/details?id=com.groutages.black_out_groutages](https://play.google.com/store/apps/details?id=com.groutages.black_out_groutages)

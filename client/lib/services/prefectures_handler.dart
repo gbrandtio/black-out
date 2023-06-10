@@ -21,7 +21,6 @@ class PrefecturesHandler {
   static List<PrefectureDto> extract(String html) {
     List<PrefectureDto> prefectures = List<PrefectureDto>.empty(growable: true);
 
-    //#region HTML Parser
     try {
       dom.Document document = parse(html);
       // Find the prefecture options.
@@ -38,7 +37,6 @@ class PrefecturesHandler {
     } catch (e) {
       prefectures = [];
     }
-    //#endregion
 
     return prefectures;
   }

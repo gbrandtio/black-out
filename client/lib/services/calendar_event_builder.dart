@@ -25,10 +25,14 @@ class CalendarEventBuilder {
     );
   }
 
+  /// Constructs a meaningful event description.
+  /// TODO: Use a translation service instead of a string literal.
   String constructEventTitle(OutageDto outage) {
     return "Διακοπή Ρεύματος: Δήμος ${outage.municipality}";
   }
 
+  /// Constructs a meaningful event description.
+  /// TODO: Use a translation service instead of string literals.
   String constructEventDescription(OutageDto outage) {
     return "Διακοπή ρεύματος στον Νομό " +
         outage.prefecture +

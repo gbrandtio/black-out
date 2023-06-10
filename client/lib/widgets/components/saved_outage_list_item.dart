@@ -1,7 +1,8 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:black_out_groutages/services/calendar_event_builder.dart';
-import 'package:black_out_groutages/services/data_persist.dart';
+import 'package:black_out_groutages/services/data_persist_service/outages_data_persist.dart';
 
+import '../../services/data_persist_service/data_persist_service_keys.dart';
 import 'chip_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
@@ -25,10 +26,10 @@ class SavedOutageListItem extends StatelessWidget {
         child: Dismissible(
           background: Container(
             color: const Color(0xFFB00020),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(
                   Icons.delete,
                   color: Colors.white,
@@ -146,8 +147,8 @@ class SavedOutageListItem extends StatelessWidget {
             ],
           ),
           onDismissed: (direction) {
-            DataPersistService().deleteOutage(
-                outage, DataPersistService.savedOutagesPersistKey);
+            OutagesDataPersistService().deleteObject(
+                outage, DataPersistServiceKeys.savedOutagesPersistKey);
             ScaffoldMessenger.of(context)
                 .showSnackBar(const SnackBar(content: Text("Deleted")));
             Navigator.of(context).pop();

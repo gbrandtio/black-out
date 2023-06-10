@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:black_out_groutages/services/outages_handler.dart';
+import 'package:black_out_groutages/widgets/components/outage_list_item.dart';
 import 'package:string_extensions/string_extensions.dart';
 import 'package:intl/intl.dart';
 
@@ -105,7 +107,7 @@ class OutageDto {
 
   /// Encodes a List of OutageDto objects into a String.
   ///
-  /// @returns the encoded String object.
+  /// Returns the encoded String object.
   static String encode(List<OutageDto> outagesList) => json.encode(outagesList
       .map<Map<String, dynamic>>((outage) => OutageDto.toMap(outage))
       .toList());
@@ -113,9 +115,9 @@ class OutageDto {
   /// Decodes an encoded String of List<OutageDto> objects into
   /// its equivalent List<OutageDto> data structure.
   ///
-  /// @returns the decoded list of OutageDto objects.
-  static List<OutageDto> decode(String strEncodedOutagesList) =>
-      (json.decode(strEncodedOutagesList) as List<dynamic>)
+  /// Returns the decoded list of OutageDto objects.
+  static List<OutageDto> decode(String encodedOutagesList) =>
+      (json.decode(encodedOutagesList) as List<dynamic>)
           .map<OutageDto>((item) => OutageDto.fromJson(item))
           .toList();
 
@@ -129,6 +131,7 @@ class OutageDto {
     if (onlyGreek.isEmpty) {
       return DateTime.now();
     }
+
     // Translate all the Greek letters to the equivalent English ones.
     String dateTimeWithEnglishTimeLiterals = dateTime.replaceGreek!.trim();
     // Transform to the equivalent English time literals.
@@ -142,6 +145,18 @@ class OutageDto {
     DateFormat dateFormat = DateFormat("DD/M/yyyy hh:mm:ss a");
     dateFormat.parse(dateTimeWithEnglishTimeLiterals);
     return dateFormat.parse(dateTimeWithEnglishTimeLiterals);
+  }
+
+  /// Filters the [outages] list and keeps only the outages that match only
+  /// today's or tomorrow's day.
+  static List<OutageListItem> filterOutagesListItems(
+      List<OutageListItem> outages) {
+    List<OutageDto> outageDtos =
+        OutagesHandler.getOutageDtoListFromOutageListItem(outages);
+    outageDtos = filterOutagesList(outageDtos);
+    outages = OutagesHandler.getOutageListItemsWidgetList(outageDtos);
+
+    return outages;
   }
 
   /// Filters the [outages] list and keeps only the outages that match only

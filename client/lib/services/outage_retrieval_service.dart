@@ -1,12 +1,14 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
-import 'package:black_out_groutages/services/data_persist.dart';
+import 'package:black_out_groutages/services/data_persist_service/outages_data_persist.dart';
 import 'package:black_out_groutages/services/rest.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 
 import '../models/outage_dto.dart';
 import '../widgets/components/notification_list_item.dart';
 import '../widgets/components/outage_list_item.dart';
 import '../widgets/components/saved_outage_list_item.dart';
+import 'data_persist_service/data_persist_service_keys.dart';
 import 'outages_handler.dart';
 import 'prefectures_handler.dart';
 
@@ -22,8 +24,9 @@ class OutageRetrievalService {
   /// Performs a sample request to the official source in order to fetch
   /// the current list of valid prefectures.
   Future<List<PrefectureDto>> getPrefecturesFromOfficialSource() async {
-    Response response = await Rest.doGET(urlOfOfficialSource + "1", {});
+    debugPrint("fetching prefectures...");
 
+    Response response = await Rest.doGET(urlOfOfficialSource + "1", {});
     return PrefecturesHandler.extract(response.body);
   }
 
@@ -47,7 +50,6 @@ class OutageRetrievalService {
     List<OutageDto> outages = List<OutageDto>.empty(growable: true);
     outages =
         OutagesHandler.extract(response.body.toString(), selectedPrefecture);
-    persistOutagesOfDefaultPrefecture(outages, selectedPrefecture);
 
     return OutagesHandler.getOutageListItemsWidgetList(outages);
   }
@@ -55,30 +57,17 @@ class OutageRetrievalService {
   /// Retrieves a list of [OutageListItem] objects that were previously
   /// saved in the persistent storage.
   List<SavedOutageListItem> getOutagesFromPersistentStorage() {
-    List<OutageDto> savedOutageDto = DataPersistService()
-        .getSavedOutages(DataPersistService.savedOutagesPersistKey);
+    List<OutageDto> savedOutageDto = OutagesDataPersistService()
+        .retrieveValueOf(DataPersistServiceKeys.savedOutagesPersistKey);
     return OutagesHandler.getSavedOutageListItemsWidgetList(savedOutageDto);
-  }
-
-  /// Checks whether the [selectedPrefecture] matches the selection on persistent
-  /// data, and if yes, persists the [outages] list.
-  void persistOutagesOfDefaultPrefecture(
-      List<OutageDto> outages, PrefectureDto selectedPrefecture) {
-    PrefectureDto savedPrefecture = DataPersistService()
-        .getPrefecture(DataPersistService.defaultPrefecturePreference);
-
-    if (savedPrefecture == selectedPrefecture) {
-      DataPersistService().delete(DataPersistService.notificationsOutagesList);
-      DataPersistService().persistOutages(outages);
-    }
   }
 
   /// Retrieves a list of [NotificationListItem] objects that were previously
   /// saved in the persistent storage. The returned items will be filtered based
   /// on [OutageDto.filterOutagesList].
   List<NotificationListItem> getNotificationListItems() {
-    List<OutageDto> outages = DataPersistService()
-        .getSavedOutages(DataPersistService.notificationsOutagesList);
+    List<OutageDto> outages = OutagesDataPersistService()
+        .retrieveValueOf(DataPersistServiceKeys.outagesOfDefaultPrefecture);
     outages = OutageDto.filterOutagesList(outages);
 
     return OutagesHandler.getNotificationListItemsWidgetList(outages);
