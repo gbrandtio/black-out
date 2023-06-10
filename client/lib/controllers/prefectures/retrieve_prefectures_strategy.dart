@@ -5,10 +5,15 @@ import 'package:black_out_groutages/services/data_persist_service/prefectures_da
 import 'package:flutter/cupertino.dart';
 import '../../services/outage_retrieval_service.dart';
 
+/// ----------------------------------------------------------------------------
+/// retrieve_prefectures_strategy.dart
+/// ----------------------------------------------------------------------------
+/// Concrete implementation of the prefectures strategy contract to retrieve
+/// the prefectures from the configured remote source.
 class RetrievePrefecturesControllerStrategy
     extends PrefecturesControllerStrategyImpl {
   @override
-  Future<List<PrefectureDto>> updatePrefectures() async {
+  Future<List<PrefectureDto>> retrievePersistedPrefectures() async {
     debugPrint("Retrieving prefectures from official source");
 
     OutageRetrievalService outageRetrievalService = OutageRetrievalService();
