@@ -17,6 +17,7 @@ class PersistedOutagesControllerStrategy extends OutagesControllerStrategyImpl {
   @override
   Future<List<OutageListItem>> updateOutagesList(
       PrefectureDto selectedPrefecture) async {
+    await OutagesDataPersistService().initializePreferences();
     List<OutageDto> persistedOutagesOfDefaultPrefecture =
         OutagesDataPersistService()
             .retrieveValueOf(DataPersistServiceKeys.outagesOfDefaultPrefecture);
