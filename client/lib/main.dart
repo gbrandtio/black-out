@@ -21,14 +21,7 @@ class OutagesApp extends StatelessWidget {
   /// * Sets the default colors and titles to use in case no other colors defined.
   @override
   Widget build(BuildContext context) {
-    // Remove the default outages & notifications from persistent storage.
-    OutagesDataPersistService().initializePreferences();
-    debugPrint("Deleting default prefecture outages persistent storage");
-    OutagesDataPersistService()
-        .delete(DataPersistServiceKeys.outagesOfDefaultPrefecture);
-    OutagesDataPersistService()
-        .delete(DataPersistServiceKeys.notificationOutages);
-
+    initialize();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Black Out',
@@ -39,5 +32,16 @@ class OutagesApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white),
       home: const Base(title: 'Black Out', key: Key("Black Out")),
     );
+  }
+
+  /// Initializes the preferences and removes the default outages & notifications
+  /// from persistent storage.
+  Future<void> initialize() async {
+    await OutagesDataPersistService().initializePreferences();
+    debugPrint("Deleting default prefecture outages persistent storage");
+    OutagesDataPersistService()
+        .delete(DataPersistServiceKeys.outagesOfDefaultPrefecture);
+    OutagesDataPersistService()
+        .delete(DataPersistServiceKeys.notificationOutages);
   }
 }

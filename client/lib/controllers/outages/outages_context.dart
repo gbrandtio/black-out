@@ -15,10 +15,17 @@ import '../../widgets/components/outage_list_item.dart';
 class OutagesContext {
   late OutagesControllerStrategyImpl strategy;
 
+  /// Sets the strategy to be executed.
   void setOutagesStrategy(OutagesControllerStrategyImpl newStrategy) {
     strategy = newStrategy;
   }
 
+  /// Executes the business logic of the controller. This function will
+  /// set the required strategies to be executed. Specifically:
+  /// - Executes the [PersistedOutagesControllerStrategy] in order to retrieve
+  /// any persisted outages.
+  /// - If there aren't any persisted outages, moves on and retrieves the outages
+  /// from the remote source.
   List<OutageListItem> execute(PrefectureDto selectedPrefecture) {
     setOutagesStrategy(PersistedOutagesControllerStrategy());
     strategy.update(selectedPrefecture);
