@@ -61,6 +61,7 @@ class OutageDto {
     return jsonEncode(mapOutage);
   }
 
+  /// Converts an Outage data object into a Map based on the APIs specification.
   static Map<String, dynamic> toMap(OutageDto outage) => {
         'prefecture': outage.prefecture,
         'from_datetime': outage.fromDatetime,
