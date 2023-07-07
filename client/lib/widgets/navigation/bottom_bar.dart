@@ -1,4 +1,5 @@
 import 'package:black_out_groutages/widgets/components/badge_button.dart';
+import 'package:black_out_groutages/widgets/screens/dashboard.dart';
 
 import '../screens/notifications.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class BottomBar extends StatelessWidget {
       title: "Black Out",
     ),
     const Notifications(),
+    const Dashboard(),
     const Settings()
   ];
 
@@ -49,6 +51,10 @@ class BottomBar extends StatelessWidget {
         BadgeButton(
                 icon: const Icon(Icons.notifications), label: 'Notifications')
             .badgeButton(context),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.dashboard),
+          label: 'Dashboard',
+        ),
         const BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: 'Settings',
