@@ -1,5 +1,3 @@
-import 'package:black_out_groutages/services/outage_retrieval_service.dart';
-import 'package:black_out_groutages/widgets/components/notification_list_item.dart';
 import 'package:black_out_groutages/widgets/components/warning.dart';
 import 'package:flutter/material.dart';
 
