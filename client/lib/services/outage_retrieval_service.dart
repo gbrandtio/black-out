@@ -1,6 +1,6 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/data_persist_service/outages_data_persist.dart';
-import 'package:black_out_groutages/services/rest.dart';
+import 'package:black_out_groutages/services/rest_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 
@@ -26,7 +26,7 @@ class OutageRetrievalService {
   Future<List<PrefectureDto>> getPrefecturesFromOfficialSource() async {
     debugPrint("fetching prefectures...");
 
-    Response response = await Rest.doGET(urlOfOfficialSource + "1", {});
+    Response response = await RestService.doGET(urlOfOfficialSource + "1", {});
     return PrefecturesHandler.extract(response.body);
   }
 
@@ -43,7 +43,7 @@ class OutageRetrievalService {
       PrefectureDto selectedPrefecture,
       List<OutageListItem> currentOutageList) async {
     // Retrieve outages from DEDDHE.
-    Response response = (await Rest.doGET(
+    Response response = (await RestService.doGET(
         urlOfOfficialSource + selectedPrefecture.id, <String, String>{}));
 
     // Convert the retrieved outages to a list of [OutageDto] objects.
