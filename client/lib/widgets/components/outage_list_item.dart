@@ -15,7 +15,7 @@ import '../../models/outage_dto.dart';
 class OutageListItem extends StatelessWidget {
   final OutageDto outageDto;
 
-  const OutageListItem({Key? key, required this.outageDto}) : super(key: key);
+  OutageListItem({Key? key, required this.outageDto}) : super(key: ObjectKey(outageDto));
 
   /// Builds the card that shows all the relevant outage information.
   Widget listItem(BuildContext context) {
