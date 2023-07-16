@@ -3,7 +3,7 @@ import 'package:black_out_groutages/services/calendar_event_builder.dart';
 import 'package:black_out_groutages/services/data_persist_service/outages_data_persist.dart';
 
 import '../../services/data_persist_service/data_persist_service_keys.dart';
-import 'chip_widget.dart';
+import 'common/chip_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../models/outage_dto.dart';
