@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:black_out_groutages/services/outages_handler.dart';
-import 'package:black_out_groutages/widgets/components/outage_list_item.dart';
+import 'package:black_out_groutages/widgets/components/outages/outage_list_item.dart';
 import 'package:string_extensions/string_extensions.dart';
 import 'package:intl/intl.dart';
 

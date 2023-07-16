@@ -1,11 +1,11 @@
-import 'package:black_out_groutages/widgets/components/notification_list_item.dart';
+import 'package:black_out_groutages/widgets/components/notifications/notification_list_item.dart';
 import '../models/icon_prefecture_map.dart';
 import '../models/prefecture_dto.dart';
 import 'package:html/dom.dart' as dom;
-import '../widgets/components/outage_list_item.dart';
+import '../widgets/components/outages/outage_list_item.dart';
 import 'package:html/parser.dart' show parse;
 import '../models/outage_dto.dart';
-import '../widgets/components/saved_outage_list_item.dart';
+import '../widgets/components/outages/saved_outage_list_item.dart';
 
 /// ----------------------------------------------------------------------------
 /// outages_handler.dart

@@ -1,5 +1,5 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
-import '../../widgets/components/outage_list_item.dart';
+import '../../widgets/components/outages/outage_list_item.dart';
 
 /// ----------------------------------------------------------------------------
 /// outages_strategy_impl.dart

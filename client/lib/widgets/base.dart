@@ -1,7 +1,7 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/outage_retrieval_service.dart';
 import 'package:black_out_groutages/widgets/components/common/badge_button.dart';
-import 'package:black_out_groutages/widgets/components/outage_list_item.dart';
+import 'package:black_out_groutages/widgets/components/outages/outage_list_item.dart';
 
 import '../models/outage_dto.dart';
 import 'navigation/app_bar.dart';

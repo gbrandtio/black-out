@@ -6,7 +6,7 @@ import 'package:black_out_groutages/services/outages_handler.dart';
 import 'package:flutter/cupertino.dart';
 import '../../services/data_persist_service/data_persist_service_keys.dart';
 import '../../services/outage_retrieval_service.dart';
-import '../../widgets/components/outage_list_item.dart';
+import '../../widgets/components/outages/outage_list_item.dart';
 
 /// ----------------------------------------------------------------------------
 /// retrieve_outages_strategy.dart

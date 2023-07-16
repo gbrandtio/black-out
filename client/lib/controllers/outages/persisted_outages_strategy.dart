@@ -1,7 +1,7 @@
 import 'package:black_out_groutages/controllers/outages/outages_strategy_impl.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/outages_handler.dart';
-import 'package:black_out_groutages/widgets/components/outage_list_item.dart';
+import 'package:black_out_groutages/widgets/components/outages/outage_list_item.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../models/outage_dto.dart';

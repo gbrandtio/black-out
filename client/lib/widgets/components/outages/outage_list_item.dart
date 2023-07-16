@@ -2,11 +2,11 @@ import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:black_out_groutages/services/calendar_event_builder.dart';
 import 'package:black_out_groutages/services/data_persist_service/outages_data_persist.dart';
 
-import '../../services/data_persist_service/data_persist_service_keys.dart';
-import 'common/chip_widget.dart';
+import '../../../services/data_persist_service/data_persist_service_keys.dart';
+import '../common/chip_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../models/outage_dto.dart';
+import '../../../models/outage_dto.dart';
 
 /// ----------------------------------------------------------------------------
 /// outage_list_item.dart

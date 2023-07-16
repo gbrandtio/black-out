@@ -1,6 +1,6 @@
-import 'common/chip_widget.dart';
+import '../common/chip_widget.dart';
 import 'package:flutter/material.dart';
-import '../../models/outage_dto.dart';
+import '../../../models/outage_dto.dart';
 
 /// ----------------------------------------------------------------------------
 /// notification_detail.dart
