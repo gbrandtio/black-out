@@ -1,11 +1,11 @@
 import 'package:black_out_groutages/controllers/outages/outages_context.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/outage_retrieval_service.dart';
-import 'package:black_out_groutages/widgets/components/loading.dart';
-import 'package:black_out_groutages/widgets/components/warning.dart';
-import '../components/prefectures_dropdown.dart';
+import 'package:black_out_groutages/widgets/components/common/loading.dart';
+import 'package:black_out_groutages/widgets/components/common/warning.dart';
+import '../components/prefectures/prefectures_dropdown.dart';
 import 'package:flutter/material.dart';
-import '../components/outage_list_item.dart';
+import '../components/outages/outage_list_item.dart';
 
 /// ----------------------------------------------------------------------------
 /// outages.dart

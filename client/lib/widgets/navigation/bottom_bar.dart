@@ -1,4 +1,4 @@
-import 'package:black_out_groutages/widgets/components/badge_button.dart';
+import 'package:black_out_groutages/widgets/components/common/badge_button.dart';
 import 'package:black_out_groutages/widgets/screens/dashboard.dart';
 
 import '../screens/notifications.dart';

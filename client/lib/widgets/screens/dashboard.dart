@@ -1,4 +1,4 @@
-import 'package:black_out_groutages/widgets/components/warning.dart';
+import 'package:black_out_groutages/widgets/components/common/warning.dart';
 import 'package:flutter/material.dart';
 
 /// ----------------------------------------------------------------------------

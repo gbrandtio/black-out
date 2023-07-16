@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 
 import '../models/outage_dto.dart';
-import '../widgets/components/notification_list_item.dart';
-import '../widgets/components/outage_list_item.dart';
-import '../widgets/components/saved_outage_list_item.dart';
+import '../widgets/components/notifications/notification_list_item.dart';
+import '../widgets/components/outages/outage_list_item.dart';
+import '../widgets/components/outages/saved_outage_list_item.dart';
 import 'data_persist_service/data_persist_service_keys.dart';
 import 'outages_handler.dart';
 import 'prefectures_handler.dart';
