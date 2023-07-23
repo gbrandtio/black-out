@@ -35,11 +35,12 @@ class _OutagesScreenState extends State<OutagesScreen> {
   /// Trigger a new data download for the new prefecture. [setState()] will
   /// trigger a rebuild of the widget, which will lead on displaying the
   /// data retrieved for the selected prefecture.
-  void onPrefectureSelected() {
+  void onPrefectureSelected() async {
+    outageListItems = await outagesContext.execute(selectedPrefecture);
+
     setState(() {
       debugPrint("onPrefectureSelected "
           "Prefecture: ${selectedPrefecture.name}");
-      outageListItems = outagesContext.execute(selectedPrefecture);
     });
   }
 
@@ -52,8 +53,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: outageRetrievalService.getOutagesFromOfficialSource(
-          selectedPrefecture, outageListItems),
+      future: outagesContext.execute(selectedPrefecture),
       builder: (context, snapshot) {
         return Column(
           children: <Widget>[widgetPrefectures(), widgetOutagesData(snapshot)],
@@ -77,13 +77,9 @@ class _OutagesScreenState extends State<OutagesScreen> {
   /// - In case data are still loading, returns the [widgetLoadingOutages].
   /// - In any other case, it returns the [widgetNoOutagesData].
   Widget widgetOutagesData(AsyncSnapshot<Object?> snapshot) {
-    outageListItems = outagesContext.execute(selectedPrefecture);
-    if (outageListItems.isNotEmpty) {
-      return Flexible(child: outagesList(context));
-    }
-
     bool shouldDisplayOutagesData = snapshot.data is List<OutageListItem> &&
         snapshot.connectionState == ConnectionState.done;
+
     if (shouldDisplayOutagesData) {
       outageListItems = snapshot.data as List<OutageListItem>;
       switch (outageListItems.isNotEmpty) {

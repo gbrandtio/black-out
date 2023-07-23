@@ -63,6 +63,7 @@ class PrefecturesDataPersistService extends DataPersistServiceImpl {
     try {
       String? strSavedOutages =
           DataPersistServiceImpl.preferences?.getString(key);
+      debugPrint("saved prefectures: $strSavedOutages");
       savedPrefectures = PrefectureDto.decode(strSavedOutages!);
     } catch (e) {
       debugPrint(

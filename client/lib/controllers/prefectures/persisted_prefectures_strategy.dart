@@ -18,6 +18,8 @@ class PersistedPrefecturesControllerStrategy
 
     debugPrint(
         "Retrieving prefectures from persistent storage: ${prefectures.length}");
+
+    // Update the base class prefectures as well.
     prefectures = PrefecturesDataPersistService()
         .retrievePrefectures(DataPersistServiceKeys.savedPrefectures);
 

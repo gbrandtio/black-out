@@ -22,8 +22,9 @@ class PersistedOutagesControllerStrategy extends OutagesControllerStrategyImpl {
         OutagesDataPersistService()
             .retrieveValueOf(DataPersistServiceKeys.outagesOfDefaultPrefecture);
 
-    debugPrint("Selected prefecture: ${selectedPrefecture.name}");
-    debugPrint("Default prefecture: ${defaultPrefecture.name}");
+    debugPrint("Default prefecture: ${PrefectureDto.defaultPrefecture().name}");
+    debugPrint(
+        "Persisted outages length: ${persistedOutagesOfDefaultPrefecture.length}");
 
     if (selectedPrefecture.name == PrefectureDto.defaultPrefecture().name &&
         persistedOutagesOfDefaultPrefecture.isNotEmpty) {
