@@ -1,5 +1,5 @@
 import 'package:black_out_groutages/controllers/prefectures/prefectures_context.dart';
-import '../../models/prefecture_dto.dart';
+import '../../../models/prefecture_dto.dart';
 import 'package:flutter/material.dart';
 
 typedef PrefectureDtoCallback = PrefectureDto Function(PrefectureDto);

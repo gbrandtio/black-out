@@ -2,8 +2,9 @@ import 'package:black_out_groutages/controllers/outages/outages_strategy_impl.da
 import 'package:black_out_groutages/controllers/outages/persisted_outages_strategy.dart';
 import 'package:black_out_groutages/controllers/outages/retrieve_outages_strategy.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
+import 'package:flutter/cupertino.dart';
 
-import '../../widgets/components/outage_list_item.dart';
+import '../../widgets/components/outages/outage_list_item.dart';
 
 /// ----------------------------------------------------------------------------
 /// outages_context.dart
@@ -26,16 +27,17 @@ class OutagesContext {
   /// any persisted outages.
   /// - If there aren't any persisted outages, moves on and retrieves the outages
   /// from the remote source.
-  List<OutageListItem> execute(PrefectureDto selectedPrefecture) {
+  Future<List<OutageListItem>> execute(PrefectureDto selectedPrefecture) async {
     setOutagesStrategy(PersistedOutagesControllerStrategy());
-    strategy.update(selectedPrefecture);
+    await strategy.update(selectedPrefecture);
 
     if (strategy.outagesList.isNotEmpty) {
+      debugPrint("Returning outages from persistent storage");
       return strategy.outagesList;
     }
 
     setOutagesStrategy(RetrieveOutagesControllerStrategy());
-    strategy.update(selectedPrefecture);
+    await strategy.update(selectedPrefecture);
 
     return strategy.outagesList;
   }

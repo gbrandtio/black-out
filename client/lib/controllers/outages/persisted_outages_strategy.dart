@@ -1,7 +1,7 @@
 import 'package:black_out_groutages/controllers/outages/outages_strategy_impl.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/outages_handler.dart';
-import 'package:black_out_groutages/widgets/components/outage_list_item.dart';
+import 'package:black_out_groutages/widgets/components/outages/outage_list_item.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../models/outage_dto.dart';
@@ -22,8 +22,9 @@ class PersistedOutagesControllerStrategy extends OutagesControllerStrategyImpl {
         OutagesDataPersistService()
             .retrieveValueOf(DataPersistServiceKeys.outagesOfDefaultPrefecture);
 
-    debugPrint("Selected prefecture: ${selectedPrefecture.name}");
-    debugPrint("Default prefecture: ${defaultPrefecture.name}");
+    debugPrint("Default prefecture: ${PrefectureDto.defaultPrefecture().name}");
+    debugPrint(
+        "Persisted outages length: ${persistedOutagesOfDefaultPrefecture.length}");
 
     if (selectedPrefecture.name == PrefectureDto.defaultPrefecture().name &&
         persistedOutagesOfDefaultPrefecture.isNotEmpty) {

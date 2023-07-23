@@ -1,11 +1,11 @@
 import 'package:black_out_groutages/controllers/outages/outages_context.dart';
 import 'package:black_out_groutages/models/prefecture_dto.dart';
 import 'package:black_out_groutages/services/outage_retrieval_service.dart';
-import 'package:black_out_groutages/widgets/components/loading.dart';
-import 'package:black_out_groutages/widgets/components/warning.dart';
-import '../components/prefectures_dropdown.dart';
+import 'package:black_out_groutages/widgets/components/common/loading.dart';
+import 'package:black_out_groutages/widgets/components/common/warning.dart';
+import '../components/prefectures/prefectures_dropdown.dart';
 import 'package:flutter/material.dart';
-import '../components/outage_list_item.dart';
+import '../components/outages/outage_list_item.dart';
 
 /// ----------------------------------------------------------------------------
 /// outages.dart
@@ -35,11 +35,12 @@ class _OutagesScreenState extends State<OutagesScreen> {
   /// Trigger a new data download for the new prefecture. [setState()] will
   /// trigger a rebuild of the widget, which will lead on displaying the
   /// data retrieved for the selected prefecture.
-  void onPrefectureSelected() {
+  void onPrefectureSelected() async {
+    outageListItems = await outagesContext.execute(selectedPrefecture);
+
     setState(() {
       debugPrint("onPrefectureSelected "
           "Prefecture: ${selectedPrefecture.name}");
-      outageListItems = outagesContext.execute(selectedPrefecture);
     });
   }
 
@@ -52,8 +53,7 @@ class _OutagesScreenState extends State<OutagesScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: outageRetrievalService.getOutagesFromOfficialSource(
-          selectedPrefecture, outageListItems),
+      future: outagesContext.execute(selectedPrefecture),
       builder: (context, snapshot) {
         return Column(
           children: <Widget>[widgetPrefectures(), widgetOutagesData(snapshot)],
@@ -77,13 +77,9 @@ class _OutagesScreenState extends State<OutagesScreen> {
   /// - In case data are still loading, returns the [widgetLoadingOutages].
   /// - In any other case, it returns the [widgetNoOutagesData].
   Widget widgetOutagesData(AsyncSnapshot<Object?> snapshot) {
-    outageListItems = outagesContext.execute(selectedPrefecture);
-    if (outageListItems.isNotEmpty) {
-      return Flexible(child: outagesList(context));
-    }
-
     bool shouldDisplayOutagesData = snapshot.data is List<OutageListItem> &&
         snapshot.connectionState == ConnectionState.done;
+
     if (shouldDisplayOutagesData) {
       outageListItems = snapshot.data as List<OutageListItem>;
       switch (outageListItems.isNotEmpty) {

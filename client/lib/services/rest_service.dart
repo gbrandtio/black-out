@@ -3,10 +3,10 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 /// ----------------------------------------------------------------------------
-/// rest.dart
+/// rest_service.dart
 /// ----------------------------------------------------------------------------
 /// Base service that implements all the common REST requests.
-class Rest {
+class RestService {
   /// Performs a POST request.
   /// url: The url to perform the request to.
   /// headers: The headers of the request (must include the authentication key for all the requests).

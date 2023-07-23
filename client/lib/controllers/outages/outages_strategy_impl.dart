@@ -1,5 +1,6 @@
 import 'package:black_out_groutages/models/prefecture_dto.dart';
-import '../../widgets/components/outage_list_item.dart';
+import 'package:flutter/cupertino.dart';
+import '../../widgets/components/outages/outage_list_item.dart';
 
 /// ----------------------------------------------------------------------------
 /// outages_strategy_impl.dart
@@ -11,13 +12,15 @@ abstract class OutagesControllerStrategyImpl {
 
   /// Resets the persisted outages list (clears it) and
   /// updates it with the passed prefecture.
-  void update(PrefectureDto selectedPrefecture) {
+  Future<void> update(PrefectureDto selectedPrefecture) async {
+    debugPrint("Updating outages of ${selectedPrefecture.name}");
     reset();
-    updateOutagesList(selectedPrefecture);
+    await updateOutagesList(selectedPrefecture);
   }
 
   /// Clears the persisted outages list.
   void reset() {
+    debugPrint("Resetting outages strategy data.");
     outagesList.clear();
   }
 
