@@ -35,7 +35,7 @@ class OutagesContext {
       debugPrint("Returning outages from persistent storage");
       return strategy.outagesList;
     }
-    
+
     setOutagesStrategy(RetrieveOutagesControllerStrategy());
     await strategy.update(selectedPrefecture);
 
