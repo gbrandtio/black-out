@@ -20,7 +20,7 @@ class PrefecturesContext {
 
   Future<List<PrefectureDto>> execute() async {
     setPrefecturesStrategy(PersistedPrefecturesControllerStrategy());
-    strategy.update();
+    await strategy.update();
 
     if (strategy.prefectures.isNotEmpty) {
       debugPrint(
