@@ -6,7 +6,7 @@
 <img src="https://github.com/gbrandtio/black-out/actions/workflows/test.yml/badge.svg"/>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="License: MIT"></a>
 </p>
-x
+
 ## About
 **Black Out** is a cross-platform application that intends to inform the Greek citizens about the planned electricity outages per prefecture. It also facilitates the sharing, notifications receival, alarm setting and data persistence. The application can be deployed in all platforms (windows, linux, web, iOS, android); however not all environments are currently actively supported.
 
