@@ -9,13 +9,13 @@ abstract class DataPersistServiceImpl {
     return preferences;
   }
 
-  /// Retrieves persist data of type String.
+  /// Retrieves Strings from persisted data.
   String? getString(String key) {
     String? data = preferences?.getString(key);
     return data;
   }
 
-  /// Used to persist String data.
+  /// Saves Strings into persisted data.
   Future<void> persist(String key, String data) async {
     await preferences?.setString(key, data);
   }
